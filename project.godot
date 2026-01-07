@@ -11,14 +11,21 @@ config_version=5
 [application]
 
 config/name="TARGame"
-run/main_scene="uid://bme0uf68d0685"
+run/main_scene="uid://beiwv0kt470wn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=384
+window/size/viewport_height=216
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom_font="uid://c8o0wc23lyqoh"
 
 [input]
 
