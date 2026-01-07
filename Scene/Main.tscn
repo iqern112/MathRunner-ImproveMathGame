@@ -1,0 +1,656 @@
+[gd_scene load_steps=30 format=3 uid="uid://bme0uf68d0685"]
+
+[ext_resource type="Texture2D" uid="uid://fq52ayxjrf" path="res://Asset/newRunAsset/12.png" id="1_4qtod"]
+[ext_resource type="Script" uid="uid://cx4l4srn3mlqj" path="res://Script/main.gd" id="1_4w0o7"]
+[ext_resource type="Texture2D" uid="uid://c3a30uj4ronxj" path="res://Asset/newRunAsset/11.png" id="2_i0sg4"]
+[ext_resource type="Texture2D" uid="uid://bbm77rvh6ap2w" path="res://Asset/newRunAsset/10.png" id="3_mr7am"]
+[ext_resource type="Texture2D" uid="uid://ytypns5drhhq" path="res://Asset/newRunAsset/9.png" id="4_sc4dx"]
+[ext_resource type="Texture2D" uid="uid://hibhih2fn38g" path="res://Asset/newRunAsset/8.png" id="5_gclda"]
+[ext_resource type="Texture2D" uid="uid://be70ij1gcg6sy" path="res://Asset/newRunAsset/7.png" id="6_kp1vv"]
+[ext_resource type="Texture2D" uid="uid://cfj18fdweq04k" path="res://Asset/newRunAsset/6.png" id="7_4w0o7"]
+[ext_resource type="Texture2D" uid="uid://v1llm8n4obql" path="res://Asset/newRunAsset/5.png" id="8_hmjy8"]
+[ext_resource type="Texture2D" uid="uid://dxgtq5410gb67" path="res://Asset/newRunAsset/4.png" id="9_e6irg"]
+[ext_resource type="Texture2D" uid="uid://cm8gxlcilso1g" path="res://Asset/newRunAsset/3.png" id="10_uq86q"]
+[ext_resource type="Texture2D" uid="uid://dcsp7n0x2dbm2" path="res://Asset/newRunAsset/2.png" id="11_aa3qu"]
+[ext_resource type="Texture2D" uid="uid://cidveyni580di" path="res://Asset/newRunAsset/1.png" id="12_bf81u"]
+[ext_resource type="Script" uid="uid://yxsiv0qmhmvs" path="res://Script/character_body_2d.gd" id="13_mr7am"]
+[ext_resource type="Texture2D" uid="uid://dk27c0jvfrtqf" path="res://Asset/cha/1.png" id="14_mr7am"]
+[ext_resource type="Script" uid="uid://dx0l5r4tss1qh" path="res://Script/dino.gd" id="15_gclda"]
+[ext_resource type="Texture2D" uid="uid://xq6jkf6vji0w" path="res://Asset/cha/2.png" id="15_sc4dx"]
+[ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/game_over_ui.gd" id="17_kp1vv"]
+[ext_resource type="Script" uid="uid://rnfbmb3j5cbc" path="res://Scene/NumpadManager.gd" id="18_hmjy8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mr7am"]
+radius = 80.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmjy8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6irg"]
+bg_color = Color(0, 1, 0.188235, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gclda"]
+size = Vector2(87, 134)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6irg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gclda"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uq86q"]
+bg_color = Color(0, 0, 0, 0.662745)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aa3qu"]
+content_margin_top = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf81u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aa3qu"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_4w0o7")
+
+[node name="ParallaxBlackGround" type="Node2D" parent="."]
+position = Vector2(780, 362)
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D"]
+texture = ExtResource("1_4qtod")
+
+[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D2"]
+texture = ExtResource("2_i0sg4")
+
+[node name="Parallax2D3" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.3, 0.3)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D3"]
+texture = ExtResource("3_mr7am")
+
+[node name="Parallax2D4" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.4, 0.4)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D4"]
+texture = ExtResource("4_sc4dx")
+
+[node name="Parallax2D5" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.3, 0.3)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D5"]
+texture = ExtResource("5_gclda")
+
+[node name="Parallax2D6" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D6"]
+texture = ExtResource("6_kp1vv")
+
+[node name="Parallax2D7" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.6, 0.6)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D7"]
+texture = ExtResource("7_4w0o7")
+
+[node name="Parallax2D8" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D8"]
+texture = ExtResource("8_hmjy8")
+
+[node name="Parallax2D9" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.6, 0.6)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D9"]
+texture = ExtResource("9_e6irg")
+
+[node name="Parallax2D10" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_scale = Vector2(0.6, 0.6)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D10"]
+texture = ExtResource("10_uq86q")
+
+[node name="Parallax2D11" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D11"]
+texture = ExtResource("11_aa3qu")
+
+[node name="Parallax2D12" type="Parallax2D" parent="ParallaxBlackGround"]
+scale = Vector2(0.523805, 0.502827)
+scroll_offset = Vector2(-276, -189)
+repeat_size = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D12"]
+texture = ExtResource("12_bf81u")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(-100, -248)
+script = ExtResource("13_mr7am")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(957, 530)
+shape = SubResource("CircleShape2D_mr7am")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D"]
+position = Vector2(-5, -40)
+texture = ExtResource("14_mr7am")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(1061, 788)
+
+[node name="PlayerHp" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = 869.0
+offset_top = 390.0
+offset_right = 1057.0
+offset_bottom = 417.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
+max_value = 5.0
+step = 1.0
+show_percentage = false
+
+[node name="PlayerHpLabel" type="Label" parent="CharacterBody2D/PlayerHp"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 3.0
+offset_right = 146.0
+offset_bottom = 26.0
+text = "0"
+
+[node name="Shield" type="Label" parent="CharacterBody2D"]
+offset_left = -10.0
+offset_top = 71.0
+offset_right = 30.0
+offset_bottom = 94.0
+
+[node name="Dino" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(-904, -212)
+script = ExtResource("15_gclda")
+player = NodePath("../CharacterBody2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dino"]
+position = Vector2(997, 517)
+shape = SubResource("RectangleShape2D_gclda")
+
+[node name="Sprite2D" type="Sprite2D" parent="Dino/CollisionShape2D"]
+position = Vector2(-5, -40)
+texture = ExtResource("15_sc4dx")
+
+[node name="Boss" type="Node2D" parent="."]
+position = Vector2(629, -225)
+
+[node name="Sprite2D" type="Sprite2D" parent="Boss"]
+position = Vector2(992, 477)
+texture = ExtResource("15_sc4dx")
+flip_h = true
+
+[node name="BossHp" type="ProgressBar" parent="Boss"]
+offset_left = 879.0
+offset_top = 319.0
+offset_right = 1067.0
+offset_bottom = 346.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
+max_value = 5.0
+step = 1.0
+show_percentage = false
+
+[node name="BossHpLabel" type="Label" parent="Boss/BossHp"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 3.0
+offset_right = 146.0
+offset_bottom = 26.0
+text = "0"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Boss"]
+offset_left = 805.0
+offset_top = 319.0
+offset_right = 850.0
+offset_bottom = 342.0
+text = "hint"
+
+[node name="Shield" type="Label" parent="Boss"]
+offset_left = 1074.0
+offset_top = 319.0
+offset_right = 1121.0
+offset_bottom = 342.0
+text = "shield"
+
+[node name="CountTime" type="Label" parent="Boss"]
+offset_left = 938.0
+offset_top = 281.0
+offset_right = 1021.0
+offset_bottom = 304.0
+text = "countTime"
+
+[node name="ShopTimer" type="Timer" parent="."]
+wait_time = 90.0
+autostart = true
+
+[node name="BossActionTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EquationContainer" type="HBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(600, 50)
+offset_left = 650.0
+offset_top = 488.0
+offset_right = 1250.0
+offset_bottom = 538.0
+alignment = 1
+
+[node name="NumpadPanel" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 571.0
+offset_top = 610.0
+offset_right = 571.0
+offset_bottom = 610.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.382271, 0.371321)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e6irg")
+script = ExtResource("18_hmjy8")
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/NumpadPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 50
+columns = 5
+
+[node name="1" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "1"
+
+[node name="2" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "2"
+
+[node name="3" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "3"
+
+[node name="4" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "4"
+
+[node name="5" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "5"
+
+[node name="6" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "6"
+
+[node name="7" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "7"
+
+[node name="8" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "8"
+
+[node name="9" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "9"
+
+[node name="0" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "0"
+
+[node name="Plus" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "+"
+
+[node name="Minus" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "-"
+
+[node name="Multiply" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "*"
+
+[node name="Divide" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = "/"
+
+[node name="show" type="Panel" parent="CanvasLayer"]
+visible = false
+offset_left = 644.0
+offset_top = 79.0
+offset_right = 1245.0
+offset_bottom = 331.0
+
+[node name="Label" type="Label" parent="CanvasLayer/show"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 85.0
+offset_right = 410.0
+offset_bottom = 159.0
+theme_override_font_sizes/font_size = 60
+text = "เตือน"
+horizontal_alignment = 1
+
+[node name="GameOverUI" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_kp1vv")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/GameOverUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverUI"]
+layout_mode = 0
+offset_left = 653.0
+offset_top = 303.0
+offset_right = 1196.0
+offset_bottom = 440.0
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+
+[node name="ReGame" type="Button" parent="CanvasLayer/GameOverUI"]
+layout_mode = 0
+offset_left = 884.0
+offset_top = 640.0
+offset_right = 1021.0
+offset_bottom = 709.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_gclda")
+text = "Retry"
+
+[node name="TotalTimeLabel" type="Label" parent="CanvasLayer"]
+offset_left = 1354.0
+offset_top = 89.0
+offset_right = 1435.0
+offset_bottom = 158.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+
+[node name="LevelBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 616.0
+offset_top = 41.0
+offset_right = 1223.0
+offset_bottom = 68.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
+max_value = 5.0
+step = 1.0
+show_percentage = false
+
+[node name="LevelBarLabel" type="Label" parent="CanvasLayer/LevelBar"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 4.0
+offset_right = 343.0
+offset_bottom = 27.0
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+offset_left = 530.0
+offset_top = 34.0
+offset_right = 589.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="StreakLabel" type="Label" parent="CanvasLayer"]
+offset_left = 844.0
+offset_top = 149.0
+offset_right = 884.0
+offset_bottom = 191.0
+theme_override_font_sizes/font_size = 30
+text = "x0"
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer"]
+offset_left = 68.0
+offset_top = 39.0
+offset_right = 108.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 30
+text = "0$"
+
+[node name="LevelUpPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 442.0
+offset_top = 251.0
+offset_right = 1464.0
+offset_bottom = 776.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LevelUpPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 110
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/LevelUpPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
+text = "LEVEL UP! SELECT A SKILL"
+
+[node name="SkillButtonsContainer" type="HBoxContainer" parent="CanvasLayer/LevelUpPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="SkillButtons" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="SkillButtons2" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="SkillButtons3" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="ActionPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 442.0
+offset_top = 251.0
+offset_right = 1464.0
+offset_bottom = 776.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ActionPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 110
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/ActionPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
+text = "action"
+
+[node name="ActionSelect" type="HBoxContainer" parent="CanvasLayer/ActionPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="AttackButton" type="Button" parent="CanvasLayer/ActionPanel/VBoxContainer/ActionSelect"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="Block" type="Button" parent="CanvasLayer/ActionPanel/VBoxContainer/ActionSelect"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="ShopPanel" type="PanelContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+offset_left = 442.0
+offset_top = 251.0
+offset_right = 1464.0
+offset_bottom = 776.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopPanel"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 110
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
+text = "SHOP"
+horizontal_alignment = 1
+
+[node name="ShopButtons" type="HBoxContainer" parent="CanvasLayer/ShopPanel/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Shield" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="EasyMode" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="HardMode" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_aa3qu")
+text = "clos"
+
+[node name="Inventory" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 164.0
+offset_top = 566.0
+offset_right = 204.0
+offset_bottom = 608.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Inventory"]
+layout_mode = 2
+
+[node name="ShieldCountLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "ShieldCountLabel"
+
+[node name="LuckyStreakLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "LuckyStreakLabel"
+
+[node name="InterestLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "InterestLabel"
+
+[connection signal="pressed" from="CanvasLayer/GameOverUI/ReGame" to="CanvasLayer/GameOverUI" method="_on_re_game_pressed"]
