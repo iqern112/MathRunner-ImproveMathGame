@@ -78,11 +78,13 @@ func _process(delta):
 
 func _ready() -> void:
 	# สุ่มเมล็ดพันธุ์ (Seed) เพื่อให้การสุ่มแต่ละครั้งไม่เหมือนเดิม
+	# ดึงโฟกัสมาที่หน้าต่างเกมเพื่อให้รับ Input ได้ทันที
+	await get_tree().process_frame # รอให้ Engine เตรียมตัว 1 เฟรม
+	focus_numpad()
 	randomize() 
 	numpad.digit_pressed.connect(_on_numpad_digit)
 	numpad.delete_pressed.connect(_on_numpad_delete)
 	numpad.submit_pressed.connect(check_all_answers)
-	#boss_node.global_position.y = $CharacterBody2D.global_position.y + 400
 	# เชื่อมสัญญาณจาก Timer
 	shop_timer.timeout.connect(_on_shop_timer_timeout)
 	# เชื่อมสัญญาณปุ่มในร้านค้า
@@ -126,7 +128,7 @@ func start_boss_battle():
 	$CharacterBody2D.speed = 0
 	boss_node.global_position.x = $CharacterBody2D.global_position.x + 400
 	#boss_node.global_position.y = $CharacterBody2D.global_position.y - 400
-	# ตั้งค่า HP Bar
+	# ตั้งค่า HP Bar 
 	boss_hp_bar.max_value = boss_hp
 	boss_hp_bar.value = boss_hp
 	
@@ -147,11 +149,11 @@ func prepare_boss_next_move():
 	# 2. สุ่มค่าพลัง (3-5) ไว้ล่วงหน้าเพื่อโชว์ Hint
 	if boss_action == "ATTACK":
 		boss_next_damage = randi_range(3, 5)
-		boss_hint_label.text = "NEXT: ATTACK (%d DMG)" % boss_next_damage
+		boss_hint_label.text = "ATTACK:%d" % boss_next_damage
 		boss_hint_label.modulate = Color.RED
 	else:
 		boss_next_block = randi_range(3, 5)
-		boss_hint_label.text = "NEXT: BLOCK (+%d SHIELD)" % boss_next_block
+		boss_hint_label.text = "BLOCK:+%d" % boss_next_block
 		boss_hint_label.modulate = Color.CYAN
 
 func _on_boss_action_timer_timeout():
@@ -177,8 +179,9 @@ func _on_boss_action_timer_timeout():
 			
 		if player_hp <= 0:
 			# เรียกฟังก์ชันตาย/GameOver ของคุณ
-			stop_game()
+			
 			show_result("GAME OVER")
+			$CanvasLayer/GameOverUI.game_over()
 			
 	elif boss_action == "BLOCK":
 		boss_shields += boss_next_block
@@ -190,7 +193,7 @@ func _on_boss_action_timer_timeout():
 
 func _on_action_selected(choice):
 	action_panel.visible = false 
-	
+	boss_action_timer.paused = false
 	# 3. ผู้เล่นโจมตี 5 หรือ เพิ่มโล่ 5
 	if choice == "ATTACK":
 		var p_damage = 5
@@ -219,6 +222,8 @@ func _on_action_selected(choice):
 
 	# เจนโจทย์ใหม่ให้ผู้เล่นทำต่อทันที
 	generate_dynamic_question()
+	focus_numpad()
+
 
 func win_boss_battle():
 	is_boss_mode = false
@@ -232,7 +237,7 @@ func update_battle_ui():
 	boss_hp_label.text = "%d / %d" % [boss_hp, boss_max_hp]
 	boss_shield_label.text = "🛡️ " + str(boss_shields)
 	# แสดงเวลาที่เหลือก่อนบอสลงมือ
-	$Boss/CountTime.text = "Time: %.1f" % boss_action_timer.time_left
+	$Boss/CountTime.text = " %.1d" % boss_action_timer.time_left
 	
 	# อัปเดตฝั่งผู้เล่น
 	player_hp_bar.value = player_hp
@@ -241,6 +246,7 @@ func update_battle_ui():
 
 func open_action_menu():
 	action_panel.visible = true
+	boss_action_timer.paused = true
 	# โฟกัสไปที่ปุ่มแรก (เช่น ปุ่มโจมตี) เพื่อให้กด Shift เลือกได้ทันที
 	ActionSelect.get_node("AttackButton").grab_focus()
 
@@ -270,6 +276,9 @@ func _on_close_shop():
 	shop_panel.visible = false
 	get_tree().paused = false
 	# อย่าลืมคืน Focus กลับไปที่ Numpad
+	focus_numpad()
+
+func focus_numpad():
 	$CanvasLayer/NumpadPanel/GridContainer.get_child(0).grab_focus()
 
 func _on_buy_item(item_name):
@@ -342,9 +351,7 @@ func _on_skill_selected(skill_id):
 	
 	# 2. คืนโฟกัสไปที่ Numpad (จุดสำคัญ)
 	# สมมติว่า Numpad ของคุณมี GridContainer และปุ่มอยู่ข้างใน
-	var numpad_grid = $CanvasLayer/NumpadPanel/GridContainer 
-	if numpad_grid.get_child_count() > 0:
-		numpad_grid.get_child(0).grab_focus()
+	focus_numpad()
 	update_level_ui()
 
 # --- ระบบlevel ---

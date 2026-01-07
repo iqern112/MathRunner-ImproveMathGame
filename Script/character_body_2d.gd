@@ -43,8 +43,8 @@ func dash():
 	
 	# 3. เอฟเฟกต์ตัวยืด (Squash & Stretch)
 	var scale_tween = create_tween()
-	scale_tween.tween_property($Sprite2D, "scale", Vector2(1.4, 0.7), 0.1) # ตัวแบนและยาว
-	scale_tween.tween_property($Sprite2D, "scale", Vector2(1.0, 1.0), 0.2) # กลับสู่ปกติ
+	scale_tween.tween_property($CollisionShape2D/Sprite2D, "scale", Vector2(1.4, 0.7), 0.1) # ตัวแบนและยาว
+	scale_tween.tween_property($CollisionShape2D/Sprite2D, "scale", Vector2(1.0, 1.0), 0.2) # กลับสู่ปกติ
 
 func on_answer_correct():
 	speed += acceleration # วิ่งเร็วขึ้นเพื่อทิ้งห่าง

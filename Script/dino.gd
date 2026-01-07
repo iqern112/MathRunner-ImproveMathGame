@@ -20,10 +20,4 @@ func check_collision_with_player():
 	var distance = player.global_position.x - global_position.x
 
 	if distance <= 190:
-		# 1. หยุดการทำงานของเกมทั้งหมด
-		get_tree().paused = true 
-		var main = get_parent()
-		main.stop_game()
-		# 2. แสดงหน้าต่าง Game Over (ต้องอ้างอิงไปที่โหนด UI ของคุณ)
-		# สมมติว่า UI อยู่ที่เมนูหลัก
-		$"../CanvasLayer/GameOverUI".visible = true
+		$"../CanvasLayer/GameOverUI".game_over()
