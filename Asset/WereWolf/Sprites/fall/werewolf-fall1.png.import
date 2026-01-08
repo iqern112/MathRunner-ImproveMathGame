@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xq6jkf6vji0w"
-path="res://.godot/imported/2.png-beda0cb2302ae1950f67113ade5454a8.ctex"
+uid="uid://gbc4gtcp38oy"
+path="res://.godot/imported/werewolf-fall1.png-be6b0a1060134d23846819fb1e1ea85f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/cha/2.png"
-dest_files=["res://.godot/imported/2.png-beda0cb2302ae1950f67113ade5454a8.ctex"]
+source_file="res://Asset/WereWolf/Sprites/fall/werewolf-fall1.png"
+dest_files=["res://.godot/imported/werewolf-fall1.png-be6b0a1060134d23846819fb1e1ea85f.ctex"]
 
 [params]
 

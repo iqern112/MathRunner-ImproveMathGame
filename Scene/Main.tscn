@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bme0uf68d0685"]
+[gd_scene load_steps=28 format=3 uid="uid://bme0uf68d0685"]
 
 [ext_resource type="Texture2D" uid="uid://fq52ayxjrf" path="res://Asset/newRunAsset/12.png" id="1_4qtod"]
 [ext_resource type="Script" uid="uid://cx4l4srn3mlqj" path="res://Script/main.gd" id="1_4w0o7"]
@@ -14,10 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://dcsp7n0x2dbm2" path="res://Asset/newRunAsset/2.png" id="11_aa3qu"]
 [ext_resource type="Texture2D" uid="uid://cidveyni580di" path="res://Asset/newRunAsset/1.png" id="12_bf81u"]
 [ext_resource type="Script" uid="uid://yxsiv0qmhmvs" path="res://Script/character_body_2d.gd" id="13_mr7am"]
-[ext_resource type="Texture2D" uid="uid://dk27c0jvfrtqf" path="res://Asset/cha/1.png" id="14_mr7am"]
 [ext_resource type="Script" uid="uid://dx0l5r4tss1qh" path="res://Script/dino.gd" id="15_gclda"]
-[ext_resource type="Texture2D" uid="uid://xq6jkf6vji0w" path="res://Asset/cha/2.png" id="15_sc4dx"]
-[ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/game_over_ui.gd" id="17_kp1vv"]
+[ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="17_kp1vv"]
 [ext_resource type="Script" uid="uid://rnfbmb3j5cbc" path="res://Script/NumpadManager.gd" id="18_hmjy8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mr7am"]
@@ -167,7 +165,6 @@ shape = SubResource("CircleShape2D_mr7am")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D"]
 position = Vector2(-5, -40)
-texture = ExtResource("14_mr7am")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 position = Vector2(1061, 788)
@@ -209,14 +206,12 @@ shape = SubResource("RectangleShape2D_gclda")
 
 [node name="Sprite2D" type="Sprite2D" parent="Dino/CollisionShape2D"]
 position = Vector2(-5, -40)
-texture = ExtResource("15_sc4dx")
 
 [node name="Boss" type="Node2D" parent="."]
 position = Vector2(629, -225)
 
 [node name="Sprite2D" type="Sprite2D" parent="Boss"]
 position = Vector2(992, 477)
-texture = ExtResource("15_sc4dx")
 flip_h = true
 
 [node name="BossHp" type="ProgressBar" parent="Boss"]

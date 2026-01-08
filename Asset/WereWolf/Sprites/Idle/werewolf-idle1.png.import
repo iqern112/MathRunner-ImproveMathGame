@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dap1bu1x4iphp"
-path="res://.godot/imported/Spritesheet_UI_Flat_Animated.png-b3de5a4223f1f5f246d8d96440468ef5.ctex"
+uid="uid://ctd35sy8w35hv"
+path="res://.godot/imported/werewolf-idle1.png-4529c9d14b13bf98a9f2d2e75795560c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/Spritesheet_UI_Flat_Animated.png"
-dest_files=["res://.godot/imported/Spritesheet_UI_Flat_Animated.png-b3de5a4223f1f5f246d8d96440468ef5.ctex"]
+source_file="res://Asset/WereWolf/Sprites/Idle/werewolf-idle1.png"
+dest_files=["res://.godot/imported/werewolf-idle1.png-4529c9d14b13bf98a9f2d2e75795560c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk27c0jvfrtqf"
-path="res://.godot/imported/1.png-eacc6e91f49ba9b9bca36e041ef95a21.ctex"
+uid="uid://x5c7i4ssfkxc"
+path="res://.godot/imported/werewolf-run6.png-63597c82dc19d548d37aceae6bd09d8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/cha/1.png"
-dest_files=["res://.godot/imported/1.png-eacc6e91f49ba9b9bca36e041ef95a21.ctex"]
+source_file="res://Asset/WereWolf/Sprites/run/werewolf-run6.png"
+dest_files=["res://.godot/imported/werewolf-run6.png-63597c82dc19d548d37aceae6bd09d8d.ctex"]
 
 [params]
 

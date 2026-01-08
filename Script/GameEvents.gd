@@ -1,0 +1,4 @@
+extends Node
+signal correct_answer_signal
+signal wrong_answer_signal
+signal game_over_sinal
