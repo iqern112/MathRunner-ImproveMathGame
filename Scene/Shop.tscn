@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://dj11cb8tspyvq"]
+
+[ext_resource type="Script" uid="uid://bxu3r80i5qh4v" path="res://Script/Shop.gd" id="1_kol6x"]
+[ext_resource type="Texture2D" uid="uid://b27qqg2g1autw" path="res://Asset/decorations/shop_anim.png" id="2_262o8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fja2h"]
+atlas = ExtResource("2_262o8")
+region = Rect2(0, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouos0"]
+atlas = ExtResource("2_262o8")
+region = Rect2(118, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc2pb"]
+atlas = ExtResource("2_262o8")
+region = Rect2(236, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h06nl"]
+atlas = ExtResource("2_262o8")
+region = Rect2(354, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjgti"]
+atlas = ExtResource("2_262o8")
+region = Rect2(472, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyhp4"]
+atlas = ExtResource("2_262o8")
+region = Rect2(590, 0, 118, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wijc2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fja2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouos0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc2pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h06nl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjgti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyhp4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05yuu"]
+size = Vector2(43, 36)
+
+[node name="Shop" type="Area2D"]
+gravity_space_override = 1
+script = ExtResource("1_kol6x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wijc2")
+frame_progress = 0.099704
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 45)
+shape = SubResource("RectangleShape2D_05yuu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

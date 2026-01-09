@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ubd8ltl4rj1"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://ubd8ltl4rj1"]
 
 [ext_resource type="FontFile" uid="uid://c8o0wc23lyqoh" path="res://Asset/Font/minecraftia/Minecraftia-Regular.ttf" id="1_02lpf"]
 [ext_resource type="StyleBox" uid="uid://cwtbwofrxgm2g" path="res://Theme/ButtomPixelStyeFocus.tres" id="1_iumwc"]
 [ext_resource type="StyleBox" uid="uid://cx3we617ax3od" path="res://Theme/ButtomPixelStye.tres" id="2_gjurr"]
 [ext_resource type="StyleBox" uid="uid://emochriafbff" path="res://Theme/PixelBar.tres" id="3_gjurr"]
+[ext_resource type="StyleBox" uid="uid://dqhede78srg15" path="res://Theme/PanelPixelStye.tres" id="3_olfus"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iumwc"]
 
@@ -41,6 +42,7 @@ LineEdit/font_sizes/font_size = 8
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_iumwc")
 LineEdit/styles/normal = SubResource("StyleBoxEmpty_gjurr")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_iumwc")
+Panel/styles/panel = ExtResource("3_olfus")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_gjurr")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_olfus")
 ProgressBar/styles/fill = ExtResource("3_gjurr")

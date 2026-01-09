@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://drkvx8f7hwolo"]
+
+[ext_resource type="Texture2D" uid="uid://b2sjjy5ku2xqv" path="res://Asset/Item/items_sheet.png" id="1_2yvg1"]
+[ext_resource type="Script" uid="uid://cvnc2pw28gn6u" path="res://Script/ItemOnShow.gd" id="2_2yvg1"]
+
+[node name="NinePatchRect" type="NinePatchRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+texture = ExtResource("1_2yvg1")
+script = ExtResource("2_2yvg1")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.5
+offset_right = 14.0
+offset_bottom = 21.5
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "20"

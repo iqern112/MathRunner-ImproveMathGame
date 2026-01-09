@@ -12,7 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
 	GameEvents.correct_answer_signal.connect(dash)
-	GameEvents.game_over_sinal.connect(die)
+	GameEvents.game_over_triggered.connect(die)
 
 func _physics_process(delta):
 	# 1. ใส่แรงโน้มถ่วง (ถ้าไม่ได้อยู่บนพื้น ให้ตัวละครตกลงมา)

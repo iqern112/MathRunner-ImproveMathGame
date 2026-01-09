@@ -5,7 +5,7 @@ extends PanelContainer
 
 var input_fields = []
 var correct_answers = [] 
-var difficulty : int 
+var difficulty = 1
 
 func _ready() -> void:
 	
@@ -152,6 +152,7 @@ func check_all_answers():
 	
 	if all_correct:
 		GameEvents.correct_answer_signal.emit()
+		$"../SkillControl".make_money(difficulty)
 		generate_dynamic_question()
 	else:
 		GameEvents.wrong_answer_signal.emit()

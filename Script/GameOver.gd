@@ -3,7 +3,7 @@ extends Control
 @onready var restart_button = $VBoxContainer/Restart
 
 func _ready() -> void:
-	GameEvents.game_over_sinal.connect(game_over)
+	GameEvents.game_over_triggered.connect(game_over)
 	visibility_changed.connect(_on_visibility_changed)
 
 func game_over():
