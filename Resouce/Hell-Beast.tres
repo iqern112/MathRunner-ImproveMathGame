@@ -1,0 +1,84 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://bor1cib1ce2nv"]
+
+[ext_resource type="Texture2D" uid="uid://cgq5ovtyo5u52" path="res://Asset/Monster/Hell-Beast-Files/Breath/Sprites/hell-beast-breath1.png" id="1_f0hi8"]
+[ext_resource type="Texture2D" uid="uid://cfmjno2nb7xeb" path="res://Asset/Monster/Hell-Beast-Files/Breath/Sprites/hell-beast-breath2.png" id="2_g60we"]
+[ext_resource type="Texture2D" uid="uid://bdxwpk3j7sfq6" path="res://Asset/Monster/Hell-Beast-Files/Breath/Sprites/hell-beast-breath3.png" id="3_31ble"]
+[ext_resource type="Texture2D" uid="uid://c5n817qvir06f" path="res://Asset/Monster/Hell-Beast-Files/Breath/Sprites/hell-beast-breath4.png" id="4_ayxc4"]
+[ext_resource type="Texture2D" uid="uid://clka20oe0vehx" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn1.png" id="5_a0mur"]
+[ext_resource type="Texture2D" uid="uid://crt5y2h0fauvx" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn2.png" id="6_byhah"]
+[ext_resource type="Texture2D" uid="uid://2bwrlvykfvu3" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn3.png" id="7_3rqqi"]
+[ext_resource type="Texture2D" uid="uid://cifdjhk7p4e47" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn4.png" id="8_ibwhm"]
+[ext_resource type="Texture2D" uid="uid://bkalrud5hsddn" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn5.png" id="9_1llmg"]
+[ext_resource type="Texture2D" uid="uid://beueugv1youbr" path="res://Asset/Monster/Hell-Beast-Files/Burn/Sprites/hell-beast-burn6.png" id="10_xquik"]
+[ext_resource type="Texture2D" uid="uid://deq7gpe0y4av" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle1.png" id="11_2no0u"]
+[ext_resource type="Texture2D" uid="uid://bu2oyjc54sjv3" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle2.png" id="12_8hvrt"]
+[ext_resource type="Texture2D" uid="uid://cpb52tg7i3mfd" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle3.png" id="13_c4ob8"]
+[ext_resource type="Texture2D" uid="uid://bs2fig33wonr3" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle4.png" id="14_wp5d5"]
+[ext_resource type="Texture2D" uid="uid://hiicyvb7skt7" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle5.png" id="15_7mjql"]
+[ext_resource type="Texture2D" uid="uid://bxql14rk5kv5f" path="res://Asset/Monster/Hell-Beast-Files/Idle/Sprites/hell-beast-idle6.png" id="16_0c0u3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f0hi8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g60we")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_31ble")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ayxc4")
+}],
+"loop": true,
+"name": &"Breath",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_a0mur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_byhah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3rqqi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ibwhm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1llmg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xquik")
+}],
+"loop": true,
+"name": &"Burn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_2no0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8hvrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_c4ob8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_wp5d5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7mjql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_0c0u3")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]

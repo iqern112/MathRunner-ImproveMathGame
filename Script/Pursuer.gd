@@ -43,10 +43,10 @@ func attack_and_game_over():
 	if is_falling or is_attacking or is_dashing: return
 	is_attacking = true
 	is_falling = false # หยุดสถานะอื่น
-	GameEvents.game_over_triggered.emit()
 	#velocity = Vector2.ZERO # หยุดเดิน
 	PlayerAni.play("Attack") # สมมติว่าชื่ออนิเมชั่นข่วนคือ Attack
 	
+	GameEvents.game_over_triggered.emit()
 	# รอให้อนิเมชั่นข่วนเล่นจบก่อนค่อยเปลี่ยนฉากหรือขึ้นหน้า Game Over
 	# หรือจะใช้ await PlayerAni.animation_finished ก็ได้
 

@@ -20,5 +20,6 @@ func open_shop():
 	print("เข้าสู่ร้านค้า!")
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	await get_tree().create_timer(1).timeout
 	# เมื่อตัวร้านค้าหลุดออกนอกจอทั้งหมด ให้ลบทิ้งทันที
 	queue_free()

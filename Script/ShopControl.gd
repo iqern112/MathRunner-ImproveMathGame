@@ -143,25 +143,16 @@ func _on_reroll_pressed():
 	if not is_shop_open:
 		return
 
-	# (ตัวอย่าง) คิดค่า reroll เพิ่มตามจำนวนครั้ง
-	reroll_count += 1
-	var cost = reroll_cost * reroll_count
-
-	# ✅ ตรงนี้คุณต้องเชื่อมกับระบบเงินของคุณเอง
-	# ตัวอย่างสมมติว่า player มีตัวแปร money
-	if player and player.has_method("get_money") and player.has_method("add_money"):
-		var money = player.get_money()
-		if money < cost:
-			desc_label.text = "Not enough money to reroll! Need $" + str(cost)
-			return
-		player.add_money(-cost)
+	var cost = reroll_cost * (reroll_count + 1) # คำนวณราคาครั้งถัดไป
+	
+	# ตรวจสอบและตัดเงินผ่าน GameManager (หรือชื่อ Autoload ที่คุณตั้งไว้)
+	if GameEvents.remove_money(cost):
+		reroll_count += 1
+		fill_shop_items()
+		update_reroll_button_text()
+		$Panel/Reroll.grab_focus()
 	else:
-		# ถ้ายังไม่มีระบบเงิน ก็ให้ reroll ได้ฟรีไปก่อน
 		pass
-
-	fill_shop_items()
-	update_reroll_button_text()
-	$Panel/ShopList/Button.grab_focus()
 
 func update_reroll_button_text():
 	var next_cost = reroll_cost * (reroll_count + 1)
@@ -187,17 +178,21 @@ func _show_desc(index: int):
 
 func _on_buy_selected(index: int):
 	var item_key = current_item_options[index]
+	var data = data_items[item_key]
+	var price = int(data.get("price", 0)) # ดึงราคาจาก Dictionary (ถ้าไม่มีให้เป็น 0)
+	
+	# 1. ตรวจสอบและตัดเงิน
+	if GameEvents.remove_money(price):
+		print
+		if own_item.has(item_key):
+			own_item[item_key] += 1
+		else:
+			own_item[item_key] = 1
 
-	if own_item.has(item_key):
-		own_item[item_key] += 1
+		apply_item_effects()
+		update_item_hud_display()
 	else:
-		own_item[item_key] = 1
-
-	apply_item_effects()
-	update_item_hud_display()
-
-	# ถ้าซื้อแล้วอยากปิดร้านทันทีให้เปิดบรรทัดนี้:
-	# close_shop_ui()
+		pass
 
 func apply_item_effects(): 
 	pass

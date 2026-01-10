@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://ccryc2v2h1rk6"]
+
+[ext_resource type="Texture2D" uid="uid://bl4sg6a52f6r3" path="res://Asset/Monster/mutant-toad/Sprites/attack/mutant-toad-attack1.png" id="1_w3o6j"]
+[ext_resource type="Texture2D" uid="uid://dh0jic7kxqe0q" path="res://Asset/Monster/mutant-toad/Sprites/attack/mutant-toad-attack2.png" id="2_01pvj"]
+[ext_resource type="Texture2D" uid="uid://wat77o7p7cl6" path="res://Asset/Monster/mutant-toad/Sprites/attack/mutant-toad-attack3.png" id="3_wce2r"]
+[ext_resource type="Texture2D" uid="uid://ctsmvuf4toisq" path="res://Asset/Monster/mutant-toad/Sprites/idle/mutant-toad-idle1.png" id="4_u6ggr"]
+[ext_resource type="Texture2D" uid="uid://df8ajufox1xcs" path="res://Asset/Monster/mutant-toad/Sprites/idle/mutant-toad-idle2.png" id="5_x2k8n"]
+[ext_resource type="Texture2D" uid="uid://dlu1af20p4ktm" path="res://Asset/Monster/mutant-toad/Sprites/idle/mutant-toad-idle3.png" id="6_aff16"]
+[ext_resource type="Texture2D" uid="uid://17cixwlkv15o" path="res://Asset/Monster/mutant-toad/Sprites/idle/mutant-toad-idle4.png" id="7_sf2ex"]
+[ext_resource type="Texture2D" uid="uid://dsb6wo2tynbb0" path="res://Asset/Monster/mutant-toad/Sprites/jump/mutant-toad-jump1.png" id="8_rxorn"]
+[ext_resource type="Texture2D" uid="uid://bl0fnw0054wpu" path="res://Asset/Monster/mutant-toad/Sprites/jump/mutant-toad-jump2.png" id="9_a3qh5"]
+[ext_resource type="Texture2D" uid="uid://c4bqjym5o1b0" path="res://Asset/Monster/mutant-toad/Sprites/jump/mutant-toad-jump3.png" id="10_0p6cc"]
+[ext_resource type="Texture2D" uid="uid://x88oiu3flwo5" path="res://Asset/Monster/mutant-toad/Sprites/jump/mutant-toad-jump4.png" id="11_vmfvg"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w3o6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_01pvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wce2r")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_u6ggr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x2k8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aff16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sf2ex")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_rxorn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_a3qh5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0p6cc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vmfvg")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}]

@@ -6,16 +6,17 @@ extends Control
 
 const SKILL_ITEM_SCENE = preload("res://Scene/SkillOnItem.tscn")
 
-var money = 0
-var lucky_chance = 0.0
 var extra_base_reward = 0
 
 var current_options = []
 var own_skill = {}
 var data_skills = {
-	"lucky": {"title": "Lucky Streak", "desc": "There is a 10% chance of a critical hit and a reward.", "icon": preload("res://Asset/SkillTres/lucky.tres")},
+	"lucky": {"title": "Lucky Streak", "desc": "There is a 40% chance of a +1 EXP.", "icon": preload("res://Asset/SkillTres/lucky.tres")},
 	"interest": {"title": "Interest Boost", "desc": "Earn an extra $5 for every correct answer.", "icon": preload("res://Asset/SkillTres/interest.tres")},
-	"learn": {"title": "Quick Learn", "desc": "Reduce the amount of EXP required to level up by 1 point.", "icon": preload("res://Asset/SkillTres/learn.tres")}
+	"learn": {"title": "Quick Learn", "desc": "Reduce the amount of EXP -1.", "icon": preload("res://Asset/SkillTres/learn.tres")},
+	"power": {"title": "Power Surge", "desc": "Increase your attack power by +2 damage.", "icon": preload("res://Asset/SkillTres/power.tres")},
+	"shield": {"title": "Shield Up", "desc": "Gain +2 shield points to block incoming hits.", "icon": preload("res://Asset/SkillTres/shield.tres")},
+	"armor": {"title": "Reinforced Armor", "desc": "Reduce all incoming damage by 1 point.", "icon": preload("res://Asset/SkillTres/armor.tres")},
 }
 
 func _ready() -> void:
@@ -31,6 +32,7 @@ func _ready() -> void:
 	
 	#GameEvents.correct_answer_signal.connect(make_money)
 	GameEvents.level_up_signal.connect(select_skill)
+	GameEvents.money_changed.connect(_update_money_display)
 	
 func select_skill():
 	var keys = data_skills.keys()
@@ -56,10 +58,11 @@ func _on_skill_selected(index: int):
 
 	if own_skill.has(skill_key):
 		own_skill[skill_key] += 1 # ถ้ามีอยู่แล้ว บวกเพิ่ม 1
+		print("key",own_skill[skill_key])
 	else:
 		own_skill[skill_key] = 1  # ถ้ายังไม่มี ให้เริ่มที่ 1
 	
-	apply_skill_effects() # สั่งให้ความสามารถทำงานตาม Stack ใหม่
+	apply_skill_effects(skill_key) # สั่งให้ความสามารถทำงานตาม Stack ใหม่
 	update_skill_hud_display() # อัปเดตไอคอนบนหน้าจอ
 	
 	# ปิดหน้าต่างและเล่นเกมต่อ
@@ -67,14 +70,18 @@ func _on_skill_selected(index: int):
 	get_tree().paused = false
 	if numpad_button: numpad_button.grab_focus()
 
-func apply_skill_effects():
+func apply_skill_effects(key):
 	# ใช้ .get() เพื่อดึงค่า ถ้าไม่มีสกิลนั้นจะคืนค่า 0 (กัน Error)
-	var lucky_stack = own_skill.get("lucky", 0)
-	lucky_chance = lucky_stack * 0.10
+	if key == "lucky":
+		var lucky_exp: int = own_skill.get("lucky", 0)
+		GameEvents.skill_lucky.emit(lucky_exp)
+	elif key == "interest":
+		var interest_stack = own_skill.get("interest", 0)
+		extra_base_reward = interest_stack * 5
+	elif key == "learn":
+		var reduce_exp = own_skill.get("learn", 0)
+		GameEvents.skill_learn.emit(reduce_exp)
 	
-	var interest_stack = own_skill.get("interest", 0)
-	extra_base_reward = interest_stack * 5
-
 func update_skill_hud_display():
 	# 1. ล้างไอคอนเก่าใน HBox ก่อนแสดงใหม่
 	for child in show_skill_hbox.get_children():
@@ -94,7 +101,13 @@ func update_skill_hud_display():
 		# 5. สั่งให้แสดงผล Icon และ เลข Stack
 		# โดยส่ง Texture จาก data_skills และจำนวนจาก own_skill
 		new_item.set_skill_info(data["icon"], count)
+		$"../../Player/AnimationPlayer".play("exp_plus_animad")
 
 func make_money(difficulty : int):
-	money += (5*difficulty) + extra_base_reward
-	$Money/Label.text = str(money)
+	var on_money:int = 0
+	on_money += (5*difficulty) + extra_base_reward
+	GameEvents.add_money(on_money)
+	
+
+func _update_money_display(new_amount):
+	$Money/Label.text = str(new_amount)
