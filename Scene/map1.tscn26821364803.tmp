@@ -1051,7 +1051,6 @@ offset_right = 58.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(50, 0)
-focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_a062t")
 script = ExtResource("11_25tg2")
 
@@ -1060,7 +1059,6 @@ texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-focus_mode = 2
 columns = 5
 
 [node name="1" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
@@ -1672,7 +1670,6 @@ script = ExtResource("33_l52ld")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/CombatControl"]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1727,26 +1724,6 @@ horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/ActionSelect"]
-layout_mode = 2
-
-[node name="ItemList" type="ScrollContainer" parent="CanvasLayer/CombatControl/Panel"]
-process_mode = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -49.0
-offset_right = 60.0
-offset_bottom = 49.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 3
-vertical_scroll_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/ItemList"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CombatControl/Panel"]

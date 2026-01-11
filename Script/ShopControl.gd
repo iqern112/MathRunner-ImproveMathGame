@@ -20,14 +20,6 @@ var reroll_cost: int = 50
 var reroll_count: int = 0
 var is_shop_open: bool = false
 
-var data_items = {
-	"sword": {"title": "Sword", "price": "200", "desc": "Increase damage by 3.", "icon": preload("res://Asset/ItemTres/sword.tres")},
-	"shield": {"title": "Shield", "price": "120", "desc": "Provides 5 defense.", "icon": preload("res://Asset/ItemTres/shield.tres")},
-	"armor": {"title": "Armor", "price": "200", "desc": "Reduce incoming damage by 1 each time.", "icon": preload("res://Asset/ItemTres/armor.tres")},
-	"bow": {"title": "Bow", "price": "120", "desc": "Deal 5 free damage.", "icon": preload("res://Asset/ItemTres/archer.tres")},
-	"drill": {"title": "Drill", "price": "150", "desc": "Deal 3 armor-piercing damage.", "icon": preload("res://Asset/ItemTres/drill.tres")},
-	"potion": {"title": "Healing Potion", "price": "120", "desc": "Restore 5 HP.", "icon": preload("res://Asset/ItemTres/drug.tres")}
-}
 
 func _ready() -> void:
 	set_up_Shop()
@@ -89,6 +81,7 @@ func spawn_Shop():
 # -------------------------
 func _on_shop_selected():
 	open_shop_ui()
+	$"../Question/EquationContainer".visible = false
 
 func open_shop_ui():
 	is_shop_open = true
@@ -110,13 +103,14 @@ func close_shop_ui():
 
 	if numpad_button:
 		numpad_button.grab_focus()
+	$"../Question/EquationContainer".visible = true
 
 
 # -------------------------
 # Fill Items (used by open + reroll)
 # -------------------------
 func fill_shop_items():
-	var keys = data_items.keys()
+	var keys = GameEvents.data_items.keys()
 	keys.shuffle()
 	current_item_options = keys.slice(0, 6)
 
@@ -132,8 +126,8 @@ func fill_shop_items():
 
 func _set_button_item(btn: Node, index: int) -> void:
 	var item_key = current_item_options[index]
-	btn.get_node("ShopItem").texture = data_items[item_key]["icon"]
-	btn.get_node("Price").text = data_items[item_key]["price"]
+	btn.get_node("ShopItem").texture = GameEvents.data_items[item_key]["icon"]
+	btn.get_node("Price").text = GameEvents.data_items[item_key]["price"]
 
 
 # -------------------------
@@ -173,38 +167,40 @@ func _on_back_pressed():
 # -------------------------
 func _show_desc(index: int):
 	var item_key = current_item_options[index]
-	var data = data_items[item_key]
+	var data = GameEvents.data_items[item_key]
 	desc_label.text = data["title"] + "\n" + data["desc"]
 
 func _on_buy_selected(index: int):
 	var item_key = current_item_options[index]
-	var data = data_items[item_key]
-	var price = int(data.get("price", 0)) # ดึงราคาจาก Dictionary (ถ้าไม่มีให้เป็น 0)
+	var data = GameEvents.data_items[item_key]
+	var price = int(data.get("price", 0))
 	
-	# 1. ตรวจสอบและตัดเงิน
 	if GameEvents.remove_money(price):
-		print
-		if own_item.has(item_key):
-			own_item[item_key] += 1
+		# เก็บเข้า GameEvents แทนตัวแปรในเครื่อง
+		if GameEvents.own_item.has(item_key):
+			GameEvents.own_item[item_key] += 1
 		else:
-			own_item[item_key] = 1
-
-		apply_item_effects()
+			GameEvents.own_item[item_key] = 1
 		update_item_hud_display()
-	else:
-		pass
 
-func apply_item_effects(): 
-	pass
 
 func update_item_hud_display():
+	# 1. ล้างไอคอนเก่าใน HBox ออกให้หมดก่อน
 	for child in show_item_hbox.get_children():
 		child.queue_free()
 
-	for item_key in own_item:
-		var count = own_item[item_key]
-		var data = data_items[item_key]
+	# 2. วนลูปดึงข้อมูลไอเทมที่เราเป็นเจ้าของมาจาก GameEvents
+	for item_key in GameEvents.own_item:
+		var count = GameEvents.own_item[item_key]
+		
+		# ดึงข้อมูลตั้งต้น (เช่น icon) จาก data_items ที่อยู่ในสคริปต์นี้
+		# (หรือถ้าคุณย้าย data_items ไป GameEvents แล้ว ให้เปลี่ยนเป็น GameEvents.data_items)
+		var data = GameEvents.data_items[item_key] 
 
+		# 3. สร้าง Instance ของไอคอนที่จะแสดงบน HUD
 		var new_item = NEW_ITEM_SCENE.instantiate()
 		show_item_hbox.add_child(new_item)
-		new_item.set_item_info(data["icon"], count)
+		
+		# 4. ส่งข้อมูลไปแสดงผล (ต้องมีฟังก์ชัน set_item_info ใน NEW_ITEM_SCENE)
+		if new_item.has_method("set_item_info"):
+			new_item.set_item_info(data["icon"], count)

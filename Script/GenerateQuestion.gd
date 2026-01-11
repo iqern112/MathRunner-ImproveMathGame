@@ -149,6 +149,10 @@ func check_all_answers():
 				first_wrong_field = input_fields[i]
 			# (ทางเลือก) ล้างข้อความในช่องที่ผิดเพื่อให้พิมพ์ใหม่
 			input_fields[i].text = "" 
+		
+	if GameEvents.is_combat:
+		GameEvents.combat_correct.emit()
+		generate_dynamic_question()
 	
 	if all_correct:
 		GameEvents.correct_answer_signal.emit()

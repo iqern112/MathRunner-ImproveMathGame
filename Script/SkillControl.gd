@@ -11,12 +11,12 @@ var extra_base_reward = 0
 var current_options = []
 var own_skill = {}
 var data_skills = {
-	"lucky": {"title": "Lucky Streak", "desc": "There is a 40% chance of a +1 EXP.", "icon": preload("res://Asset/SkillTres/lucky.tres")},
-	"interest": {"title": "Interest Boost", "desc": "Earn an extra $5 for every correct answer.", "icon": preload("res://Asset/SkillTres/interest.tres")},
-	"learn": {"title": "Quick Learn", "desc": "Reduce the amount of EXP -1.", "icon": preload("res://Asset/SkillTres/learn.tres")},
-	"power": {"title": "Power Surge", "desc": "Increase your attack power by +2 damage.", "icon": preload("res://Asset/SkillTres/power.tres")},
-	"shield": {"title": "Shield Up", "desc": "Gain +2 shield points to block incoming hits.", "icon": preload("res://Asset/SkillTres/shield.tres")},
-	"armor": {"title": "Reinforced Armor", "desc": "Reduce all incoming damage by 1 point.", "icon": preload("res://Asset/SkillTres/armor.tres")},
+	#"lucky": {"title": "Lucky", "desc": "There is a 40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
+	#"interest": {"title": "Interest", "desc": "Earn an extra $5 for every correct answer.", "icon": preload("res://Resouce/SkillIcon/interest.tres")},
+	#"learn": {"title": "Learn", "desc": "Reduce the amount of EXP -1.", "icon": preload("res://Resouce/SkillIcon/learn.tres")},
+	"power": {"title": "Power", "desc": "Increase your attack power by +2 damage.", "icon": preload("res://Resouce/SkillIcon/power.tres")},
+	"shield": {"title": "Shield", "desc": "Gain +2 shield points to block incoming hits.", "icon": preload("res://Resouce/SkillIcon/shield.tres")},
+	"armor": {"title": "Armor", "desc": "Reduce all incoming damage by 1 point.", "icon": preload("res://Resouce/SkillIcon/armor.tres")},
 }
 
 func _ready() -> void:
@@ -46,6 +46,7 @@ func select_skill():
 	get_tree().paused = true
 	$Panel.visible = true
 	$Panel/SkillButtonsContainer/Button.grab_focus()
+	$"../Question/EquationContainer".visible = false
 
 func _show_desc(index: int):
 	# ฟังก์ชันนี้จะดึงชื่อสกิลล่าสุดจาก current_options ตามลำดับปุ่มที่ส่งมา
@@ -69,6 +70,7 @@ func _on_skill_selected(index: int):
 	$Panel.visible = false
 	get_tree().paused = false
 	if numpad_button: numpad_button.grab_focus()
+	$"../Question/EquationContainer".visible = true
 
 func apply_skill_effects(key):
 	# ใช้ .get() เพื่อดึงค่า ถ้าไม่มีสกิลนั้นจะคืนค่า 0 (กัน Error)
@@ -81,6 +83,17 @@ func apply_skill_effects(key):
 	elif key == "learn":
 		var reduce_exp = own_skill.get("learn", 0)
 		GameEvents.skill_learn.emit(reduce_exp)
+	elif key == "power":
+		var power_count = own_skill.get("power", 0)
+		var on_power = 2
+		GameEvents.on_skill_recive.emit(key,on_power)
+	elif key == "shield":
+		var shield_count = own_skill.get("shield", 0)
+		var on_shield = 2
+		GameEvents.on_skill_recive.emit(key,on_shield)
+	elif key == "armor":
+		var armor_count = own_skill.get("armor", 0)
+		GameEvents.on_skill_recive.emit(key,1)
 	
 func update_skill_hud_display():
 	# 1. ล้างไอคอนเก่าใน HBox ก่อนแสดงใหม่

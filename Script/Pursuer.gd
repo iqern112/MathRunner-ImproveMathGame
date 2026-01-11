@@ -8,18 +8,24 @@ const DASH_KILL = 120.0
 
 @onready var PlayerAni = $AnimatedSprite2D
 @onready var player = $"../Player" 
+@onready var pursuer = $"."
 
 var is_falling = false
 var is_attacking = false # เพิ่มสถานะการโจมตี
 var is_dashing = false
 var is_die = false
+var is_figth_monster = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var random_event_timer : Timer
 
 func _ready() -> void:
 	GameEvents.wrong_answer_signal.connect(_on_answer_wrong)
-	
+	GameEvents.spawn_monster.connect(hide_pursuer)
 	# สร้าง Timer สำหรับเหตุการณ์สุ่ม
+	create_timer()
+
+
+func create_timer():
 	random_event_timer = Timer.new()
 	add_child(random_event_timer)
 	random_event_timer.timeout.connect(_on_random_event_timeout)
@@ -28,7 +34,9 @@ func _ready() -> void:
 func _on_answer_wrong():
 	var distance = global_position.distance_to(player.global_position)
 	
-	if distance <= KILL_DISTANCE:
+	if is_figth_monster:
+		return
+	elif distance <= KILL_DISTANCE:
 		attack_and_game_over()
 		
 	elif distance <= DASH_KILL:
@@ -47,13 +55,16 @@ func attack_and_game_over():
 	PlayerAni.play("Attack") # สมมติว่าชื่ออนิเมชั่นข่วนคือ Attack
 	
 	GameEvents.game_over_triggered.emit()
+	
 	# รอให้อนิเมชั่นข่วนเล่นจบก่อนค่อยเปลี่ยนฉากหรือขึ้นหน้า Game Over
 	# หรือจะใช้ await PlayerAni.animation_finished ก็ได้
 
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if is_die:
+	if is_figth_monster:
+		velocity.x = 0
+	elif is_die:
 		if is_on_floor():
 			PlayerAni.play("Idle")
 	elif is_attacking:pass 
@@ -100,6 +111,8 @@ func _on_animated_sprite_2d_animation_finished():
 		#$"../CanvasLayer/GameOver".visible = true
 
 func start_random_timer():
+	if is_figth_monster:
+		return
 	#var random_time = randf_range(5.0, 15.0)
 	var random_time = 5.0
 	random_event_timer.start(random_time)
@@ -111,8 +124,9 @@ func _on_random_event_timeout():
 		return
 
 	var distance = global_position.distance_to(player.global_position)
-	print("dis:",distance)
-	if distance <= KILL_DISTANCE:
+	if is_figth_monster:
+		pass
+	elif distance <= KILL_DISTANCE:
 		attack_and_game_over()
 	elif distance <= DASH_KILL:
 		dash()
@@ -122,3 +136,9 @@ func _on_random_event_timeout():
 		fall()
 
 	start_random_timer()
+
+func hide_pursuer():
+	is_figth_monster = true
+	velocity.x = 0
+	var hide_pos = player.global_position + Vector2(-200, -15)
+	pursuer.global_position = hide_pos
