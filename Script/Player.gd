@@ -2,14 +2,14 @@ extends CharacterBody2D
 const SPEED = 150.0  # ความเร็วในการเดิน
 const JUMP_VELOCITY = -300.0 # ความสูงในการกระโดด (ค่าติดลบคือขึ้นบน)
 
-@onready var PlayerAni = $AnimatedSprite2D
+@onready var PlayerAni = $PlayerAnimad
 
 var is_dashing = false
 var is_die = false
 var is_fight = false
 
-@export var max_hp: int = 10
-@export var current_hp: int = 10
+@export var max_hp: int = 20
+@export var current_hp: int = 20
 @export var shield: int = 0     # พลังป้องกัน/โล่
 
 
@@ -25,29 +25,26 @@ func _ready() -> void:
 	GameEvents.game_over_triggered.connect(die)
 	GameEvents.spawn_monster.connect(set_fight)
 	GameEvents.control_to_player.connect(combat_action_handle)
+	GameEvents.monster_died.connect(_on_monster_died)
 	mark()
 	set_player_status()
 
 func mark():
 	await get_tree().create_timer(3).timeout 
-	GameEvents.add_money(500)
+	GameEvents.add_money(1000)
 
 func _physics_process(delta):
-	# 1. ใส่แรงโน้มถ่วง (ถ้าไม่ได้อยู่บนพื้น ให้ตัวละครตกลงมา)
-	if not is_on_floor():
+	if is_die:
+		pass
+	elif not is_on_floor():
 		velocity.y += gravity * delta
-		
-	if is_fight:
+	elif is_fight:
 		velocity.x = 0
-		PlayerAni.play("Idle")
-	elif is_die:
-		velocity = Vector2.ZERO
+		if PlayerAni.animation != "Hurt":
+			PlayerAni.play("Idle")
 	elif is_dashing:pass 
 	else:
-		# สถานะปกติ: เดินไปข้างหน้า
 		velocity.x = SPEED
-		
-		# เล่นอนิเมชั่นตามสถานะพื้นดิน
 		if is_on_floor():
 			PlayerAni.play("Walk")
 	
@@ -62,24 +59,30 @@ func set_player_status():
 		$PlayerShield/PlayerHpLabel.text = str(shield)
 	else :
 		$PlayerShield.visible = false
-	if current_hp <= 0: die()
+	if current_hp <= 0: GameEvents.game_over_triggered.emit("combat")
 
 func dash():
 	if is_dashing: return
 	is_dashing = true
-	
-	# สุ่มท่าทาง
 	var actions = ["Dash", "Slide"]
 	var selected_action = actions.pick_random()
 	PlayerAni.play(selected_action)
-	
-	# ตั้งความเร็วพุ่ง
 	velocity.x = SPEED * 2
 
-func die():
-	await get_tree().create_timer(0.6).timeout
-	is_die = true
-	PlayerAni.play("Die")
+func die(status):
+	if status == "pursuer":
+		await get_tree().create_timer(0.6).timeout
+		velocity.x = 0
+		PlayerAni.play("Die")
+		is_die = true
+	if status == "combat":
+		PlayerAni.play("Die")
+		is_die = true
+
+
+func _on_monster_died():
+	is_fight = false        # ปลดล็อคตัวแปรในตัว Player
+	is_dashing = false
 
 func _on_animated_sprite_2d_animation_finished():
 	# คืนค่าสถานะเพื่อให้กลับไปวิ่งปกติเมื่อจบท่าพิเศษ
@@ -88,6 +91,7 @@ func _on_animated_sprite_2d_animation_finished():
 
 func set_fight():
 	is_fight = true
+
 
 # ฟังก์ชันรับดาเมจ (เอาไว้ให้ Monster เรียกใช้)
 func take_damage(final_damage: int):
@@ -100,11 +104,13 @@ func take_damage(final_damage: int):
 			var remaining_dmg = final_damage - shield
 			shield = 0
 			current_hp -= remaining_dmg
+			PlayerAni.play("Hurt")
 	else:
 		current_hp -= final_damage
+		PlayerAni.play("Hurt")
 	
 	set_player_status()
-	if current_hp <= 0: die()
+	if current_hp <= 0: die("combat")
 
 func combat_action_handle(action,value):
 	if action == "Block":
@@ -114,3 +120,16 @@ func combat_action_handle(action,value):
 	elif action == "potion":
 		current_hp += value
 	set_player_status()
+
+
+func _on_player_animad_animation_finished() -> void:
+	if PlayerAni.animation == "Dash" or PlayerAni.animation == "Slide":
+		is_dashing = false
+	elif PlayerAni.animation == "Die":
+		pass
+	elif PlayerAni.animation == "Hurt":
+		if current_hp > 0:
+			if is_fight:
+				PlayerAni.play("Idle")
+			else:
+				PlayerAni.play("Walk")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djqee4w1cabwo"
-path="res://.godot/imported/16x16.png-702ba5918c5f944c6f55b15a246b4261.ctex"
+uid="uid://d1qkcoi3erkgb"
+path="res://.godot/imported/Take Hit.png-517d6dd3ba6e5864212a370c28eb9f89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/Item/16x16.png"
-dest_files=["res://.godot/imported/16x16.png-702ba5918c5f944c6f55b15a246b4261.ctex"]
+source_file="res://Asset/Monsters_Creatures_Fantasy/Goblin/Take Hit.png"
+dest_files=["res://.godot/imported/Take Hit.png-517d6dd3ba6e5864212a370c28eb9f89.ctex"]
 
 [params]
 

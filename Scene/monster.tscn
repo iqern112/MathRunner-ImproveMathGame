@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhvx1t7bfcw5r"]
 
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Asset/Item/16x16.png" id="1_4f2yx"]
-[ext_resource type="Script" uid="uid://cjum2yyjnovxv" path="res://monster.gd" id="1_wwmrk"]
-[ext_resource type="SpriteFrames" uid="uid://cbwgm5osbxw3r" path="res://Resouce/CharacterAnimad/Bringer-Of-Death.tres" id="1_xxklr"]
+[ext_resource type="Script" uid="uid://cjum2yyjnovxv" path="res://Script/Monster.gd" id="1_677wb"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_ewfen"]
+[ext_resource type="SpriteFrames" uid="uid://cbwgm5osbxw3r" path="res://Resouce/CharacterAnimad/Bringer-Of-Death.tres" id="3_oo5i6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]
 bg_color = Color(0, 0, 0, 0.337255)
@@ -17,17 +17,17 @@ size = Vector2(20, 37)
 
 [node name="Monster" type="CharacterBody2D"]
 texture_filter = 1
-script = ExtResource("1_wwmrk")
+script = ExtResource("1_677wb")
 
 [node name="MonsterHp" type="ProgressBar" parent="."]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -40.0
-offset_top = -44.0
-offset_right = 40.0
-offset_bottom = -39.0
+offset_left = -23.0
+offset_top = -45.0
+offset_right = 30.0
+offset_bottom = -40.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_wwmrk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_d7voj")
@@ -38,9 +38,10 @@ show_percentage = false
 
 [node name="MonsterHpLabel" type="Label" parent="MonsterHp"]
 layout_mode = 0
-offset_top = -5.0
-offset_right = 81.0
-offset_bottom = 9.0
+offset_left = -13.0
+offset_top = -6.0
+offset_right = 68.0
+offset_bottom = 8.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "10/10"
@@ -48,11 +49,11 @@ horizontal_alignment = 1
 
 [node name="MonsterShield" type="NinePatchRect" parent="."]
 visible = false
-offset_left = -48.0
-offset_top = -50.0
-offset_right = -32.0
-offset_bottom = -34.0
-texture = ExtResource("1_4f2yx")
+offset_left = -31.0
+offset_top = -51.0
+offset_right = -15.0
+offset_bottom = -35.0
+texture = ExtResource("2_ewfen")
 region_rect = Rect2(80, 592, 16, 16)
 patch_margin_top = 16
 
@@ -69,16 +70,17 @@ horizontal_alignment = 1
 
 [node name="BuffDebuff" type="HBoxContainer" parent="."]
 process_mode = 3
+visible = false
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -49.0
-offset_top = -87.0
-offset_right = 104.0
-offset_bottom = -71.0
+offset_left = -32.0
+offset_top = -88.0
+offset_right = 121.0
+offset_bottom = -72.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -91,10 +93,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -69.0
-offset_right = 41.0
-offset_bottom = -53.0
+offset_left = -29.0
+offset_top = -70.0
+offset_right = 58.0
+offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -109,6 +111,7 @@ custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Hint/NinePatchRect"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 6.0
 offset_right = 23.0
@@ -122,7 +125,7 @@ shape = SubResource("RectangleShape2D_37r2r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-35, -26)
-sprite_frames = ExtResource("1_xxklr")
+sprite_frames = ExtResource("3_oo5i6")
 animation = &"Idle"
 frame_progress = 0.107538
 

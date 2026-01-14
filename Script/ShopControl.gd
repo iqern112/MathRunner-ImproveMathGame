@@ -19,10 +19,10 @@ var own_item: Dictionary = {}
 var reroll_cost: int = 50
 var reroll_count: int = 0
 var is_shop_open: bool = false
-
+var spawn_shop_on = 10
 
 func _ready() -> void:
-	set_up_Shop()
+	#set_up_Shop()
 
 	$Panel/ShopList/Button.pressed.connect(_on_buy_selected.bind(0))
 	$Panel/ShopList/Button2.pressed.connect(_on_buy_selected.bind(1))
@@ -61,7 +61,7 @@ func set_up_Shop():
 	shop_spawn_timer.process_mode = Node.PROCESS_MODE_ALWAYS # ✅ กัน pause ทำให้ Timer หยุด
 	add_child(shop_spawn_timer)
 
-	shop_spawn_timer.wait_time = 5.0
+	shop_spawn_timer.wait_time = spawn_shop_on
 	shop_spawn_timer.one_shot = true
 	shop_spawn_timer.timeout.connect(spawn_Shop)
 	shop_spawn_timer.start()

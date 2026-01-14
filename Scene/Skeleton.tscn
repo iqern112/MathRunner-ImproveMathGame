@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://fr25e5vpk8ly"]
+
+[ext_resource type="Script" uid="uid://b16akg6i6f2u2" path="res://Script/Skeleton.gd" id="1_nq8ot"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_xht65"]
+[ext_resource type="SpriteFrames" uid="uid://dxpvw1lls1le5" path="res://Resouce/CharacterAnimad/Skeleton.tres" id="3_nq8ot"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]
+bg_color = Color(0, 0, 0, 0.337255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7voj"]
+bg_color = Color(0.643128, 0.108427, 0.145474, 1)
+border_width_bottom = 1
+border_color = Color(0.373291, 0.0450323, 0.0672078, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37r2r"]
+size = Vector2(20, 32)
+
+[node name="Skeleton" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_nq8ot")
+
+[node name="MonsterHp" type="ProgressBar" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -44.0
+offset_right = 21.0
+offset_bottom = -39.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wwmrk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d7voj")
+max_value = 5.0
+step = 1.0
+value = 5.0
+show_percentage = false
+
+[node name="MonsterHpLabel" type="Label" parent="MonsterHp"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 65.0
+offset_bottom = 8.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "10/10"
+horizontal_alignment = 1
+
+[node name="MonsterShield" type="NinePatchRect" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -50.0
+offset_right = -16.0
+offset_bottom = -34.0
+texture = ExtResource("2_xht65")
+region_rect = Rect2(80, 592, 16, 16)
+patch_margin_top = 16
+
+[node name="MonsterShieldLabel" type="Label" parent="MonsterShield"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 27.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "10"
+horizontal_alignment = 1
+
+[node name="BuffDebuff" type="HBoxContainer" parent="."]
+process_mode = 3
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = -87.0
+offset_right = 120.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hint" type="HBoxContainer" parent="."]
+process_mode = 3
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -69.0
+offset_right = 22.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="time" type="Label" parent="Hint"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Hint"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Hint/NinePatchRect"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 6.0
+offset_right = 23.0
+offset_bottom = 20.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_37r2r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = ExtResource("3_nq8ot")
+animation = &"Defend"
+flip_h = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

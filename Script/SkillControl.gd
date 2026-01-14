@@ -11,12 +11,12 @@ var extra_base_reward = 0
 var current_options = []
 var own_skill = {}
 var data_skills = {
-	#"lucky": {"title": "Lucky", "desc": "There is a 40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
-	#"interest": {"title": "Interest", "desc": "Earn an extra $5 for every correct answer.", "icon": preload("res://Resouce/SkillIcon/interest.tres")},
-	#"learn": {"title": "Learn", "desc": "Reduce the amount of EXP -1.", "icon": preload("res://Resouce/SkillIcon/learn.tres")},
-	"power": {"title": "Power", "desc": "Increase your attack power by +2 damage.", "icon": preload("res://Resouce/SkillIcon/power.tres")},
-	"shield": {"title": "Shield", "desc": "Gain +2 shield points to block incoming hits.", "icon": preload("res://Resouce/SkillIcon/shield.tres")},
-	"armor": {"title": "Armor", "desc": "Reduce all incoming damage by 1 point.", "icon": preload("res://Resouce/SkillIcon/armor.tres")},
+	"lucky": {"title": "Lucky", "desc": "40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
+	"interest": {"title": "Interest", "desc": "Earn an extra +5 money.", "icon": preload("res://Resouce/SkillIcon/interest.tres")},
+	"learn": {"title": "Learn", "desc": "Reduce MAX EXP -1.", "icon": preload("res://Resouce/SkillIcon/learn.tres")},
+	"power": {"title": "Power", "desc": "Increase +2 damage.", "icon": preload("res://Resouce/SkillIcon/power.tres")},
+	"shield": {"title": "Shield", "desc": "Gain +2 shield.", "icon": preload("res://Resouce/SkillIcon/shield.tres")},
+	"armor": {"title": "Armor", "desc": "Reduce damage 1.", "icon": preload("res://Resouce/SkillIcon/armor.tres")},
 }
 
 func _ready() -> void:

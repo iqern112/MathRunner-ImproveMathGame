@@ -3,11 +3,12 @@ extends Node
 var money: int = 0
 
 var is_combat: bool = false
+signal monster_died
 
 signal correct_answer_signal
 signal wrong_answer_signal
 
-signal game_over_triggered
+signal game_over_triggered(status: String)
 
 signal level_up_signal
 
@@ -36,7 +37,7 @@ var data_items: Dictionary = {
 	"armor": {"title": "Armor", "price": "200", "desc": "Reduce incoming damage by 1 each time.", "icon": preload("res://Resouce/ItemTres/armor.tres")},
 	"bow": {"title": "Bow", "price": "120", "desc": "Next action +10 damage.", "icon": preload("res://Resouce/ItemTres/archer.tres")},
 	"drill": {"title": "Drill", "price": "150", "desc": "Deal armor-piercing damage 2 time.", "icon": preload("res://Resouce/ItemTres/drill.tres")},
-	"potion": {"title": "Healing Potion", "price": "120", "desc": "Restore 5 HP.", "icon": preload("res://Resouce/ItemTres/drug.tres")}
+	"potion": {"title": "Heal Potion", "price": "120", "desc": "Restore 5 HP.", "icon": preload("res://Resouce/ItemTres/drug.tres")}
 }
 
 func add_money(amount: int):

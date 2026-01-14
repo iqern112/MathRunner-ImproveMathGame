@@ -10,11 +10,7 @@ func _on_body_entered(body: Node2D) -> void:
 		GameEvents.spawn_monster.emit()
 
 func open_shop():
-	# หยุดเกม
 	get_tree().paused = true
-	
-	# ส่งสัญญาณไปบอก UI ร้านค้าให้เปิดขึ้นมา
-	# (คุณสามารถสร้าง Signal ใน GameEvents หรือเรียก UI ตรงๆ)
 	GameEvents.shop_opened.emit() 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
