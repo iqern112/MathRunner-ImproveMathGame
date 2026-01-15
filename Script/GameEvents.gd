@@ -29,6 +29,9 @@ signal control_to_player(action: String,value: int)
 signal combat_panel_open(value: String)
 signal item_used
 
+signal route_selected
+signal shop_closed
+
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
 
 var data_items: Dictionary = {

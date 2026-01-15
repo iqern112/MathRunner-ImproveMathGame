@@ -100,7 +100,7 @@ func close_shop_ui():
 	is_shop_open = false
 	$Panel.visible = false
 	get_tree().paused = false
-
+	GameEvents.shop_closed.emit()
 	if numpad_button:
 		numpad_button.grab_focus()
 	$"../Question/EquationContainer".visible = true

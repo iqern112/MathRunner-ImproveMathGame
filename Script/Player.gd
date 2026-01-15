@@ -35,14 +35,15 @@ func mark():
 
 func _physics_process(delta):
 	if is_die:
-		pass
+		velocity.x = 0
 	elif not is_on_floor():
 		velocity.y += gravity * delta
 	elif is_fight:
 		velocity.x = 0
 		if PlayerAni.animation != "Hurt":
 			PlayerAni.play("Idle")
-	elif is_dashing:pass 
+	elif is_dashing:
+		pass 
 	else:
 		velocity.x = SPEED
 		if is_on_floor():
@@ -64,12 +65,25 @@ func set_player_status():
 		GameEvents.game_over_triggered.emit()
 
 func dash():
-	if is_dashing: return
+	if is_dashing or is_die or is_fight: return # ไม่ Dash ถ้ากำลังสู้หรือตาย
 	is_dashing = true
+	
+	# สุ่มท่าทาง
 	var actions = ["Dash", "Slide"]
 	var selected_action = actions.pick_random()
 	PlayerAni.play(selected_action)
-	velocity.x = SPEED * 2
+	
+	# ใช้ Tween เพื่อควบคุมความเร็วให้คงที่ในช่วงเวลาหนึ่ง
+	var dash_tween = create_tween()
+	# พุ่งด้วยความเร็ว SPEED * 2 เป็นเวลา 0.4 วินาที
+	dash_tween.tween_method(func(v): velocity.x = v, SPEED * 2.5, SPEED, 1.54).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	
+	# เมื่อจบ Tween ให้คืนค่าสถานะ
+	dash_tween.finished.connect(func():
+		is_dashing = false
+		if not is_fight and not is_die:
+			velocity.x = SPEED # กลับมาวิ่งความเร็วปกติ
+	)
 
 func die():
 	PlayerAni.play("Die")

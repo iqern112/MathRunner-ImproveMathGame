@@ -1101,6 +1101,132 @@ theme = ExtResource("11_ddl0n")
 theme_override_font_sizes/font_size = 8
 autowrap_mode = 3
 
+[node name="RouteSelection" type="Control" parent="CanvasLayer"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("27_qls5m")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/RouteSelection"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -66.0
+offset_right = 50.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("26_3ywti")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/RouteSelection/Panel"]
+process_mode = 3
+layout_mode = 2
+offset_left = 143.0
+offset_top = 53.0
+offset_right = 241.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Route"
+horizontal_alignment = 1
+
+[node name="RouteButtonsContainer" type="HBoxContainer" parent="CanvasLayer/RouteSelection/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -15.0
+offset_right = 55.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("27_0ck1e")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("27_l52ld")
+
+[node name="Button2" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("27_0ck1e")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("28_qls5m")
+
+[node name="Button3" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("27_0ck1e")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button3"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("29_ygjsc")
+
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteSelection/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -56.0
+offset_right = 69.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("11_ddl0n")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
 [node name="ShopControl" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -1559,132 +1685,6 @@ offset_left = -81.0
 offset_top = -52.0
 offset_right = 80.0
 offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("11_ddl0n")
-theme_override_font_sizes/font_size = 8
-autowrap_mode = 3
-
-[node name="RouteSelection" type="Control" parent="CanvasLayer"]
-process_mode = 3
-texture_filter = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("27_qls5m")
-
-[node name="Panel" type="Panel" parent="CanvasLayer/RouteSelection"]
-process_mode = 3
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel"]
-process_mode = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -66.0
-offset_right = 50.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("26_3ywti")
-region_rect = Rect2(288, 128, 64, 32)
-
-[node name="Label" type="Label" parent="CanvasLayer/RouteSelection/Panel"]
-process_mode = 3
-layout_mode = 2
-offset_left = 143.0
-offset_top = 53.0
-offset_right = 241.0
-offset_bottom = 67.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "Route"
-horizontal_alignment = 1
-
-[node name="RouteButtonsContainer" type="HBoxContainer" parent="CanvasLayer/RouteSelection/Panel"]
-process_mode = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -15.0
-offset_right = 55.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Button" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-theme = ExtResource("27_0ck1e")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 22.0
-offset_bottom = 22.0
-texture = ExtResource("27_l52ld")
-
-[node name="Button2" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-theme = ExtResource("27_0ck1e")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button2"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 22.0
-offset_bottom = 22.0
-texture = ExtResource("28_qls5m")
-
-[node name="Button3" type="Button" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-theme = ExtResource("27_0ck1e")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteSelection/Panel/RouteButtonsContainer/Button3"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 22.0
-offset_bottom = 22.0
-texture = ExtResource("29_ygjsc")
-
-[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteSelection/Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -73.0
-offset_top = -56.0
-offset_right = 69.0
-offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("11_ddl0n")
