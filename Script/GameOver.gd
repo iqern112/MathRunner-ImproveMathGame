@@ -6,13 +6,9 @@ func _ready() -> void:
 	GameEvents.game_over_triggered.connect(game_over)
 	visibility_changed.connect(_on_visibility_changed)
 
-func game_over(status):
-	if status == "pursuer":
-		await get_tree().create_timer(1).timeout
-		$".".visible = true
-	elif status == "combat":
-		$".".visible = true
-		GameEvents.is_combat = false
+func game_over():
+	$".".visible = true
+	GameEvents.is_combat = false
 	GameEvents.money = 0
 
 func _on_visibility_changed():

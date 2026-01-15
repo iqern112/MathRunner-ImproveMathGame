@@ -23,6 +23,7 @@ func _ready() -> void:
 	GameEvents.wrong_answer_signal.connect(_on_answer_wrong)
 	GameEvents.spawn_monster.connect(hide_pursuer)
 	GameEvents.monster_died.connect(_on_combat_finished)
+	GameEvents.game_over_triggered.connect(game_over)
 	create_timer()
 
 func create_timer():
@@ -37,8 +38,7 @@ func _on_answer_wrong():
 	if is_figth_monster:
 		return
 	elif distance <= KILL_DISTANCE:
-		attack_and_game_over()
-		
+		attack_player()
 	elif distance <= DASH_KILL:
 		# แทนที่จะใช้ Tween ให้สั่ง dash แบบเดียวกับผู้เล่น
 		dash() 
@@ -47,13 +47,14 @@ func _on_answer_wrong():
 		global_position.y = player.global_position.y - 100
 		fall()
 
-func attack_and_game_over():
+func attack_player():
 	if is_falling or is_attacking or is_dashing: return
 	is_attacking = true
-	is_falling = false # หยุดสถานะอื่น
-	#velocity = Vector2.ZERO # หยุดเดิน
-	pursuer_animad.play("Attack") # สมมติว่าชื่ออนิเมชั่นข่วนคือ Attack
-	GameEvents.game_over_triggered.emit("pursuer")
+	pursuer_animad.play("Attack") 
+
+func game_over():
+	is_die = true
+	velocity = Vector2.ZERO
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -64,10 +65,7 @@ func _physics_process(delta):
 		if is_on_floor():
 			pursuer_animad.play("Idle")
 	elif is_attacking:pass 
-		#velocity.x = 0
 	elif is_dashing:pass
-		# ในขณะ Dash เรากำหนด velocity.x ให้สูงมาก
-		# และไม่ต้องเช็ค is_on_floor เพื่อไม่ให้เล่น Run ทับ
 	elif is_falling:
 		velocity.x = SPEED * 0.5 
 	else:
@@ -75,23 +73,6 @@ func _physics_process(delta):
 		if is_on_floor():
 			pursuer_animad.play("Run")
 	move_and_slide()
-
-#func _physics_process(delta):
-	#if not is_on_floor():
-		#velocity.y += gravity * delta
-	#
-	#if is_figth_monster:
-		#velocity.x = 0
-	#elif is_slowed:
-		#velocity.x = SPEED * 0.3 # วิ่งช้าลงมาก
-		#pursuer_animad.play("Run") # หรือเล่นอนิเมชั่นเหนื่อย
-	#elif is_falling:
-		#velocity.x = SPEED * 0.5
-	#else:
-		#velocity.x = SPEED * 1.1 # ให้วิ่งเร็วกว่า Player นิดหน่อยเสมอเพื่อกดดัน
-		#if is_on_floor():
-			#pursuer_animad.play("Run")
-	#move_and_slide()
 
 func _on_combat_finished():
 	is_figth_monster = false # ปลดล็อคให้วิ่งได้
@@ -103,12 +84,8 @@ func _on_combat_finished():
 func dash():
 	if is_falling or is_attacking or is_dashing: return
 	is_dashing = true
-	pursuer_animad.play("Dash") # มั่นใจว่าชื่อ Animation ใน SpriteFrames ตรงกัน
-	
-	# ปรับความเร็วให้พุ่งแรงกว่าผู้เล่นเพื่อความตื่นเต้น
+	pursuer_animad.play("Dash")
 	velocity.x = SPEED * 2
-	
-	# ใช้ Timer เพื่อกำหนดระยะเวลาการพุ่ง (แทน Tween)
 	await get_tree().create_timer(0.3).timeout 
 	is_dashing = false
 
@@ -126,7 +103,6 @@ func start_random_timer():
 	random_event_timer.start(random_time)
 
 func _on_random_event_timeout():
-	# ถ้าตายอยู่ หรือกำลังโจมตี/ตก/แดช ให้รอรอบหน้า
 	if is_die or is_attacking or is_falling or is_dashing:
 		start_random_timer()
 		return
@@ -135,12 +111,12 @@ func _on_random_event_timeout():
 	if is_figth_monster:
 		pass
 	elif distance <= KILL_DISTANCE:
-		attack_and_game_over()
+		attack_player()
 	elif distance <= DASH_KILL:
 		dash()
 	else:
-		global_position.x = player.global_position.x - 80 # วาร์ปไปข้างหลังผู้เล่นเล็กน้อย
-		global_position.y = player.global_position.y - 100 # วาร์ปขึ้นข้างบน
+		global_position.x = player.global_position.x - 80 
+		global_position.y = player.global_position.y - 100
 		fall()
 
 	start_random_timer()
@@ -158,8 +134,6 @@ func _on_pursuer_animad_animation_finished() -> void:
 	if pursuer_animad.animation == "Dash":
 		is_dashing = false
 	if pursuer_animad.animation == "Attack":
+		GameEvents.monster_to_control.emit("ATTACK", 5) 
 		is_attacking = false
-		is_die = true
-		#GameEvents.game_over_triggered.emit("pursuer")
-		#get_tree().paused = true 
-		#$"../CanvasLayer/GameOver".visible = true
+		

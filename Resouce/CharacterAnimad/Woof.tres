@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=36 format=3 uid="uid://bsk71sm1lfv3t"]
+[gd_resource type="SpriteFrames" load_steps=34 format=3 uid="uid://bsk71sm1lfv3t"]
 
 [ext_resource type="Texture2D" uid="uid://bqwr5meenupvh" path="res://Asset/WereWolf/Spritesheets/werewolf-run.png" id="1_xc3cm"]
 [ext_resource type="Texture2D" uid="uid://cmwsx6sayr45k" path="res://Asset/WereWolf/Spritesheets/werewolf-Sheet-attack.png" id="2_1aw53"]
@@ -41,14 +41,6 @@ region = Rect2(192, 0, 96, 76)
 [sub_resource type="AtlasTexture" id="AtlasTexture_04k41"]
 atlas = ExtResource("3_iy336")
 region = Rect2(0, 0, 96, 76)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kagod"]
-atlas = ExtResource("4_w0ote")
-region = Rect2(0, 0, 96, 76)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7683"]
-atlas = ExtResource("4_w0ote")
-region = Rect2(96, 0, 96, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_158i3"]
 atlas = ExtResource("1_xc3cm")
@@ -155,12 +147,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_04k41")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kagod")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7683")
 }],
 "loop": false,
 "name": &"Attack",

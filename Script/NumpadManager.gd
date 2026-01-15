@@ -7,19 +7,43 @@ signal submit_pressed
 
 @onready var grid = $GridContainer
 
+#func _ready():
+	#var buttons = grid.get_children()
+	#for btn in buttons:
+		#btn.focus_mode = Control.FOCUS_ALL
+		#btn.pressed.connect(_on_btn_clicked.bind(btn.name))
+	#buttons[0].grab_focus()
+
 func _ready():
 	var buttons = grid.get_children()
-	for btn in buttons:
+	var cols = grid.columns # สมมติว่าตั้งค่า GridContainer ไว้ 5 คอลัมน์ตามภาพ
+	var total = buttons.size()
+
+	for i in range(total):
+		var btn = buttons[i]
 		btn.focus_mode = Control.FOCUS_ALL
 		btn.pressed.connect(_on_btn_clicked.bind(btn.name))
+		
+		# --- การตั้งค่าให้กดวน (Focus Wrapping) ---
+		
+		# 1. วนซ้าย-ขวา
+		if i % cols == 0: # ปุ่มอยู่ซ้ายสุด
+			btn.focus_neighbor_left = buttons[i + (cols - 1)].get_path()
+		if (i + 1) % cols == 0: # ปุ่มอยู่ขวาสุด
+			btn.focus_neighbor_right = buttons[i - (cols - 1)].get_path()
+			
+		# 2. วนบน-ล่าง
+		if i < cols: # แถวบนสุด
+			# ให้วนไปปุ่มในแถวล่าง (ตำแหน่ง i + คอลัมน์)
+			btn.focus_neighbor_top = buttons[i + cols].get_path()
+		if i >= cols: # แถวล่างสุด
+			# ให้วนไปปุ่มในแถวบน (ตำแหน่ง i - คอลัมน์)
+			btn.focus_neighbor_bottom = buttons[i - cols].get_path()
+
 	buttons[0].grab_focus()
 
 func _on_btn_clicked(btn_name):
 	match btn_name:
-		"Plus": digit_pressed.emit("+")
-		"Minus": digit_pressed.emit("-")
-		"Multiply": digit_pressed.emit("*")
-		"Divide": digit_pressed.emit("/")
 		_: digit_pressed.emit(btn_name) # ส่งเลข 0-9
 
 func _input(event):

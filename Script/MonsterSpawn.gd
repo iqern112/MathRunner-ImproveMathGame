@@ -7,7 +7,8 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	# ตรวจสอบว่าเป็น Player หรือไม่ (เช็คจากชื่อหรือ Group)
 	if body.name == "Player":
-		GameEvents.spawn_monster.emit()
+		queue_free()
+		#GameEvents.spawn_monster.emit()
 
 func open_shop():
 	get_tree().paused = true

@@ -56,24 +56,24 @@ func _on_reroll_focus_entered():
 # -------------------------
 # Spawn Shop
 # -------------------------
-func set_up_Shop():
-	shop_spawn_timer = Timer.new()
-	shop_spawn_timer.process_mode = Node.PROCESS_MODE_ALWAYS # ✅ กัน pause ทำให้ Timer หยุด
-	add_child(shop_spawn_timer)
-
-	shop_spawn_timer.wait_time = spawn_shop_on
-	shop_spawn_timer.one_shot = true
-	shop_spawn_timer.timeout.connect(spawn_Shop)
-	shop_spawn_timer.start()
-
-func spawn_Shop():
-	if player:
-		var spawn_pos = player.global_position + Vector2(400, -47)
-		var instance = SHOP.instantiate()
-		instance.global_position = spawn_pos
-		$"../..".add_child(instance)
-	else:
-		print("Error: Player not found")
+#func set_up_Shop():
+	#shop_spawn_timer = Timer.new()
+	#shop_spawn_timer.process_mode = Node.PROCESS_MODE_ALWAYS # ✅ กัน pause ทำให้ Timer หยุด
+	#add_child(shop_spawn_timer)
+#
+	#shop_spawn_timer.wait_time = spawn_shop_on
+	#shop_spawn_timer.one_shot = true
+	#shop_spawn_timer.timeout.connect(spawn_Shop)
+	#shop_spawn_timer.start()
+#
+#func spawn_Shop():
+	#if player:
+		#var spawn_pos = player.global_position + Vector2(400, -47)
+		#var instance = SHOP.instantiate()
+		#instance.global_position = spawn_pos
+		#$"../..".add_child(instance)
+	#else:
+		#print("Error: Player not found")
 
 
 # -------------------------

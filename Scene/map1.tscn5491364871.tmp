@@ -743,33 +743,27 @@ follow_viewport_scale = 1.365
 
 [node name="Route" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="RouteIcon" type="NinePatchRect" parent="CanvasLayer/Route"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -27.0
+layout_mode = 0
+offset_left = 148.0
 offset_top = 10.0
-offset_right = -11.0
+offset_right = 164.0
 offset_bottom = 26.0
-grow_horizontal = 2
 texture = ExtResource("15_y22lj")
 
-[node name="DistanceLabel" type="Label" parent="CanvasLayer/Route/RouteIcon"]
+[node name="DistanceLabel" type="Label" parent="CanvasLayer/Route"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 7.0
-offset_top = 3.0
-offset_right = 47.0
-offset_bottom = 17.0
+offset_left = 149.0
+offset_top = 12.0
+offset_right = 189.0
+offset_bottom = 26.0
 grow_horizontal = 2
 theme = ExtResource("11_ddl0n")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

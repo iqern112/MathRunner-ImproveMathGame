@@ -59,7 +59,9 @@ func set_player_status():
 		$PlayerShield/PlayerHpLabel.text = str(shield)
 	else :
 		$PlayerShield.visible = false
-	if current_hp <= 0: GameEvents.game_over_triggered.emit("combat")
+	if current_hp <= 0:
+		velocity.x = 0
+		GameEvents.game_over_triggered.emit()
 
 func dash():
 	if is_dashing: return
@@ -69,15 +71,9 @@ func dash():
 	PlayerAni.play(selected_action)
 	velocity.x = SPEED * 2
 
-func die(status):
-	if status == "pursuer":
-		await get_tree().create_timer(0.6).timeout
-		velocity.x = 0
-		PlayerAni.play("Die")
-		is_die = true
-	if status == "combat":
-		PlayerAni.play("Die")
-		is_die = true
+func die():
+	PlayerAni.play("Die")
+	is_die = true
 
 
 func _on_monster_died():
@@ -110,7 +106,7 @@ func take_damage(final_damage: int):
 		PlayerAni.play("Hurt")
 	
 	set_player_status()
-	if current_hp <= 0: die("combat")
+	if current_hp <= 0: die()
 
 func combat_action_handle(action,value):
 	if action == "Block":

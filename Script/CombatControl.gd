@@ -242,18 +242,10 @@ func show_action_panel():
 		#action_list.get_child(0).grab_focus()
 
 func update_tab_visuals():
-	# สร้าง StyleBox แบบว่างเปล่า (Empty) สำหรับแท็บที่ไม่ได้เลือก
 	var empty_style = StyleBoxEmpty.new()
-	
 	if current_tab == 0: # หน้า Action ถูกเลือก
 		action_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
 		item_head.add_theme_stylebox_override("panel", empty_style)
-		# อาจจะปรับความโปร่งใสของตัวอักษรด้วย (ถ้าต้องการ)
-		#action_head.modulate.a = 1.0
-		#item_head.modulate.a = 0.5
 	else: # หน้า Item ถูกเลือก
 		action_head.add_theme_stylebox_override("panel", empty_style)
 		item_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
-		# ปรับความโปร่งใส
-		#action_head.modulate.a = 0.5
-		#item_head.modulate.a = 1.0

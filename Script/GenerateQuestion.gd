@@ -149,15 +149,15 @@ func check_all_answers():
 				first_wrong_field = input_fields[i]
 			# (ทางเลือก) ล้างข้อความในช่องที่ผิดเพื่อให้พิมพ์ใหม่
 			input_fields[i].text = "" 
-		
-	if GameEvents.is_combat:
-		GameEvents.combat_correct.emit()
-		generate_dynamic_question()
-	
+
 	if all_correct:
-		GameEvents.correct_answer_signal.emit()
-		$"../SkillControl".make_money(difficulty)
-		generate_dynamic_question()
+		if GameEvents.is_combat:
+			GameEvents.combat_correct.emit()
+			generate_dynamic_question()
+		else :
+				GameEvents.correct_answer_signal.emit()
+				$"../SkillControl".make_money(difficulty)
+				generate_dynamic_question()
 	else:
 		GameEvents.wrong_answer_signal.emit()
 		if first_wrong_field:

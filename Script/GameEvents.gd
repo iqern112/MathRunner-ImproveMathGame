@@ -8,7 +8,7 @@ signal monster_died
 signal correct_answer_signal
 signal wrong_answer_signal
 
-signal game_over_triggered(status: String)
+signal game_over_triggered
 
 signal level_up_signal
 
