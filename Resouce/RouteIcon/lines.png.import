@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ytypns5drhhq"
-path="res://.godot/imported/9.png-f5b8c06ed920a1e976d418ee2c2f87b8.ctex"
+uid="uid://c2bnpp7x7esb6"
+path="res://.godot/imported/lines.png-36ecd203df74d1ca5d2a6be53dabcda6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/newRunAsset/9.png"
-dest_files=["res://.godot/imported/9.png-f5b8c06ed920a1e976d418ee2c2f87b8.ctex"]
+source_file="res://Resouce/RouteIcon/lines.png"
+dest_files=["res://.godot/imported/lines.png-36ecd203df74d1ca5d2a6be53dabcda6.ctex"]
 
 [params]
 

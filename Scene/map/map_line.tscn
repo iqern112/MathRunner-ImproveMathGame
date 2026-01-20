@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5maft6m4oncu"]
+
+[ext_resource type="Texture2D" uid="uid://c2bnpp7x7esb6" path="res://Resouce/RouteIcon/lines.png" id="1_fj3b5"]
+
+[node name="map_line" type="Line2D"]
+texture_filter = 1
+texture_repeat = 2
+width = 1.0
+texture = ExtResource("1_fj3b5")
+texture_mode = 1

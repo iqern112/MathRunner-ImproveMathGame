@@ -1,22 +1,46 @@
 [gd_scene load_steps=28 format=3 uid="uid://bme0uf68d0685"]
 
-[ext_resource type="Texture2D" uid="uid://fq52ayxjrf" path="res://Asset/newRunAsset/12.png" id="1_4qtod"]
 [ext_resource type="Script" uid="uid://cx4l4srn3mlqj" path="res://Script/main.gd" id="1_4w0o7"]
-[ext_resource type="Texture2D" uid="uid://c3a30uj4ronxj" path="res://Asset/newRunAsset/11.png" id="2_i0sg4"]
-[ext_resource type="Texture2D" uid="uid://bbm77rvh6ap2w" path="res://Asset/newRunAsset/10.png" id="3_mr7am"]
-[ext_resource type="Texture2D" uid="uid://ytypns5drhhq" path="res://Asset/newRunAsset/9.png" id="4_sc4dx"]
-[ext_resource type="Texture2D" uid="uid://hibhih2fn38g" path="res://Asset/newRunAsset/8.png" id="5_gclda"]
-[ext_resource type="Texture2D" uid="uid://be70ij1gcg6sy" path="res://Asset/newRunAsset/7.png" id="6_kp1vv"]
-[ext_resource type="Texture2D" uid="uid://cfj18fdweq04k" path="res://Asset/newRunAsset/6.png" id="7_4w0o7"]
-[ext_resource type="Texture2D" uid="uid://v1llm8n4obql" path="res://Asset/newRunAsset/5.png" id="8_hmjy8"]
-[ext_resource type="Texture2D" uid="uid://dxgtq5410gb67" path="res://Asset/newRunAsset/4.png" id="9_e6irg"]
-[ext_resource type="Texture2D" uid="uid://cm8gxlcilso1g" path="res://Asset/newRunAsset/3.png" id="10_uq86q"]
-[ext_resource type="Texture2D" uid="uid://dcsp7n0x2dbm2" path="res://Asset/newRunAsset/2.png" id="11_aa3qu"]
-[ext_resource type="Texture2D" uid="uid://cidveyni580di" path="res://Asset/newRunAsset/1.png" id="12_bf81u"]
 [ext_resource type="Script" uid="uid://yxsiv0qmhmvs" path="res://Script/character_body_2d.gd" id="13_mr7am"]
 [ext_resource type="Script" uid="uid://dx0l5r4tss1qh" path="res://Script/dino.gd" id="15_gclda"]
 [ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="17_kp1vv"]
 [ext_resource type="Script" uid="uid://rnfbmb3j5cbc" path="res://Script/NumpadManager.gd" id="18_hmjy8"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_togfq"]
+load_path = "res://.godot/imported/12.png-21eddfd53fc93292cce3d58210ada852.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aan6j"]
+load_path = "res://.godot/imported/11.png-79d47b76828e96d440ca4229397e42fb.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h3nmf"]
+load_path = "res://.godot/imported/10.png-f21db86a67b4f3e866dfdad734adb807.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hueuk"]
+load_path = "res://.godot/imported/9.png-f5b8c06ed920a1e976d418ee2c2f87b8.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6a8me"]
+load_path = "res://.godot/imported/8.png-b11c9f9438b2c787e894fa5a6ad0da78.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yg4ot"]
+load_path = "res://.godot/imported/7.png-98791db566c1ac1d36a08fdd2040c5b8.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vm4ek"]
+load_path = "res://.godot/imported/6.png-2e96de9b6d02e32ef8fa4ee8640919cf.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qtod"]
+load_path = "res://.godot/imported/5.png-4797edc319158ae9fed6cc47347b40cf.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i0sg4"]
+load_path = "res://.godot/imported/4.png-170bc0fdc0fe9b023164804b6d702649.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mr7am"]
+load_path = "res://.godot/imported/3.png-334463746131e9ca6744d1127caeab29.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sc4dx"]
+load_path = "res://.godot/imported/2.png-bab2b86490a2a5c130ba5e59d285f7ef.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gclda"]
+load_path = "res://.godot/imported/1.png-21cd251dbf73cec401293f12395ed44a.ctex"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mr7am"]
 radius = 80.0
@@ -56,7 +80,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D"]
-texture = ExtResource("1_4qtod")
+texture = SubResource("CompressedTexture2D_togfq")
 
 [node name="Parallax2D2" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -65,7 +89,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D2"]
-texture = ExtResource("2_i0sg4")
+texture = SubResource("CompressedTexture2D_aan6j")
 
 [node name="Parallax2D3" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -74,7 +98,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D3"]
-texture = ExtResource("3_mr7am")
+texture = SubResource("CompressedTexture2D_h3nmf")
 
 [node name="Parallax2D4" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -83,7 +107,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D4"]
-texture = ExtResource("4_sc4dx")
+texture = SubResource("CompressedTexture2D_hueuk")
 
 [node name="Parallax2D5" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -92,7 +116,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D5"]
-texture = ExtResource("5_gclda")
+texture = SubResource("CompressedTexture2D_6a8me")
 
 [node name="Parallax2D6" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -101,7 +125,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D6"]
-texture = ExtResource("6_kp1vv")
+texture = SubResource("CompressedTexture2D_yg4ot")
 
 [node name="Parallax2D7" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -110,7 +134,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D7"]
-texture = ExtResource("7_4w0o7")
+texture = SubResource("CompressedTexture2D_vm4ek")
 
 [node name="Parallax2D8" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -119,7 +143,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D8"]
-texture = ExtResource("8_hmjy8")
+texture = SubResource("CompressedTexture2D_4qtod")
 
 [node name="Parallax2D9" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -128,7 +152,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D9"]
-texture = ExtResource("9_e6irg")
+texture = SubResource("CompressedTexture2D_i0sg4")
 
 [node name="Parallax2D10" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -137,7 +161,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D10"]
-texture = ExtResource("10_uq86q")
+texture = SubResource("CompressedTexture2D_mr7am")
 
 [node name="Parallax2D11" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -145,7 +169,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D11"]
-texture = ExtResource("11_aa3qu")
+texture = SubResource("CompressedTexture2D_sc4dx")
 
 [node name="Parallax2D12" type="Parallax2D" parent="ParallaxBlackGround"]
 scale = Vector2(0.523805, 0.502827)
@@ -153,7 +177,7 @@ scroll_offset = Vector2(-276, -189)
 repeat_size = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D12"]
-texture = ExtResource("12_bf81u")
+texture = SubResource("CompressedTexture2D_gclda")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(-100, -248)
