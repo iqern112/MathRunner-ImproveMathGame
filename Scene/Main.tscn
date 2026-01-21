@@ -1,428 +1,165 @@
-[gd_scene load_steps=28 format=3 uid="uid://bme0uf68d0685"]
-
-[ext_resource type="Script" uid="uid://cx4l4srn3mlqj" path="res://Script/main.gd" id="1_4w0o7"]
-[ext_resource type="Script" uid="uid://yxsiv0qmhmvs" path="res://Script/character_body_2d.gd" id="13_mr7am"]
-[ext_resource type="Script" uid="uid://dx0l5r4tss1qh" path="res://Script/dino.gd" id="15_gclda"]
-[ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="17_kp1vv"]
-[ext_resource type="Script" uid="uid://rnfbmb3j5cbc" path="res://Script/NumpadManager.gd" id="18_hmjy8"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_togfq"]
-load_path = "res://.godot/imported/12.png-21eddfd53fc93292cce3d58210ada852.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aan6j"]
-load_path = "res://.godot/imported/11.png-79d47b76828e96d440ca4229397e42fb.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h3nmf"]
-load_path = "res://.godot/imported/10.png-f21db86a67b4f3e866dfdad734adb807.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hueuk"]
-load_path = "res://.godot/imported/9.png-f5b8c06ed920a1e976d418ee2c2f87b8.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6a8me"]
-load_path = "res://.godot/imported/8.png-b11c9f9438b2c787e894fa5a6ad0da78.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yg4ot"]
-load_path = "res://.godot/imported/7.png-98791db566c1ac1d36a08fdd2040c5b8.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vm4ek"]
-load_path = "res://.godot/imported/6.png-2e96de9b6d02e32ef8fa4ee8640919cf.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4qtod"]
-load_path = "res://.godot/imported/5.png-4797edc319158ae9fed6cc47347b40cf.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i0sg4"]
-load_path = "res://.godot/imported/4.png-170bc0fdc0fe9b023164804b6d702649.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mr7am"]
-load_path = "res://.godot/imported/3.png-334463746131e9ca6744d1127caeab29.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sc4dx"]
-load_path = "res://.godot/imported/2.png-bab2b86490a2a5c130ba5e59d285f7ef.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gclda"]
-load_path = "res://.godot/imported/1.png-21cd251dbf73cec401293f12395ed44a.ctex"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mr7am"]
-radius = 80.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmjy8"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6irg"]
-bg_color = Color(0, 1, 0.188235, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gclda"]
-size = Vector2(87, 134)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6irg"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gclda"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uq86q"]
-bg_color = Color(0, 0, 0, 0.662745)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aa3qu"]
-content_margin_top = 30.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf81u"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aa3qu"]
-
-[node name="Main" type="Node2D"]
-script = ExtResource("1_4w0o7")
-
-[node name="ParallaxBlackGround" type="Node2D" parent="."]
-position = Vector2(780, 362)
-
-[node name="Parallax2D" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.1, 0.1)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D"]
-texture = SubResource("CompressedTexture2D_togfq")
-
-[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.2, 0.2)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D2"]
-texture = SubResource("CompressedTexture2D_aan6j")
-
-[node name="Parallax2D3" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.3, 0.3)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D3"]
-texture = SubResource("CompressedTexture2D_h3nmf")
-
-[node name="Parallax2D4" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.4, 0.4)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D4"]
-texture = SubResource("CompressedTexture2D_hueuk")
-
-[node name="Parallax2D5" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.3, 0.3)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D5"]
-texture = SubResource("CompressedTexture2D_6a8me")
-
-[node name="Parallax2D6" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.5, 0.5)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D6"]
-texture = SubResource("CompressedTexture2D_yg4ot")
-
-[node name="Parallax2D7" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.6, 0.6)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D7"]
-texture = SubResource("CompressedTexture2D_vm4ek")
-
-[node name="Parallax2D8" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.5, 0.5)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D8"]
-texture = SubResource("CompressedTexture2D_4qtod")
-
-[node name="Parallax2D9" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.6, 0.6)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D9"]
-texture = SubResource("CompressedTexture2D_i0sg4")
-
-[node name="Parallax2D10" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_scale = Vector2(0.6, 0.6)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D10"]
-texture = SubResource("CompressedTexture2D_mr7am")
-
-[node name="Parallax2D11" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D11"]
-texture = SubResource("CompressedTexture2D_sc4dx")
-
-[node name="Parallax2D12" type="Parallax2D" parent="ParallaxBlackGround"]
-scale = Vector2(0.523805, 0.502827)
-scroll_offset = Vector2(-276, -189)
-repeat_size = Vector2(1920, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBlackGround/Parallax2D12"]
-texture = SubResource("CompressedTexture2D_gclda")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-100, -248)
-script = ExtResource("13_mr7am")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(957, 530)
-shape = SubResource("CircleShape2D_mr7am")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D"]
-position = Vector2(-5, -40)
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-position = Vector2(1061, 788)
-
-[node name="PlayerHp" type="ProgressBar" parent="CharacterBody2D"]
-offset_left = 874.0
-offset_top = 367.0
-offset_right = 1062.0
-offset_bottom = 394.0
-theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
-max_value = 5.0
-step = 1.0
-show_percentage = false
-
-[node name="PlayerHpLabel" type="Label" parent="CharacterBody2D/PlayerHp"]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 3.0
-offset_right = 146.0
-offset_bottom = 26.0
-text = "0"
-horizontal_alignment = 1
-
-[node name="Shield" type="Label" parent="CharacterBody2D"]
-offset_left = 942.0
-offset_top = 332.0
-offset_right = 982.0
-offset_bottom = 355.0
-
-[node name="Dino" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player")]
-position = Vector2(-904, -212)
-script = ExtResource("15_gclda")
-player = NodePath("../CharacterBody2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dino"]
-position = Vector2(997, 517)
-shape = SubResource("RectangleShape2D_gclda")
-
-[node name="Sprite2D" type="Sprite2D" parent="Dino/CollisionShape2D"]
-position = Vector2(-5, -40)
-
-[node name="Boss" type="Node2D" parent="."]
-position = Vector2(629, -225)
-
-[node name="Sprite2D" type="Sprite2D" parent="Boss"]
-position = Vector2(992, 477)
-flip_h = true
-
-[node name="BossHp" type="ProgressBar" parent="Boss"]
-offset_left = 879.0
-offset_top = 319.0
-offset_right = 1067.0
-offset_bottom = 346.0
-theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
-max_value = 5.0
-step = 1.0
-show_percentage = false
-
-[node name="BossHpLabel" type="Label" parent="Boss/BossHp"]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 3.0
-offset_right = 146.0
-offset_bottom = 26.0
-text = "0"
-horizontal_alignment = 1
-
-[node name="Hint" type="Label" parent="Boss"]
-offset_left = 946.0
-offset_top = 274.0
-offset_right = 995.0
-offset_bottom = 309.0
-theme_override_font_sizes/font_size = 25
-text = "hint"
-
-[node name="Shield" type="Label" parent="Boss"]
-offset_left = 779.0
-offset_top = 315.0
-offset_right = 851.0
-offset_bottom = 350.0
-theme_override_font_sizes/font_size = 25
-text = "shield"
-
-[node name="CountTime" type="Label" parent="Boss"]
-offset_left = 905.0
-offset_top = 234.0
-offset_right = 1034.0
-offset_bottom = 276.0
-theme_override_font_sizes/font_size = 25
-text = "countTime"
-
-[node name="BossActionTimer" type="Timer" parent="."]
-
-[node name="ShopTimer" type="Timer" parent="."]
-wait_time = 90.0
-autostart = true
+[gd_scene load_steps=35 format=3 uid="uid://b66s7o3yjsluv"]
+
+[ext_resource type="PackedScene" uid="uid://dn3nthuvuoxg1" path="res://Scene/IntroCamp.tscn" id="1_f6udf"]
+[ext_resource type="Script" uid="uid://bkdnps7h3juy4" path="res://Script/main.gd" id="1_hiice"]
+[ext_resource type="Texture2D" uid="uid://b5uyhstka6gjb" path="res://Resouce/RouteIcon/MonsterIcon.tres" id="2_jbas8"]
+[ext_resource type="Script" uid="uid://78ip86gmufic" path="res://Script/Route.gd" id="2_p4j74"]
+[ext_resource type="Theme" uid="uid://ubd8ltl4rj1" path="res://Theme/PixelFont.tres" id="3_p4j74"]
+[ext_resource type="Script" uid="uid://rnfbmb3j5cbc" path="res://Script/NumpadManager.gd" id="4_hiice"]
+[ext_resource type="Script" uid="uid://ds1biqcw7xa18" path="res://Script/GenerateQuestion.gd" id="5_sor6r"]
+[ext_resource type="Script" uid="uid://b75pyj8aumtgf" path="res://Script/LevelControl.gd" id="6_pqe63"]
+[ext_resource type="Script" uid="uid://cahseqv2l2gep" path="res://Script/SkillControl.gd" id="7_aam5o"]
+[ext_resource type="Texture2D" uid="uid://b2sjjy5ku2xqv" path="res://Asset/Item/items_sheet.png" id="8_nyb1q"]
+[ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="9_xw8bv"]
+[ext_resource type="Theme" uid="uid://8dg7kg3ory45" path="res://Theme/ButtSkill.tres" id="10_wimqa"]
+[ext_resource type="Texture2D" uid="uid://bf3p7xtbg21vj" path="res://Resouce/SkillIcon/lucky.tres" id="11_t372l"]
+[ext_resource type="Texture2D" uid="uid://ctxu1xxgx5qgd" path="res://Resouce/SkillIcon/interest.tres" id="12_uctnp"]
+[ext_resource type="Texture2D" uid="uid://cjkusatlo15i5" path="res://Resouce/SkillIcon/learn.tres" id="13_m37ut"]
+[ext_resource type="Script" uid="uid://b3wavht05g18i" path="res://Script/ShopControl.gd" id="14_yoaul"]
+[ext_resource type="Texture2D" uid="uid://b6orypu075idp" path="res://Asset/Spritesheets/IconsEssential.png" id="15_mepbf"]
+[ext_resource type="Script" uid="uid://dtqcjbbavd1pt" path="res://Script/CombatControl.gd" id="16_dvq1j"]
+[ext_resource type="StyleBox" uid="uid://2x3c6fwrwdp" path="res://Theme/ActionSelected.tres" id="17_50v0s"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="18_mu7ye"]
+[ext_resource type="PackedScene" uid="uid://0qxdi2w0sf6h" path="res://Scene/Map.tscn" id="19_2oiod"]
+[ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="20_8bkap"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b0nqf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ot48q"]
+bg_color = Color(0.6, 0.6, 0.6, 0.176471)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2uk8d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr44a"]
+bg_color = Color(0.6, 0.6, 0.6, 0.176471)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tcekk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1bveb"]
+
+[sub_resource type="Animation" id="Animation_iyyjw"]
+resource_name = "OpenMonFigth"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChangeScence/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.999561, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l52ld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChangeScence/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ChangeScence/ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ChangeScence/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.63, 0.527625, 0.3843, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hiice"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChangeScence/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.63, 0.527625, 0.3843, 0), Color(0.63, 0.527625, 0.3843, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sor6r"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChangeScence/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.8375, 0.61, 1), Color(1, 0.8375, 0.61, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qls5m"]
+_data = {
+&"OpenMonFigth": SubResource("Animation_iyyjw"),
+&"RESET": SubResource("Animation_l52ld"),
+&"fade_in": SubResource("Animation_sor6r"),
+&"fade_out": SubResource("Animation_hiice")
+}
+
+[sub_resource type="Theme" id="Theme_jbas8"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_hiice")
+
+[node name="PlaySceneContainer" type="Node2D" parent="."]
+
+[node name="IntroCamp" parent="PlaySceneContainer" instance=ExtResource("1_f6udf")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_scale = 1.365
 
-[node name="EquationContainer" type="HBoxContainer" parent="CanvasLayer"]
-custom_minimum_size = Vector2(600, 50)
-offset_left = 650.0
-offset_top = 488.0
-offset_right = 1250.0
-offset_bottom = 538.0
-alignment = 1
-
-[node name="NumpadPanel" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 571.0
-offset_top = 610.0
-offset_right = 571.0
-offset_bottom = 610.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.382271, 0.371321)
-theme_override_styles/panel = SubResource("StyleBoxEmpty_e6irg")
-script = ExtResource("18_hmjy8")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/NumpadPanel"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 50
-theme_override_constants/v_separation = 50
-columns = 5
-
-[node name="1" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "1"
-
-[node name="2" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "2"
-
-[node name="3" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "3"
-
-[node name="4" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "4"
-
-[node name="5" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "5"
-
-[node name="6" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "6"
-
-[node name="7" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "7"
-
-[node name="8" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "8"
-
-[node name="9" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "9"
-
-[node name="0" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "0"
-
-[node name="Plus" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "+"
-
-[node name="Minus" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "-"
-
-[node name="Multiply" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "*"
-
-[node name="Divide" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = "/"
-
-[node name="show" type="Panel" parent="CanvasLayer"]
-visible = false
-offset_left = 644.0
-offset_top = 79.0
-offset_right = 1245.0
-offset_bottom = 331.0
-
-[node name="Label" type="Label" parent="CanvasLayer/show"]
-layout_mode = 0
-offset_left = 145.0
-offset_top = 85.0
-offset_right = 410.0
-offset_bottom = 159.0
-theme_override_font_sizes/font_size = 60
-text = "เตือน"
-horizontal_alignment = 1
-
-[node name="GameOverUI" type="Control" parent="CanvasLayer"]
-process_mode = 3
+[node name="Route" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -430,9 +167,248 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("17_kp1vv")
+script = ExtResource("2_p4j74")
 
-[node name="Panel" type="Panel" parent="CanvasLayer/GameOverUI"]
+[node name="RouteIcon" type="NinePatchRect" parent="CanvasLayer/Route"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = 10.0
+offset_right = -11.0
+offset_bottom = 26.0
+grow_horizontal = 2
+texture = ExtResource("2_jbas8")
+
+[node name="DistanceLabel" type="Label" parent="CanvasLayer/Route/RouteIcon"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 47.0
+offset_bottom = 17.0
+grow_horizontal = 2
+theme = ExtResource("3_p4j74")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "00"
+horizontal_alignment = 1
+
+[node name="NumpadPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -66.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(50, 0)
+focus_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_b0nqf")
+script = ExtResource("4_hiice")
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/NumpadPanel"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 2
+columns = 5
+
+[node name="1" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "1"
+
+[node name="2" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "2"
+
+[node name="3" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "3"
+
+[node name="4" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "4"
+
+[node name="5" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "5"
+
+[node name="6" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "6"
+
+[node name="7" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "7"
+
+[node name="8" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "8"
+
+[node name="9" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "9"
+
+[node name="0" type="Button" parent="CanvasLayer/NumpadPanel/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("3_p4j74")
+text = "0"
+
+[node name="Question" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.5
+offset_top = 22.0
+offset_right = 65.5
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_p4j74")
+script = ExtResource("5_sor6r")
+
+[node name="EquationContainer" type="HBoxContainer" parent="CanvasLayer/Question"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_p4j74")
+
+[node name="LevelControl" type="Control" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_pqe63")
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/LevelControl"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 4.0
+offset_right = 75.0
+offset_bottom = 9.0
+grow_horizontal = 2
+theme = ExtResource("3_p4j74")
+max_value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/LevelControl/ProgressBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -4.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Level: 1"
+horizontal_alignment = 1
+
+[node name="SkillControl" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_aam5o")
+
+[node name="Money" type="NinePatchRect" parent="CanvasLayer/SkillControl"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 17.0
+offset_bottom = 16.0
+texture = ExtResource("8_nyb1q")
+region_rect = Rect2(240, 336, 16, 16)
+
+[node name="Label" type="Label" parent="CanvasLayer/SkillControl/Money"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 3.0
+offset_right = 65.0
+offset_bottom = 17.0
+theme = ExtResource("3_p4j74")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="ShowSkill" type="HBoxContainer" parent="CanvasLayer/SkillControl"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -92.0
+offset_right = -54.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/SkillControl"]
+process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -440,251 +416,678 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/GameOverUI"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/SkillControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -66.0
+offset_right = 50.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_xw8bv")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/SkillControl/Panel"]
+process_mode = 3
+layout_mode = 2
+offset_left = 143.0
+offset_top = 53.0
+offset_right = 241.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Choose Skill"
+horizontal_alignment = 1
+
+[node name="SkillButtonsContainer" type="HBoxContainer" parent="CanvasLayer/SkillControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -15.0
+offset_right = 55.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer/Button"]
 layout_mode = 0
-offset_left = 653.0
-offset_top = 303.0
-offset_right = 1196.0
-offset_bottom = 440.0
-theme_override_font_sizes/font_size = 100
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Button2" type="Button" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("12_uctnp")
+
+[node name="Button3" type="Button" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer/Button3"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("13_m37ut")
+
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/SkillControl/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -56.0
+offset_right = 69.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
+[node name="ShopControl" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_yoaul")
+
+[node name="ShowItem" type="HBoxContainer" parent="CanvasLayer/ShopControl"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -73.0
+offset_right = -54.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ShopControl"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -88.0
+offset_right = 50.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_xw8bv")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/ShopControl/Panel"]
+process_mode = 3
+layout_mode = 2
+offset_left = 143.0
+offset_top = 31.0
+offset_right = 241.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="ShopList" type="GridContainer" parent="CanvasLayer/ShopControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -50.0
+offset_right = 60.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button2"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button3"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button3"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Button4" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button4"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button4"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Button5" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button5"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button5"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Button6" type="Button" parent="CanvasLayer/ShopControl/Panel/ShopList"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+
+[node name="ShopItem" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/ShopList/Button6"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_t372l")
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button6"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 45.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+
+[node name="Reroll" type="Button" parent="CanvasLayer/ShopControl/Panel"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+offset_left = 87.0
+offset_top = 109.0
+offset_right = 117.0
+offset_bottom = 139.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_ot48q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2uk8d")
+
+[node name="Image" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/Reroll"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("15_mepbf")
+region_rect = Rect2(16, 208, 16, 16)
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/Reroll"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 29.0
+offset_right = 24.0
+offset_bottom = 43.0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "100"
+
+[node name="Back" type="Button" parent="CanvasLayer/ShopControl/Panel"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+offset_left = 267.0
+offset_top = 110.0
+offset_right = 297.0
+offset_bottom = 140.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_cr44a")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tcekk")
+
+[node name="Image" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel/Back"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+rotation = 4.71239
+pivot_offset = Vector2(8, 8)
+texture = ExtResource("15_mepbf")
+region_rect = Rect2(48, 240, 16, 16)
+
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/ShopControl/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -52.0
+offset_right = 137.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
+[node name="CombatControl" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_dvq1j")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/CombatControl"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/CombatControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -108.0
+offset_right = 51.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_xw8bv")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/CombatControl/Panel"]
+process_mode = 3
+layout_mode = 2
+offset_left = 144.0
+offset_top = 11.0
+offset_right = 242.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Action"
+horizontal_alignment = 1
+
+[node name="ActionSelect" type="ScrollContainer" parent="CanvasLayer/CombatControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -49.0
+offset_right = 60.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/ActionSelect"]
+layout_mode = 2
+
+[node name="ItemList" type="ScrollContainer" parent="CanvasLayer/CombatControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -49.0
+offset_right = 60.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/ItemList"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CombatControl/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 35.0
+offset_right = 25.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="Action" type="Panel" parent="CanvasLayer/CombatControl/Panel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme = ExtResource("10_wimqa")
+theme_override_styles/panel = ExtResource("17_50v0s")
+
+[node name="Image" type="NinePatchRect" parent="CanvasLayer/CombatControl/Panel/HBoxContainer/Action"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_mu7ye")
+region_rect = Rect2(128, 720, 16, 16)
+
+[node name="Item" type="Panel" parent="CanvasLayer/CombatControl/Panel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1bveb")
+
+[node name="Image" type="NinePatchRect" parent="CanvasLayer/CombatControl/Panel/HBoxContainer/Item"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_mu7ye")
+region_rect = Rect2(80, 0, 16, 16)
+
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/CombatControl/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -52.0
+offset_right = 80.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
+[node name="ChangeScence" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ChangeScence"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_qls5m")
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/ChangeScence"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.0
+offset_right = 20.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_p4j74")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "FIGHT"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ChangeScence"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.63, 0.527625, 0.3843, 0)
+
+[node name="GameOver" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_8bkap")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOver"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOver/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
 text = "Game Over"
-
-[node name="ReGame" type="Button" parent="CanvasLayer/GameOverUI"]
-layout_mode = 0
-offset_left = 884.0
-offset_top = 640.0
-offset_right = 1021.0
-offset_bottom = 709.0
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_gclda")
-text = "Retry"
-
-[node name="TotalTimeLabel" type="Label" parent="CanvasLayer"]
-offset_left = 1375.0
-offset_top = 476.0
-offset_right = 1456.0
-offset_bottom = 545.0
-theme_override_font_sizes/font_size = 50
-text = "0"
-
-[node name="LevelBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 616.0
-offset_top = 41.0
-offset_right = 1223.0
-offset_bottom = 68.0
-theme_override_styles/background = SubResource("StyleBoxFlat_hmjy8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_e6irg")
-max_value = 5.0
-step = 1.0
-show_percentage = false
-
-[node name="LevelBarLabel" type="Label" parent="CanvasLayer/LevelBar"]
-layout_mode = 0
-offset_left = 235.0
-offset_top = 4.0
-offset_right = 343.0
-offset_bottom = 27.0
-
-[node name="LevelLabel" type="Label" parent="CanvasLayer"]
-offset_left = 530.0
-offset_top = 34.0
-offset_right = 589.0
-offset_bottom = 76.0
-theme_override_font_sizes/font_size = 30
-text = "0"
-
-[node name="StreakLabel" type="Label" parent="CanvasLayer"]
-offset_left = 844.0
-offset_top = 149.0
-offset_right = 884.0
-offset_bottom = 191.0
-theme_override_font_sizes/font_size = 30
-text = "x0"
-
-[node name="MoneyLabel" type="Label" parent="CanvasLayer"]
-offset_left = 68.0
-offset_top = 39.0
-offset_right = 108.0
-offset_bottom = 81.0
-theme_override_font_sizes/font_size = 30
-text = "0$"
-
-[node name="LevelUpPanel" type="PanelContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 442.0
-offset_top = 251.0
-offset_right = 1464.0
-offset_bottom = 776.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LevelUpPanel"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/separation = 110
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/LevelUpPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
-text = "LEVEL UP! SELECT A SKILL"
-
-[node name="SkillButtonsContainer" type="HBoxContainer" parent="CanvasLayer/LevelUpPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="SkillButtons" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="SkillButtons2" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="SkillButtons3" type="Button" parent="CanvasLayer/LevelUpPanel/VBoxContainer/SkillButtonsContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="ActionPanel" type="PanelContainer" parent="CanvasLayer"]
-process_mode = 3
-visible = false
-offset_left = 442.0
-offset_top = 251.0
-offset_right = 1464.0
-offset_bottom = 776.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ActionPanel"]
-process_mode = 3
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/separation = 110
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/ActionPanel/VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
-text = "action"
 horizontal_alignment = 1
 
-[node name="ActionSelect" type="HBoxContainer" parent="CanvasLayer/ActionPanel/VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="AttackButton" type="Button" parent="CanvasLayer/ActionPanel/VBoxContainer/ActionSelect"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-text = "Attack
-(5 DMG)"
-
-[node name="Block" type="Button" parent="CanvasLayer/ActionPanel/VBoxContainer/ActionSelect"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-text = "Block
-(5 SHILD)"
-
-[node name="ShopPanel" type="PanelContainer" parent="CanvasLayer"]
-process_mode = 3
-visible = false
-offset_left = 442.0
-offset_top = 251.0
-offset_right = 1464.0
-offset_bottom = 776.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_uq86q")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopPanel"]
-process_mode = 3
+[node name="Restart" type="Button" parent="CanvasLayer/GameOver/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/separation = 110
-alignment = 1
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "Restart"
 
-[node name="Label" type="Label" parent="CanvasLayer/ShopPanel/VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aa3qu")
-text = "SHOP"
-horizontal_alignment = 1
-
-[node name="ShopButtons" type="HBoxContainer" parent="CanvasLayer/ShopPanel/VBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="Shield" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="EasyMode" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="HardMode" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer/ShopButtons"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_bf81u")
-
-[node name="CloseButton" type="Button" parent="CanvasLayer/ShopPanel/VBoxContainer"]
-process_mode = 3
-custom_minimum_size = Vector2(150, 100)
+[node name="Back" type="Button" parent="CanvasLayer/GameOver/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_aa3qu")
-text = "clos"
+theme = ExtResource("3_p4j74")
+theme_override_font_sizes/font_size = 8
+text = "Back"
 
-[node name="Inventory" type="MarginContainer" parent="CanvasLayer"]
-offset_left = 164.0
-offset_top = 566.0
-offset_right = 204.0
-offset_bottom = 608.0
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jbas8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Inventory"]
-layout_mode = 2
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(384, 216)
+render_target_update_mode = 4
 
-[node name="ShieldCountLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
+[node name="Map" parent="CanvasLayer/SubViewportContainer/SubViewport" instance=ExtResource("19_2oiod")]
 visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "ShieldCountLabel"
+texture_filter = 1
 
-[node name="LuckyStreakLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "LuckyStreakLabel"
-
-[node name="InterestLabel" type="Label" parent="CanvasLayer/Inventory/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "InterestLabel"
-
-[connection signal="pressed" from="CanvasLayer/GameOverUI/ReGame" to="CanvasLayer/GameOverUI" method="_on_re_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/VBoxContainer/Restart" to="CanvasLayer/GameOver" method="_on_restart_pressed"]

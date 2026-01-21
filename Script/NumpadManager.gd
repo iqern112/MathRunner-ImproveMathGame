@@ -7,13 +7,6 @@ signal submit_pressed
 
 @onready var grid = $GridContainer
 
-#func _ready():
-	#var buttons = grid.get_children()
-	#for btn in buttons:
-		#btn.focus_mode = Control.FOCUS_ALL
-		#btn.pressed.connect(_on_btn_clicked.bind(btn.name))
-	#buttons[0].grab_focus()
-
 func _ready():
 	var buttons = grid.get_children()
 	var cols = grid.columns # สมมติว่าตั้งค่า GridContainer ไว้ 5 คอลัมน์ตามภาพ
@@ -40,7 +33,11 @@ func _ready():
 			# ให้วนไปปุ่มในแถวบน (ตำแหน่ง i - คอลัมน์)
 			btn.focus_neighbor_bottom = buttons[i - cols].get_path()
 
-	buttons[0].grab_focus()
+	#buttons[0].grab_focus()
+func grab_initial_focus():
+	var buttons = grid.get_children()
+	if buttons.size() > 0:
+		buttons[0].grab_focus()
 
 func _on_btn_clicked(btn_name):
 	match btn_name:

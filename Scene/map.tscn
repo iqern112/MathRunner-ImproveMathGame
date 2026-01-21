@@ -1,25 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://0qxdi2w0sf6h"]
+[gd_scene load_steps=4 format=3 uid="uid://0qxdi2w0sf6h"]
 
-[ext_resource type="Script" uid="uid://bjfsojnre8fas" path="res://Script/map/map_generator.gd" id="1_7ap1n"]
-[ext_resource type="Script" uid="uid://dnn0gprrif5jc" path="res://Script/map/map.gd" id="1_81yfc"]
+[ext_resource type="Script" uid="uid://bjfsojnre8fas" path="res://Script/map/MapGenerator.gd" id="1_6r3tm"]
+[ext_resource type="Script" uid="uid://dnn0gprrif5jc" path="res://Script/map/Map.gd" id="1_kr1fj"]
 
-[node name="Map" type="Node2D"]
-script = ExtResource("1_81yfc")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81yfc"]
+bg_color = Color(0.06, 0.06, 0.06, 0.745098)
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 74.0
-offset_top = -262.0
-offset_right = 324.0
-offset_bottom = 238.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(125, 500)
-color = Color(0.556863, 0.54902, 0.501961, 1)
+[node name="Map" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kr1fj")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_top = -284.0
+offset_right = 384.0
+offset_bottom = 278.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_81yfc")
 
 [node name="Visuals" type="Node2D" parent="."]
 
@@ -27,8 +24,8 @@ color = Color(0.556863, 0.54902, 0.501961, 1)
 
 [node name="Rooms" type="Node2D" parent="Visuals"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="MapCamera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
 [node name="map_generator" type="Node" parent="."]
-script = ExtResource("1_7ap1n")
+script = ExtResource("1_6r3tm")

@@ -8,8 +8,8 @@ extends Control
 @onready var back_butt: Button = $Panel/Back
 
 @onready var player = $"../../Player"
-
-const SHOP = preload("res://Scene/Shop.tscn")
+#
+#const SHOP = preload("res://Scene/Shop.tscn")
 const NEW_ITEM_SCENE = preload("res://Scene/ItemOnShow.tscn")
 
 var shop_spawn_timer: Timer

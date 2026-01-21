@@ -31,6 +31,8 @@ signal item_used
 
 signal route_selected
 signal shop_closed
+signal open_map
+signal first_room_selected
 
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
 

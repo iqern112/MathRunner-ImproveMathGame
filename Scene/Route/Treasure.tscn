@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjifowvj55q2n"]
+
+[ext_resource type="Script" uid="uid://b8vrxm6k5b3er" path="res://Script/Route/Treasure.gd" id="1_5hilv"]
+[ext_resource type="Texture2D" uid="uid://7sdvbqwolsuu" path="res://Resouce/RouteIcon/art_icon/15_Ready_to_use_Treasure_Chests_Spritesheet.png" id="2_5hilv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo7pp"]
+atlas = ExtResource("2_5hilv")
+region = Rect2(0, 320, 48, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wijc2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo7pp")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05yuu"]
+size = Vector2(43, 36)
+
+[node name="Treasure" type="Area2D"]
+gravity_space_override = 1
+script = ExtResource("1_5hilv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wijc2")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-35, 2)
+shape = SubResource("RectangleShape2D_05yuu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(12, 10)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

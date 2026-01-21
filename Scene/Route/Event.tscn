@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bghmfp1n3kr0a"]
+
+[ext_resource type="Script" uid="uid://ccpf7s3u0k23h" path="res://Script/Route/Event.gd" id="1_5yfre"]
+[ext_resource type="Texture2D" uid="uid://dtwabyk5ay64g" path="res://Asset/Rock Base Fires/Tent Pack Sprite Sheet.png" id="2_5yfre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05yuu"]
+size = Vector2(43, 36)
+
+[node name="Event" type="Area2D"]
+gravity_space_override = 1
+script = ExtResource("1_5yfre")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(224, 96)
+offset_left = -104.0
+offset_top = -77.0
+offset_right = 120.0
+offset_bottom = 19.0
+texture = ExtResource("2_5yfre")
+region_rect = Rect2(0, 448, 224, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-69, 1)
+shape = SubResource("RectangleShape2D_05yuu")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(108, 9)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

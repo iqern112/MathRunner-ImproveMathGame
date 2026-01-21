@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cneivqe6x0sxp"]
+
+[ext_resource type="StyleBox" uid="uid://2x3c6fwrwdp" path="res://Theme/ActionSelected.tres" id="1_n0j8y"]
+[ext_resource type="Texture2D" uid="uid://b5uyhstka6gjb" path="res://Resouce/RouteIcon/MonsterIcon.tres" id="2_d5bc5"]
+[ext_resource type="Script" uid="uid://beg177cxnnp1e" path="res://Script/map/MapRoom.gd" id="2_qei3p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hn07u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fpks0"]
+
+[node name="MapRoom" type="Button"]
+custom_minimum_size = Vector2(16, 16)
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.037
+anchor_right = 0.021
+anchor_bottom = 0.037
+offset_left = -8.064
+offset_top = -7.992
+offset_right = 7.936
+offset_bottom = 8.008
+pivot_offset = Vector2(8, 8)
+theme_override_styles/focus = ExtResource("1_n0j8y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hn07u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fpks0")
+script = ExtResource("2_qei3p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("2_d5bc5")
