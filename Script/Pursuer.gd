@@ -22,9 +22,14 @@ var is_slowed = false
 func _ready() -> void:
 	GameEvents.wrong_answer_signal.connect(_on_answer_wrong)
 	GameEvents.spawn_monster.connect(hide_pursuer)
-	GameEvents.monster_died.connect(_on_combat_finished)
+	GameEvents.route_changed.connect(_on_combat_finished)
 	GameEvents.game_over_triggered.connect(game_over)
+	GameEvents.cam_fade_in.connect(set_start)
+
+func set_start():
+	show()
 	create_timer()
+	fall()
 
 func create_timer():
 	random_event_timer = Timer.new()
@@ -43,8 +48,6 @@ func _on_answer_wrong():
 		# แทนที่จะใช้ Tween ให้สั่ง dash แบบเดียวกับผู้เล่น
 		dash() 
 	else:
-		global_position.x = player.global_position.x - 80 
-		global_position.y = player.global_position.y - 100
 		fall()
 
 func attack_player():
@@ -77,8 +80,6 @@ func _physics_process(delta):
 func _on_combat_finished():
 	is_figth_monster = false # ปลดล็อคให้วิ่งได้
 	start_random_timer() # เริ่มนับเวลาสุ่มเหตุการณ์ใหม่
-	global_position.x = player.global_position.x - 80 # วาร์ปไปข้างหลังผู้เล่นเล็กน้อย
-	global_position.y = player.global_position.y - 100 # วาร์ปขึ้นข้างบน
 	fall()
 
 func dash():
@@ -90,6 +91,8 @@ func dash():
 	is_dashing = false
 
 func fall():
+	global_position.x = player.global_position.x - 80 
+	global_position.y = player.global_position.y - 100
 	if is_falling or is_attacking or is_dashing: return
 	is_falling = true
 	pursuer_animad.play("Fall")
@@ -115,8 +118,6 @@ func _on_random_event_timeout():
 	elif distance <= DASH_KILL:
 		dash()
 	else:
-		global_position.x = player.global_position.x - 80 
-		global_position.y = player.global_position.y - 100
 		fall()
 
 	start_random_timer()

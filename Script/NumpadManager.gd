@@ -33,7 +33,7 @@ func _ready():
 			# ให้วนไปปุ่มในแถวบน (ตำแหน่ง i - คอลัมน์)
 			btn.focus_neighbor_bottom = buttons[i - cols].get_path()
 
-	#buttons[0].grab_focus()
+
 func grab_initial_focus():
 	var buttons = grid.get_children()
 	if buttons.size() > 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://dn3nthuvuoxg1"]
+[gd_scene load_steps=41 format=4 uid="uid://dn3nthuvuoxg1"]
 
 [ext_resource type="Script" uid="uid://d3t53oonlfmwq" path="res://Script/IntroCamp.gd" id="1_4pa60"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_6f6ms"]
@@ -10,9 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://dtwabyk5ay64g" path="res://Asset/Rock Base Fires/Tent Pack Sprite Sheet.png" id="8_44pqa"]
 [ext_resource type="Texture2D" uid="uid://cyxvvkwixowvb" path="res://Asset/decorations/triangleroaster.png" id="9_4pa60"]
 [ext_resource type="Texture2D" uid="uid://ck23vxcb03a1d" path="res://Asset/Rock Base Fires/Orange Mild 39x38.png" id="10_8lxdf"]
+[ext_resource type="Script" uid="uid://pnry0grlt1uk" path="res://Script/Player.gd" id="11_hinah"]
 [ext_resource type="SpriteFrames" uid="uid://3fyfamth6gpi" path="res://Resouce/CharacterAnimad/Vangard.tres" id="11_xhnad"]
 [ext_resource type="Theme" uid="uid://cpifv1yekijtv" path="res://Theme/WishButt.tres" id="12_8lxdf"]
 [ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="12_63530"]
+[ext_resource type="Texture2D" uid="uid://c5f0g20oolg2g" path="res://Asset/Effect/Water Effect and Bullet 16x16.png" id="13_866wm"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="14_yqs8e"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q34pb"]
 
@@ -522,6 +525,123 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0if3"]
+size = Vector2(20, 37)
+
+[sub_resource type="Animation" id="Animation_gjgti"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_866wm"]
+resource_name = "cam_fade"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(192, 52), Vector2(192, 114)]
+}
+
+[sub_resource type="Animation" id="Animation_h06nl"]
+resource_name = "exp_plus_animad"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.103891, 0.502142, 0.896109),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_hinah"]
+resource_name = "fade_out_cut"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimad:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAnimad:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.233333, 0.3, 0.4, 0.5, 0.633333, 0.766667, 0.866667, 1, 1.1, 1.2, 1.33333, 1.46667, 1.56667, 1.66667, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 6, 7, 8, 9]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimad:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Idle", &"Walk"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.00163, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(403, 114), Vector2(500, 114)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyhp4"]
+_data = {
+&"RESET": SubResource("Animation_gjgti"),
+&"cam_fade": SubResource("Animation_866wm"),
+&"exp_plus_animad": SubResource("Animation_h06nl"),
+&"fade_out_cut": SubResource("Animation_hinah")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k67m"]
+bg_color = Color(0, 0, 0, 0.337255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agh0s"]
+bg_color = Color(0.643128, 0.108427, 0.145474, 1)
+border_width_bottom = 1
+border_color = Color(0.373291, 0.0450323, 0.0672078, 1)
+
 [node name="IntroCamp" type="Node2D"]
 script = ExtResource("1_4pa60")
 
@@ -603,17 +723,104 @@ sprite_frames = SubResource("SpriteFrames_6b04c")
 autoplay = "default"
 frame_progress = 0.7301
 
-[node name="PlayerAnimad" type="AnimatedSprite2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 texture_filter = 1
-position = Vector2(299, 91)
+position = Vector2(403, 117)
+script = ExtResource("11_hinah")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-86, -3)
+shape = SubResource("RectangleShape2D_o0if3")
+
+[node name="PlayerAnimad" type="AnimatedSprite2D" parent="Player"]
+texture_filter = 1
+position = Vector2(-87.7765, -23)
 scale = Vector2(1, 0.993177)
 sprite_frames = ExtResource("11_xhnad")
 animation = &"Idle"
 autoplay = "Idle"
 flip_h = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-92, -29)
+texture = ExtResource("13_866wm")
+region_enabled = true
+region_rect = Rect2(48, 128, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_dyhp4")
+}
+
+[node name="PlayerHp" type="ProgressBar" parent="Player"]
+offset_left = -108.0
+offset_top = -33.0
+offset_right = -59.0
+offset_bottom = -28.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8k67m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_agh0s")
+max_value = 5.0
+step = 1.0
+value = 5.0
+show_percentage = false
+
+[node name="PlayerHpLabel" type="Label" parent="Player/PlayerHp"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -6.0
+offset_right = 66.0
+offset_bottom = 8.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "10/10"
+horizontal_alignment = 1
+
+[node name="PlayerShield" type="NinePatchRect" parent="Player"]
+visible = false
+offset_left = -126.0
+offset_top = -40.0
+offset_right = -110.0
+offset_bottom = -24.0
+texture = ExtResource("14_yqs8e")
+region_rect = Rect2(80, 592, 16, 16)
+patch_margin_top = 16
+
+[node name="PlayerHpLabel" type="Label" parent="Player/PlayerShield"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 27.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "10"
+horizontal_alignment = 1
+
+[node name="BuffDebuff" type="HBoxContainer" parent="Player"]
+process_mode = 3
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -58.0
+offset_right = 16.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-8, -3)
+
+[node name="AttackPosition" type="Marker2D" parent="Player"]
+position = Vector2(-32, -8)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(193, 52)
+position = Vector2(192, 52)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -784,4 +991,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
 theme_override_font_sizes/font_size = 8
 text = "Plan"
 
+[connection signal="animation_finished" from="Player/PlayerAnimad" to="Player" method="_on_player_animad_animation_finished"]
+[connection signal="animation_finished" from="Player/AnimationPlayer" to="Player" method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="CanvasLayer/Plan/VBoxContainer/Button" to="." method="_on_button_pressed"]

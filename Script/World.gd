@@ -5,9 +5,21 @@ extends Node2D
 @onready var distance_label = $CanvasLayer/Route/RouteIcon/DistanceLabel
 @onready var RouteIcon = $CanvasLayer/Route/RouteIcon
 
-const MONSTER_POINT = preload("res://Scene/Route/MonsterSpawn.tscn")
+var route_scenes = {
+	"MONSTER": preload("res://Scene/Route/MonsterSpawn.tscn"),
+	"CAMPFIRE": preload("res://Scene/Route/CampFire.tscn"),
+	"EVENT": preload("res://Scene/Route/Event.tscn"),
+	"SHOP": preload("res://Scene/Route/Shop.tscn"),
+	"TREASURE": preload("res://Scene/Route/Treasure.tscn"),
+	"ELITE": preload("res://Scene/Route/MonsterSpawn.tscn"), # ใช้จุดสปอนมอนเหมือนกัน
+	"BOSS": preload("res://Scene/Route/MonsterSpawn.tscn")
+}
+
+var current_spawn_point = null # เก็บอ้างอิงของจุดสปอนปัจจุบัน
 
 @onready var SHOP = $CanvasLayer/ShopControl
+@onready var world_cam = $Camera2D
+@onready var player_cam = $Player/Camera2D
 
 var monster_scenes = [
 	preload("res://Scene/Monster/Goblin.tscn"),
@@ -16,8 +28,8 @@ var monster_scenes = [
 	preload("res://Scene/Monster/FlyingEye.tscn")
 ]
 
-var next_event_type = "Monster" # เริ่มต้นบังคับเป็น Monster ตัวแรก
-var event_interval = 500.0 # ระยะห่างแต่ละเหตุการณ์
+var next_event_type # เริ่มต้นบังคับเป็น Monster ตัวแรก
+var event_interval = 100.0 # ระยะห่างแต่ละเหตุการณ์
 
 var last_spawn_x = 0.0      # ตำแหน่ง X ล่าสุดที่เพิ่ง spawn ไป
 var spawn_distance_meters = 500.0 # ระยะทางที่ต้องวิ่งเพื่อเจอ Monster (ปรับตามความเหมาะสม)
@@ -30,23 +42,28 @@ func _ready() -> void:
 		last_spawn_x = player.global_position.x
 	GameEvents.spawn_monster.connect(spawn_monster)
 	chagne_scence.animation_finished.connect(_on_animation_finished)
-
-	GameEvents.route_selected.connect(_on_route_chosen)
+	GameEvents.route_changed.connect(_on_route_chosen)
 	GameEvents.monster_died.connect(_on_event_finished)
 	GameEvents.shop_closed.connect(_on_event_finished)
-	#_on_event_finished()
+	GameEvents.open_close_nam.connect(open_close_nam)
+	play_open_scece()
 
+func play_open_scece():
+	world_cam.enabled = true
+	world_cam.make_current()
+	$Player/AnimationPlayer.play("cam_fade_in")
 
 func _process(_delta: float) -> void:
 	if player:
 		update_distance()
-		if not GameEvents.is_combat:
-			check_spawn_distance()
+
 
 
 func trigger_next_event():
-	# ปรับให้รองรับ String จาก Enum (ตัวพิมพ์ใหญ่ทั้งหมด)
-	match next_event_type:
+	# ดึงประเภทเหตุการณ์จาก Global มาเช็ค
+	var event_type = GameEvents.current_route_type 
+	
+	match event_type:
 		"MONSTER":
 			GameEvents.spawn_monster.emit()
 		"SHOP":
@@ -66,45 +83,27 @@ func trigger_next_event():
 		"EVENT":
 			_on_event_finished()
 		_:
-			# กรณีที่หาไม่เจอ ให้จบ Event เพื่อเลือกห้องใหม่
-			print("Unknown event type: ", next_event_type)
 			_on_event_finished()
 
-func check_spawn_distance():
-	var moved_pixel = player.global_position.x - last_spawn_x
-	var moved_meters = moved_pixel / pixel_per_meter
-	
-	if moved_meters >= event_interval:
-		trigger_next_event()
-		last_spawn_x = player.global_position.x
-
 func _on_event_finished():
-	# หยุดวิ่ง
-	GameEvents.is_combat = true
-	
-	# เปลี่ยนจากระบบเดิม มาใช้ระบบ Map ใหม่
-	# สมมติว่าโหนด Map ของคุณอยู่ที่ $CanvasLayer/Map
-	$CanvasLayer/Map.open_map() 
+	GameEvents.open_map.emit()
 
 func _on_route_chosen(type: String):
-	next_event_type = type
-	
-	# เมื่อเลือกทางเสร็จ แผนที่จะถูกปิดด้วยตัวเองใน Map.gd อยู่แล้ว (_on_map_room_selected)
-	# เราแค่สั่งให้เริ่มวิ่ง
+	open_close_nam("open")
+	GameEvents.current_route_type = type # อัปเดต Global
 	GameEvents.is_combat = false
-	last_spawn_x = player.global_position.x
+	spawn_route_point()
 
-#func check_spawn_distance():
-	#var moved_pixel = player.global_position.x - last_spawn_x
-	#var moved_meters = moved_pixel / pixel_per_meter
-	#if moved_meters >= spawn_distance_meters:
-		#SHOP._on_shop_selected()
-		##GameEvents.spawn_monster.emit()
-		#last_spawn_x = player.global_position.x
 
 func update_distance():
-	total_distance = player.global_position.x / pixel_per_meter
-	distance_label.text = str(floor(total_distance)) + " m"
+	if is_instance_valid(current_spawn_point):
+		# หาระยะห่างเป็นพิกเซล แล้วแปลงเป็นเมตร
+		var distance_to_point = current_spawn_point.global_position.x - player.global_position.x
+		var remaining_meters = max(0, distance_to_point / pixel_per_meter)
+		
+		distance_label.text = str(floor(remaining_meters)) + " m"
+	else:
+		distance_label.text = "--- m"
 
 func spawn_monster():
 	$CanvasLayer/Question/EquationContainer.visible = false 
@@ -117,6 +116,24 @@ func spawn_monster():
 		instance.global_position = spawn_pos
 		add_child.call_deferred(instance)
 
+func spawn_route_point():
+	var type = GameEvents.current_route_type
+	if not route_scenes.has(type): return
+	
+	# ลบจุดเก่าถ้ามี
+	if is_instance_valid(current_spawn_point):
+		current_spawn_point.queue_free()
+	
+	var scene = route_scenes[type]
+	var instance = scene.instantiate()
+	
+	# คำนวณตำแหน่ง: ตำแหน่งปัจจุบัน + (500 เมตร * 10 พิกเซลต่อเมตร)
+	var spawn_x = player.global_position.x + (event_interval * pixel_per_meter)
+	instance.global_position = Vector2(spawn_x, player.global_position.y + 15) # ปรับ Y ตามพื้นของคุณ
+	
+	add_child(instance)
+	current_spawn_point = instance
+
 func _on_animation_finished(anim_name: StringName):
 	if anim_name == "OpenMonFigth":
 		$CanvasLayer/ChangeScence.visible = false
@@ -125,3 +142,28 @@ func _on_animation_finished(anim_name: StringName):
 		GameEvents.is_combat = true
 		$CanvasLayer/Question/EquationContainer.visible = true
 		$CanvasLayer/Question.generate_dynamic_question()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "cam_fade_in":
+		player.activate_player_camera()
+		GameEvents.cam_fade_in.emit()
+		
+		# สปอนจุดแรกทันทีล่วงหน้าที่ 500 เมตร
+		spawn_route_point() 
+		
+		$CanvasLayer/NumpadPanel.visible = true
+		$CanvasLayer/NumpadPanel.grab_initial_focus()
+		$CanvasLayer/Question.visible = true
+		
+
+func open_close_nam(name : String):
+	if name == "close":
+		$CanvasLayer/NumpadPanel.visible = false
+		$CanvasLayer/Question.visible = false
+		$CanvasLayer/Route.visible = false
+		$CanvasLayer/LevelControl.visible = false
+	elif name == "open":
+		$CanvasLayer/NumpadPanel.visible = true
+		$CanvasLayer/Question.visible = true
+		$CanvasLayer/Route.visible = true
+		$CanvasLayer/LevelControl.visible = true

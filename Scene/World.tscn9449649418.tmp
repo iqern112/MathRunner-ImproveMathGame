@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=53 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://ds1biqcw7xa18" path="res://Script/GenerateQuestion.gd" id="17_fgmf4"]
 [ext_resource type="Script" uid="uid://b75pyj8aumtgf" path="res://Script/LevelControl.gd" id="18_4bu6c"]
 [ext_resource type="Script" uid="uid://cahseqv2l2gep" path="res://Script/SkillControl.gd" id="19_cacw0"]
+[ext_resource type="Texture2D" uid="uid://b2sjjy5ku2xqv" path="res://Asset/Item/items_sheet.png" id="20_nsqm5"]
 [ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="21_i8385"]
 [ext_resource type="Theme" uid="uid://8dg7kg3ory45" path="res://Theme/ButtSkill.tres" id="22_7xxj8"]
 [ext_resource type="Texture2D" uid="uid://bf3p7xtbg21vj" path="res://Resouce/SkillIcon/lucky.tres" id="23_tjx3c"]
@@ -29,9 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://b6orypu075idp" path="res://Asset/Spritesheets/IconsEssential.png" id="27_7bomb"]
 [ext_resource type="Script" uid="uid://dtqcjbbavd1pt" path="res://Script/CombatControl.gd" id="28_r15o0"]
 [ext_resource type="StyleBox" uid="uid://2x3c6fwrwdp" path="res://Theme/ActionSelected.tres" id="29_60j2q"]
-[ext_resource type="Script" uid="uid://bgvld4cntbdey" path="res://Script/RouteEvent.gd" id="30_4laf0"]
-[ext_resource type="Texture2D" uid="uid://dvtg4iibx5fh3" path="res://Resouce/SkillIcon/Gold.tres" id="30_k1vve"]
-[ext_resource type="Theme" uid="uid://cpifv1yekijtv" path="res://Theme/WishButt.tres" id="31_4laf0"]
 [ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="31_xrx30"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4laf0"]
@@ -1107,8 +1105,8 @@ layout_mode = 0
 offset_left = 1.0
 offset_right = 17.0
 offset_bottom = 16.0
-texture = ExtResource("11_k2jtq")
-region_rect = Rect2(32, 128, 16, 16)
+texture = ExtResource("20_nsqm5")
+region_rect = Rect2(240, 336, 16, 16)
 
 [node name="Label" type="Label" parent="CanvasLayer/SkillControl/Money"]
 layout_mode = 0
@@ -1723,20 +1721,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("30_4laf0")
 
-[node name="RewardPanal" type="Panel" parent="CanvasLayer/RouteEvent"]
+[node name="EventPanal" type="Panel" parent="CanvasLayer/RouteEvent"]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanal"]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -1745,116 +1740,92 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -50.0
-offset_top = -94.0
+offset_top = -89.0
 offset_right = 50.0
-offset_bottom = -54.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("21_i8385")
 region_rect = Rect2(288, 128, 64, 32)
 
-[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/EventPanal"]
 process_mode = 3
 layout_mode = 2
 offset_left = 143.0
-offset_top = 25.0
+offset_top = 30.0
 offset_right = 241.0
-offset_bottom = 39.0
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "Reward"
 horizontal_alignment = 1
 
-[node name="RewardContainer" type="VBoxContainer" parent="CanvasLayer/RouteEvent/RewardPanal"]
-process_mode = 3
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/RouteEvent/EventPanal"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -45.0
-offset_right = 74.0
-offset_bottom = 25.0
+offset_left = -55.0
+offset_top = -32.0
+offset_right = 55.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
+
+[node name="SkillButtonsContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/SkillButtonsContainer"]
 process_mode = 3
-custom_minimum_size = Vector2(30, 16)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme = ExtResource("31_4laf0")
+theme = ExtResource("22_7xxj8")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button"]
-custom_minimum_size = Vector2(16, 16)
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/SkillButtonsContainer/Button"]
 layout_mode = 0
-offset_left = 5.0
-offset_right = 21.0
-offset_bottom = 16.0
-texture = ExtResource("30_k1vve")
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("23_tjx3c")
 
-[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button/NinePatchRect"]
-texture_filter = 1
-offset_left = 23.0
-offset_top = 1.0
-offset_right = 80.0
-offset_bottom = 15.0
-theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
-theme_override_font_sizes/font_size = 8
-text = "Skip Reward"
-
-[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/SkillButtonsContainer"]
 process_mode = 3
-custom_minimum_size = Vector2(30, 16)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme = ExtResource("31_4laf0")
+theme = ExtResource("22_7xxj8")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button2"]
-custom_minimum_size = Vector2(16, 16)
-offset_left = 5.0
-offset_right = 21.0
-offset_bottom = 16.0
-texture = ExtResource("30_k1vve")
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/SkillButtonsContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("24_c6mmb")
 
-[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button2/NinePatchRect"]
-texture_filter = 1
-offset_left = 22.0
-offset_top = 2.0
-offset_right = 79.0
-offset_bottom = 16.0
-theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
-theme_override_font_sizes/font_size = 8
-text = "Skip Reward"
-
-[node name="Button3" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal"]
-custom_minimum_size = Vector2(50, 12)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer"]
 layout_mode = 2
-offset_left = 156.0
-offset_top = 136.0
-offset_right = 266.0
-offset_bottom = 148.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("31_4laf0")
+alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/Button3"]
-texture_filter = 1
+[node name="Button3" type="Button" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
-offset_right = 101.0
-offset_bottom = 14.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
-theme_override_font_sizes/font_size = 8
-text = "    Skip Reward"
+theme = ExtResource("22_7xxj8")
 
-[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="Button4" type="Button" parent="CanvasLayer/RouteEvent/EventPanal/VBoxContainer/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteEvent/EventPanal"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

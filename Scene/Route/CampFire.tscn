@@ -103,14 +103,16 @@ gravity_space_override = 1
 script = ExtResource("1_vadj3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.5, -19)
 sprite_frames = SubResource("SpriteFrames_wijc2")
 autoplay = "default"
 frame_progress = 0.48183
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 1)
+position = Vector2(-27, -18)
 shape = SubResource("RectangleShape2D_05yuu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.5, -19)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

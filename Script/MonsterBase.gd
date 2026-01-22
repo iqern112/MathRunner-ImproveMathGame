@@ -138,6 +138,5 @@ func _on_animated_sprite_2d_animation_finished():
 		mons_animad.play("Idle")
 		if anim == "Defend": prepare_mons_next_move()
 	elif anim == "Death":
-		GameEvents.is_combat = false
-		GameEvents.monster_died.emit()
+		GameEvents.reward.emit()
 		queue_free()

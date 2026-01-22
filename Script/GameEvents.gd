@@ -1,7 +1,7 @@
 extends Node
 
 var money: int = 0
-
+var is_stop: bool = false
 var is_combat: bool = false
 signal monster_died
 
@@ -33,9 +33,16 @@ signal route_selected
 signal shop_closed
 signal open_map
 signal first_room_selected
+signal fade_out_cut
+signal into_out_cut
+signal cam_fade_in
+signal route_changed(new_type: String)
+signal reward
+signal open_close_nam
 
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
-
+var current_route_type: String
+var last_selected_room_data: Dictionary = {}
 var data_items: Dictionary = {
 	"sword": {"title": "Sword", "price": "200", "desc": "Increase damage by 3.", "icon": preload("res://Resouce/ItemTres/sword.tres")},
 	"shield": {"title": "Shield", "price": "120", "desc": "Provides 3 defense.", "icon": preload("res://Resouce/ItemTres/shield.tres")},
@@ -44,6 +51,10 @@ var data_items: Dictionary = {
 	"drill": {"title": "Drill", "price": "150", "desc": "Deal armor-piercing damage 2 time.", "icon": preload("res://Resouce/ItemTres/drill.tres")},
 	"potion": {"title": "Heal Potion", "price": "120", "desc": "Restore 5 HP.", "icon": preload("res://Resouce/ItemTres/drug.tres")}
 }
+
+func set_route(type: String):
+	current_route_type = type
+	route_changed.emit(type)
 
 func add_money(amount: int):
 	money += amount

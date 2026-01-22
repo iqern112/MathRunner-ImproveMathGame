@@ -42,10 +42,7 @@ func open_map():
 	else:
 		# ถ้าไม่ใช่ชั้นแรก ให้ปลดล็อกห้องถัดไปจากห้องล่าสุดที่เลือก
 		unlock_next_rooms()
-	camera_2d.make_current() 
-	# รอให้ Frame อัปเดตเสร็จแล้วค่อยจับโฟกัส
-	await get_tree().process_frame
-	_focus_current_available_room()
+
 
 func _focus_current_available_room():
 	# หาห้องแรกที่เลือกได้ (available) เพื่อจับโฟกัส
@@ -66,13 +63,8 @@ func _on_map_room_selected(room: Room) -> void:
 	
 	# 2. ส่งประเภทห้องกลับไปให้ World
 	var type_string = Room.Type.keys()[room.type] 
-	GameEvents.route_selected.emit(type_string)
+	GameEvents.set_route(type_string)
 	
-	# 3. อัปเดตไอคอนที่ UI หน้าจอหลัก (ถ้ามีโหนด RouteIcon)
-	# อ้างอิงจากโค้ดเดิมของคุณ: $"../Route/RouteIcon"
-	# คุณอาจต้องเก็บ Dictionary ของ Icon ไว้ใน Map หรือส่งผ่านสัญญาณ
-	
-	# 4. ปิดแผนที่
 	hide_map()
 
 func _process(delta: float) -> void:
@@ -189,6 +181,9 @@ func unlock_next_rooms() -> void:
 func show_map() -> void:
 	show()
 	camera_2d.enabled = true
+	camera_2d.make_current()
+	await get_tree().process_frame
+	_focus_current_available_room()
 
 func hide_map() -> void:
 	hide()
