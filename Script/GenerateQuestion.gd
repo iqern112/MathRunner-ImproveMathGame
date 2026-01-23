@@ -151,7 +151,7 @@ func check_all_answers():
 			input_fields[i].text = "" 
 
 	if all_correct:
-		if GameEvents.is_combat:
+		if GameEvents.is_stop:
 			GameEvents.combat_correct.emit()
 			generate_dynamic_question()
 		else :

@@ -8,7 +8,7 @@ func _on_body_entered(body: Node2D) -> void:
 		open_shop()
 
 func open_shop():
-	get_tree().paused = true
+	GameEvents.is_stop = true
 	GameEvents.shop_opened.emit() 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

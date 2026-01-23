@@ -9,6 +9,7 @@ bg_color = Color(0.06, 0.06, 0.06, 0.745098)
 [node name="Map" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+focus_mode = 2
 script = ExtResource("1_kr1fj")
 
 [node name="Panel" type="Panel" parent="."]

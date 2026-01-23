@@ -1,14 +1,26 @@
 extends Control
 
 # อ้างอิงโหนดที่คุณเตรียมไว้แล้ว
-@onready var reward_rect1 = $RewardPanal/RewardContainer/Button/NinePatchRect
-@onready var reward_rect2 = $RewardPanal/RewardContainer/Button2/NinePatchRect
-@onready var stack_label1 = $RewardPanal/RewardContainer/Button/NinePatchRect/Label2
-@onready var stack_label2 = $RewardPanal/RewardContainer/Button2/NinePatchRect/Label2
+@onready var reward_rect1 = $RewardPanel/RewardContainer/Button/NinePatchRect
+@onready var reward_rect2 = $RewardPanel/RewardContainer/Button2/NinePatchRect
+@onready var stack_label1 = $RewardPanel/RewardContainer/Button/NinePatchRect/Label2
+@onready var stack_label2 = $RewardPanel/RewardContainer/Button2/NinePatchRect/Label2
 
 # อ้างอิงปุ่ม
-@onready var btn1 = $RewardPanal/RewardContainer/Button
-@onready var btn2 = $RewardPanal/RewardContainer/Button2
+@onready var btn1 = $RewardPanel/RewardContainer/Button
+@onready var btn2 = $RewardPanel/RewardContainer/Button2
+
+@onready var rest_btn = $CampfirePanel/HBoxContainer/Button
+@onready var anvil_btn = $CampfirePanel/HBoxContainer/Button2
+
+@onready var event_btn = $EventPanel/HBoxContainer/Button
+@onready var leave_btn = $EventPanel/HBoxContainer/Button2
+
+@onready var treasure1_btn = $TreasurePanel/HBoxContainer/Button
+@onready var treasure2_btn = $TreasurePanel/HBoxContainer/Button2
+
+@onready var shop1_btn = $ShopPanel/HBoxContainer/Button
+@onready var shop2_btn = $ShopPanel/HBoxContainer/Button2
 
 var data_skills = {
 	"lucky": {"title": "Lucky", "desc": "40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
@@ -29,16 +41,52 @@ var monney = {
 
 func _ready() -> void:
 	GameEvents.reward.connect(mons_die)
+	GameEvents.campfire_opened.connect(camp_open)
+	GameEvents.event_opened.connect(event_open)
+	GameEvents.treasure_opened.connect(treasure_open)
+	GameEvents.shop_opened.connect(shop_open)
+	
 	btn1.pressed.connect(_on_reward_selected.bind(btn1))
 	btn2.pressed.connect(_on_reward_selected.bind(btn2))
+	
+	rest_btn.pressed.connect(camfire_select.bind(rest_btn,"rest"))
+	anvil_btn.pressed.connect(camfire_select.bind(anvil_btn,"anvil"))
+	
+	event_btn.pressed.connect(event_select.bind(event_btn,"event"))
+	leave_btn.pressed.connect(event_select.bind(leave_btn,"leave"))
+	
+	treasure1_btn.pressed.connect(treasur_select.bind(treasure1_btn))
+	treasure2_btn.pressed.connect(treasur_select.bind(treasure2_btn))
+	
+	shop1_btn.pressed.connect(shop_select.bind(shop1_btn))
+	shop2_btn.pressed.connect(shop_select.bind(shop2_btn))
 
+func shop_open():
+	GameEvents.open_close_nam.emit("close")
+	$ShopPanel.visible = true
+	$ShopPanel/HBoxContainer/Button.grab_focus()
+
+func treasure_open():
+	GameEvents.open_close_nam.emit("close")
+	$TreasurePanel.visible = true
+	$TreasurePanel/HBoxContainer/Button.grab_focus()
+
+func event_open():
+	GameEvents.open_close_nam.emit("close")
+	$EventPanel.visible = true
+	$EventPanel/HBoxContainer/Button.grab_focus()
+
+func camp_open():
+	GameEvents.open_close_nam.emit("close")
+	$CampfirePanel.visible = true
+	$CampfirePanel/HBoxContainer/Button.grab_focus()
 
 func mons_die():
-	$RewardPanal.visible = true
+	$RewardPanel.visible = true
 	GameEvents.open_close_nam.emit("close")
 	# ตั้งค่าปุ่ม 1 (Skill) โดยส่งโหนดที่เกี่ยวข้องเข้าไป
 	setup_skill_reward(reward_rect1, stack_label1, btn1)
-	
+
 	# ตั้งค่าปุ่ม 2 (Gold)
 	setup_gold_reward(reward_rect2, stack_label2, btn2)
 	
@@ -72,17 +120,41 @@ func setup_gold_reward(rect: NinePatchRect, stack: Label, btn: Button):
 	btn.tooltip_text = "Gain " + str(amount) + " Gold."
 
 func _on_reward_selected(btn: Button):
-	var type = btn.get_meta("reward_type")
+	#var type = btn.get_meta("reward_type")
 	
-	if type == "SKILL":
-		var key = btn.get_meta("skill_key")
-		var count = btn.get_meta("count")
-		print("Get Skill: ", key, " x", count)
-		# GameEvents.add_skill.emit(key, count)
-	elif type == "GOLD":
-		var amount = btn.get_meta("amount")
-		GameEvents.add_money(amount)
-		print("Get Gold: ", amount)
-	
-	$RewardPanal.visible = false
+	#if type == "SKILL":
+		#var key = btn.get_meta("skill_key")
+		#var count = btn.get_meta("count")
+		#print("Get Skill: ", key, " x", count)
+		## GameEvents.add_skill.emit(key, count)
+	#elif type == "GOLD":
+		#var amount = btn.get_meta("amount")
+		#GameEvents.add_money(amount)
+		#print("Get Gold: ", amount)
+	#
+	$RewardPanel.visible = false
+	GameEvents.open_map.emit()
+
+func camfire_select(btn: Button,action: String):
+	#GameEvents.open_close_nam.emit("open")
+	btn.release_focus()
+	$CampfirePanel.visible = false
+	GameEvents.open_map.emit()
+
+func event_select(btn: Button,action: String):
+	#GameEvents.open_close_nam.emit("open")
+	btn.release_focus()
+	$EventPanel.visible = false
+	GameEvents.open_map.emit()
+
+func treasur_select(btn: Button):
+	#GameEvents.open_close_nam.emit("open")
+	btn.release_focus()
+	$TreasurePanel.visible = false
+	GameEvents.open_map.emit()
+
+func shop_select(btn: Button):
+	#GameEvents.open_close_nam.emit("open")
+	btn.release_focus()
+	$ShopPanel.visible = false
 	GameEvents.open_map.emit()

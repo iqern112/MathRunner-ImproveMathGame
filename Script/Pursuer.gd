@@ -14,7 +14,6 @@ var is_falling = false
 var is_attacking = false # เพิ่มสถานะการโจมตี
 var is_dashing = false
 var is_die = false
-var is_figth_monster = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var random_event_timer : Timer
 var is_slowed = false
@@ -22,6 +21,10 @@ var is_slowed = false
 func _ready() -> void:
 	GameEvents.wrong_answer_signal.connect(_on_answer_wrong)
 	GameEvents.spawn_monster.connect(hide_pursuer)
+	GameEvents.campfire_opened.connect(hide_pursuer)
+	GameEvents.shop_opened.connect(hide_pursuer)
+	GameEvents.event_opened.connect(hide_pursuer)
+	GameEvents.treasure_opened.connect(hide_pursuer)
 	GameEvents.route_changed.connect(_on_combat_finished)
 	GameEvents.game_over_triggered.connect(game_over)
 	GameEvents.cam_fade_in.connect(set_start)
@@ -40,7 +43,7 @@ func create_timer():
 func _on_answer_wrong():
 	var distance = global_position.distance_to(player.global_position)
 	
-	if is_figth_monster:
+	if GameEvents.is_stop:
 		return
 	elif distance <= KILL_DISTANCE:
 		attack_player()
@@ -62,7 +65,7 @@ func game_over():
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if is_figth_monster:
+	if GameEvents.is_stop:
 		velocity.x = 0
 	elif is_die:
 		if is_on_floor():
@@ -77,8 +80,7 @@ func _physics_process(delta):
 			pursuer_animad.play("Run")
 	move_and_slide()
 
-func _on_combat_finished():
-	is_figth_monster = false # ปลดล็อคให้วิ่งได้
+func _on_combat_finished(name):
 	start_random_timer() # เริ่มนับเวลาสุ่มเหตุการณ์ใหม่
 	fall()
 
@@ -99,7 +101,7 @@ func fall():
 	velocity.y = 100 
 
 func start_random_timer():
-	if is_figth_monster:
+	if GameEvents.is_stop:
 		return
 	#var random_time = randf_range(5.0, 15.0)
 	var random_time = 5.0
@@ -111,7 +113,7 @@ func _on_random_event_timeout():
 		return
 
 	var distance = global_position.distance_to(player.global_position)
-	if is_figth_monster:
+	if GameEvents.is_stop:
 		pass
 	elif distance <= KILL_DISTANCE:
 		attack_player()
@@ -123,7 +125,6 @@ func _on_random_event_timeout():
 	start_random_timer()
 
 func hide_pursuer():
-	is_figth_monster = true
 	velocity.x = 0
 	var hide_pos = player.global_position + Vector2(-200, -15)
 	pursuer.global_position = hide_pos

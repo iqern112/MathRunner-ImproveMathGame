@@ -1,19 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://do1swjm71nsc3"]
+[gd_scene load_steps=3 format=3 uid="uid://xa4rtadegbwl"]
 
-[ext_resource type="Script" uid="uid://bw1xsyx5kh160" path="res://Script/MonsterSpawn.gd" id="1_ms8c8"]
-[ext_resource type="Texture2D" uid="uid://ddsy6gx0pwxxs" path="res://Asset/Entrances/skull hex grassy.png" id="2_ms8c8"]
+[ext_resource type="Texture2D" uid="uid://b11xpkf8il43d" path="res://Asset/Entrances/block spikes grass triangle.png" id="2_lt540"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05yuu"]
 size = Vector2(43, 36)
 
 [node name="Monter" type="Area2D"]
 gravity_space_override = 1
-script = ExtResource("1_ms8c8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.847059)
+z_index = -1
 position = Vector2(100, -40)
-texture = ExtResource("2_ms8c8")
+texture = ExtResource("2_lt540")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -18)

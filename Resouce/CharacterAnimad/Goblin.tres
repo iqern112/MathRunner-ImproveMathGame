@@ -197,7 +197,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_7dcpn")
 }],
 "loop": false,
-"name": &"Attack1",
+"name": &"Attack",
 "speed": 18.0
 }, {
 "frames": [{

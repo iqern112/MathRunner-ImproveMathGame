@@ -8,5 +8,9 @@ func _on_body_entered(body: Node2D) -> void:
 		open_monster()
 
 func open_monster():
-	GameEvents.is_combat = true
+	GameEvents.is_stop = true
 	GameEvents.spawn_monster.emit()
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	await get_tree().create_timer(1).timeout
+	queue_free()

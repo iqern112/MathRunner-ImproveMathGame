@@ -778,6 +778,7 @@ tile_map_data = PackedByteArray("AAAXAA0AAAAGAAQAAAAXAAwAAAAGAAQAAAAWAA0AAAAGAAQ
 tile_set = SubResource("TileSet_wv6q6")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+z_index = 1
 texture_filter = 1
 position = Vector2(60, 116)
 script = ExtResource("8_degc6")
@@ -873,6 +874,7 @@ position = Vector2(-32, -8)
 
 [node name="Pursuer" type="CharacterBody2D" parent="."]
 visible = false
+z_index = 1
 texture_filter = 1
 position = Vector2(101, 60)
 script = ExtResource("12_i2oxt")
@@ -943,7 +945,6 @@ offset_right = 58.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(50, 0)
-focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_a062t")
 script = ExtResource("16_kfpv5")
 
@@ -1276,6 +1277,7 @@ offset_right = -54.0
 offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 
 [node name="Panel" type="Panel" parent="CanvasLayer/ShopControl"]
 process_mode = 3
@@ -1286,6 +1288,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ShopControl/Panel"]
 process_mode = 3
@@ -1725,18 +1728,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("30_4laf0")
 
-[node name="RewardPanal" type="Panel" parent="CanvasLayer/RouteEvent"]
+[node name="RewardPanel" type="Panel" parent="CanvasLayer/RouteEvent"]
 process_mode = 3
 visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanel"]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -1753,7 +1755,7 @@ grow_vertical = 2
 texture = ExtResource("21_i8385")
 region_rect = Rect2(288, 128, 64, 32)
 
-[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanel"]
 process_mode = 3
 layout_mode = 2
 offset_left = 143.0
@@ -1765,7 +1767,7 @@ theme_override_font_sizes/font_size = 8
 text = "Reward"
 horizontal_alignment = 1
 
-[node name="RewardContainer" type="VBoxContainer" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="RewardContainer" type="VBoxContainer" parent="CanvasLayer/RouteEvent/RewardPanel"]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -1782,13 +1784,13 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer"]
 process_mode = 3
 custom_minimum_size = Vector2(30, 16)
 layout_mode = 2
 theme = ExtResource("31_4laf0")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer/Button"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 0
 offset_left = 5.0
@@ -1796,8 +1798,9 @@ offset_right = 21.0
 offset_bottom = 16.0
 texture = ExtResource("30_k1vve")
 
-[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button/NinePatchRect"]
+[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer/Button/NinePatchRect"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 23.0
 offset_top = 1.0
 offset_right = 80.0
@@ -1807,21 +1810,23 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
 theme_override_font_sizes/font_size = 8
 text = "Skip Reward"
 
-[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer"]
 process_mode = 3
 custom_minimum_size = Vector2(30, 16)
 layout_mode = 2
 theme = ExtResource("31_4laf0")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer/Button2"]
 custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
 offset_left = 5.0
 offset_right = 21.0
 offset_bottom = 16.0
 texture = ExtResource("30_k1vve")
 
-[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/RewardContainer/Button2/NinePatchRect"]
+[node name="Label2" type="Label" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer/Button2/NinePatchRect"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 22.0
 offset_top = 2.0
 offset_right = 79.0
@@ -1831,7 +1836,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
 theme_override_font_sizes/font_size = 8
 text = "Skip Reward"
 
-[node name="Button3" type="Button" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="Button3" type="Button" parent="CanvasLayer/RouteEvent/RewardPanel"]
 custom_minimum_size = Vector2(50, 12)
 layout_mode = 2
 offset_left = 156.0
@@ -1842,7 +1847,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("31_4laf0")
 
-[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal/Button3"]
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/RewardPanel/Button3"]
 texture_filter = 1
 layout_mode = 2
 offset_right = 101.0
@@ -1854,7 +1859,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
 theme_override_font_sizes/font_size = 8
 text = "    Skip Reward"
 
-[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteEvent/RewardPanal"]
+[node name="DescriptionLabel" type="Label" parent="CanvasLayer/RouteEvent/RewardPanel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1871,8 +1876,330 @@ theme = ExtResource("15_2ovhu")
 theme_override_font_sizes/font_size = 8
 autowrap_mode = 3
 
-[node name="ChangeScence" type="Control" parent="CanvasLayer"]
+[node name="CampfirePanel" type="Panel" parent="CanvasLayer/RouteEvent"]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/CampfirePanel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -94.0
+offset_right = 50.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/CampfirePanel"]
+process_mode = 3
+offset_left = 143.0
+offset_top = 25.0
+offset_right = 241.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Campfire"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/CampfirePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/CampfirePanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="CampIcon" type="NinePatchRect" parent="CanvasLayer/RouteEvent/CampfirePanel/HBoxContainer/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(112, 32, 16, 16)
+
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/CampfirePanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="Anvil" type="NinePatchRect" parent="CanvasLayer/RouteEvent/CampfirePanel/HBoxContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(96, 32, 16, 16)
+
+[node name="EventPanel" type="Panel" parent="CanvasLayer/RouteEvent"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -94.0
+offset_right = 50.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/EventPanel"]
+process_mode = 3
+offset_left = 143.0
+offset_top = 25.0
+offset_right = 241.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Event"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/EventPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/EventPanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="EventBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanel/HBoxContainer/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(192, 0, 16, 16)
+
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/EventPanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="LeaveBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/EventPanel/HBoxContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(32, 0, 16, 16)
+
+[node name="TreasurePanel" type="Panel" parent="CanvasLayer/RouteEvent"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/TreasurePanel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -94.0
+offset_right = 50.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/TreasurePanel"]
+process_mode = 3
+offset_left = 143.0
+offset_top = 25.0
+offset_right = 241.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Treasure"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/TreasurePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/TreasurePanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="EventBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/TreasurePanel/HBoxContainer/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(80, 0, 16, 16)
+
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/TreasurePanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="LeaveBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/TreasurePanel/HBoxContainer/Button2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(32, 0, 16, 16)
+
+[node name="ShopPanel" type="Panel" parent="CanvasLayer/RouteEvent"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/RouteEvent/ShopPanel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -94.0
+offset_right = 50.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/RouteEvent/ShopPanel"]
+process_mode = 3
+offset_left = 143.0
+offset_top = 25.0
+offset_right = 241.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Shop"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RouteEvent/ShopPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.0
+offset_right = 32.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/RouteEvent/ShopPanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="shopBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/ShopPanel/HBoxContainer/Button"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(112, 128, 16, 16)
+
+[node name="Button2" type="Button" parent="CanvasLayer/RouteEvent/ShopPanel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme = ExtResource("22_7xxj8")
+
+[node name="shopBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/ShopPanel/HBoxContainer/Button2"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 22.0
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(96, 32, 16, 16)
+
+[node name="ChangeScence" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

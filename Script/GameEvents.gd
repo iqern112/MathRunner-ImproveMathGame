@@ -12,8 +12,6 @@ signal game_over_triggered
 
 signal level_up_signal
 
-signal shop_opened
-
 signal on_cut_money(money: int)
 signal money_changed(new_amount)
 
@@ -39,6 +37,14 @@ signal cam_fade_in
 signal route_changed(new_type: String)
 signal reward
 signal open_close_nam
+
+signal campfire_opened
+signal shop_opened
+signal event_opened
+signal treasure_opened
+signal elite_opened
+
+signal active_buff
 
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
 var current_route_type: String

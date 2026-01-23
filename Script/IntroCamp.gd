@@ -1,7 +1,7 @@
 extends Node2D
 
 const BUFF_DATA = {
-	"hp_incress": "+ 5 HP",
+	"hp_incress": "+ 8 HP",
 	"attack_incress": "+ 3 Attack",
 	"block_incress": "+ 3 Block"
 }
@@ -21,11 +21,16 @@ const BUFF_DATA = {
 @onready var plan_butt = $CanvasLayer/Plan/VBoxContainer/Button
 
 func _ready() -> void:
+	
 	_setup_buff_texts()
 	for i in range(buttons.size()):
 		var btn = buttons[i]
 		btn.pressed.connect(_on_buff_selected.bind(i))
 	buttons[0].grab_focus()
+
+func activate_fisrt_camera():
+	$Camera2D.enabled = true
+	$Camera2D.make_current()
 
 func _setup_buff_texts() -> void:
 	var buff_keys = BUFF_DATA.keys()
@@ -37,9 +42,7 @@ func _setup_buff_texts() -> void:
 func _on_buff_selected(index: int):
 	var buff_keys = BUFF_DATA.keys()
 	var selected_key = buff_keys[index]
-	print("คุณได้รับพร: ", BUFF_DATA[selected_key])
-	# เก็บค่าเข้า GlobalStats (ถ้ามี)
-	# GlobalStats.apply_buff(selected_key)
+	GameEvents.active_buff.emit(selected_key)
 	wish_panel.visible = false
 	_open_plan_system()
 

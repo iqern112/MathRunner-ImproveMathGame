@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func game_over():
 	$".".visible = true
-	GameEvents.is_combat = false
+	GameEvents.is_stop = false
 	GameEvents.money = 0
 
 func _on_visibility_changed():

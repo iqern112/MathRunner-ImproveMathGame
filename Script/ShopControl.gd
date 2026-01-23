@@ -44,7 +44,7 @@ func _ready() -> void:
 	back_butt.pressed.connect(_on_back_pressed)
 	back_butt.focus_entered.connect(_on_back_focus_entered)
 
-	GameEvents.shop_opened.connect(_on_shop_selected)
+	#GameEvents.shop_opened.connect(_on_shop_selected)
 
 
 func _on_back_focus_entered():
@@ -99,11 +99,9 @@ func open_shop_ui():
 func close_shop_ui():
 	is_shop_open = false
 	$Panel.visible = false
-	get_tree().paused = false
-	GameEvents.shop_closed.emit()
-	if numpad_button:
-		numpad_button.grab_focus()
-	$"../Question/EquationContainer".visible = true
+	#get_tree().paused = false
+	#GameEvents.shop_closed.emit()
+	GameEvents.open_map.emit()
 
 
 # -------------------------

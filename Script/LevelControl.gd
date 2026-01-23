@@ -15,7 +15,7 @@ func _ready() -> void:
 	GameEvents.skill_learn.connect(reduce_exp)
 
 func level_control():
-	if GameEvents.is_combat:
+	if GameEvents.is_stop:
 		return
 	var ex_plus:int = 0
 	if randf() <= 0.4:ex_plus = lucky_exp

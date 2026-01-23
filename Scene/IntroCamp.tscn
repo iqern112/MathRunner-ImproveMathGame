@@ -725,7 +725,7 @@ frame_progress = 0.7301
 
 [node name="Player" type="CharacterBody2D" parent="."]
 texture_filter = 1
-position = Vector2(403, 117)
+position = Vector2(403, 114)
 script = ExtResource("11_hinah")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -825,6 +825,7 @@ position = Vector2(192, 52)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Wish" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

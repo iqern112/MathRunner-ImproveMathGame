@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func open_map():
-	
+	#GameEvents.open_close_nam.emit("close")
 	show_map() # แสดง Node และเปิดกล้อง
 	
 	# ถ้าเป็นการเริ่มเกมครั้งแรก (ชั้นที่ 0) ให้ปลดล็อกชั้นแรก
@@ -64,7 +64,7 @@ func _on_map_room_selected(room: Room) -> void:
 	# 2. ส่งประเภทห้องกลับไปให้ World
 	var type_string = Room.Type.keys()[room.type] 
 	GameEvents.set_route(type_string)
-	
+	GameEvents.open_close_nam.emit("open")
 	hide_map()
 
 func _process(delta: float) -> void:

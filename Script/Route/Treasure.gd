@@ -8,8 +8,8 @@ func _on_body_entered(body: Node2D) -> void:
 		open_box()
 
 func open_box():
-	get_tree().paused = true
-	#GameEvents.shop_opened.emit() 
+	GameEvents.is_stop = true
+	GameEvents.treasure_opened.emit() 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	await get_tree().create_timer(1).timeout

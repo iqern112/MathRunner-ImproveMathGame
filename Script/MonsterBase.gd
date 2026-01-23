@@ -38,7 +38,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if GameEvents.is_combat:
+	if GameEvents.is_stop:
 		$Hint/time.text = " %.1d" % mons_action_timer.time_left
 	move_and_slide()
 
@@ -59,12 +59,14 @@ func take_damage(final_damage: int):
 			var remaining_dmg = final_damage - shield
 			shield = 0
 			current_hp -= remaining_dmg
+			mons_animad.play("Hurt")
 	else:
 		current_hp -= final_damage
+		mons_animad.play("Hurt")
 	
 	# เล่นอนิเมชั่น Hurt ถ้าไม่ได้กำลังโจมตี
-	if current_hp > 0 and mons_animad.animation != "Attack":
-		mons_animad.play("Hurt")
+	#if current_hp > 0 and mons_animad.animation != "Attack":
+		#mons_animad.play("Hurt")
 		
 	set_mons_status()
 	if current_hp <= 0: die()
@@ -80,24 +82,26 @@ func prepare_mons_next_move():
 	hint_icon.texture = attack_icon if mons_action == "ATTACK" else block_icon
 	hint_value.text = str(actions_value)
 
-func move_to_player_and_attack():
-	if not player: return
-	var target_node = player.get_node("AttackPosition")
-	if attack_tween: attack_tween.kill()
-	
-	attack_tween = create_tween()
-	attack_tween.tween_property(self, "global_position", target_node.global_position, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	attack_tween.tween_callback(func():
-		if current_hp > 0: mons_animad.play("Attack")
-	)
+#func move_to_player_and_attack():
+	#if not player: return
+	#var target_node = player.get_node("AttackPosition")
+	#if attack_tween: attack_tween.kill()
+	#
+	#attack_tween = create_tween()
+	#attack_tween.tween_property(self, "global_position", target_node.global_position, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	#attack_tween.tween_callback(func():
+		#if current_hp > 0: mons_animad.play("Attack")
+	#)
 
 func _on_mons_action_timer_timeout():
 	if mons_action == "ATTACK":
-		move_to_player_and_attack()
+		mons_animad.play("Attack")
+		GameEvents.monster_to_control.emit(mons_action, actions_value)
 	elif mons_action == "BLOCK":
 		mons_animad.play("Defend")
 		shield += actions_value
 		set_mons_status()
+	prepare_mons_next_move()
 
 # --- Signal Handlers ---
 func action_combat_handle(action, value):
@@ -112,8 +116,6 @@ func on_stop_timer(mode):
 
 func die():
 	mons_action_timer.stop()
-	if attack_tween: attack_tween.kill()
-	global_position = original_position
 	$MonsterHp.visible = false
 	$Hint.visible = false
 	mons_animad.play("Death")
@@ -129,14 +131,13 @@ func _on_animated_sprite_2d_animation_finished():
 		$Hint.visible = true
 		prepare_mons_next_move()
 	elif anim == "Attack":
-		GameEvents.monster_to_control.emit(mons_action, actions_value)
-		var t = create_tween()
-		t.tween_property(self, "global_position", original_position, 0.2)
 		mons_animad.play("Idle")
-		prepare_mons_next_move()
-	elif anim in ["Defend", "Hurt"]:
+		#2prepare_mons_next_move()
+	elif anim == "Defend":
 		mons_animad.play("Idle")
-		if anim == "Defend": prepare_mons_next_move()
+		#prepare_mons_next_move()
+	elif anim == "Hurt":
+		mons_animad.play("Idle")
 	elif anim == "Death":
 		GameEvents.reward.emit()
 		queue_free()

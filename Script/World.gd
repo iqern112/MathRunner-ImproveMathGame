@@ -41,10 +41,12 @@ func _ready() -> void:
 	if player:
 		last_spawn_x = player.global_position.x
 	GameEvents.spawn_monster.connect(spawn_monster)
+	GameEvents.shop_closed.connect(_on_event_finished)
+	
 	chagne_scence.animation_finished.connect(_on_animation_finished)
 	GameEvents.route_changed.connect(_on_route_chosen)
 	GameEvents.monster_died.connect(_on_event_finished)
-	GameEvents.shop_closed.connect(_on_event_finished)
+	
 	GameEvents.open_close_nam.connect(open_close_nam)
 	play_open_scece()
 
@@ -59,39 +61,40 @@ func _process(_delta: float) -> void:
 
 
 
-func trigger_next_event():
-	# ดึงประเภทเหตุการณ์จาก Global มาเช็ค
-	var event_type = GameEvents.current_route_type 
-	
-	match event_type:
-		"MONSTER":
-			GameEvents.spawn_monster.emit()
-		"SHOP":
-			SHOP._on_shop_selected()
-		"CAMPFIRE": # ใน Enum คุณใช้ CAMPFIRE
-			GameEvents.control_to_player.emit("potion", 10)
-			_on_event_finished()
-		"TREASURE":
-			GameEvents.add_money(100)
-			_on_event_finished()
-		"ELITE":
-			# คุณสามารถใช้ระบบเดียวกับ Monster แต่เปลี่ยนความยาก
-			GameEvents.spawn_monster.emit() 
-		"BOSS":
-			# Logic สำหรับ Boss
-			GameEvents.spawn_monster.emit() 
-		"EVENT":
-			_on_event_finished()
-		_:
-			_on_event_finished()
+#func trigger_next_event():
+	## ดึงประเภทเหตุการณ์จาก Global มาเช็ค
+	#var event_type = GameEvents.current_route_type 
+	#
+	#match event_type:
+		#"MONSTER":
+			#GameEvents.spawn_monster.emit()
+		#"SHOP":
+			#SHOP._on_shop_selected()
+		#"CAMPFIRE": # ใน Enum คุณใช้ CAMPFIRE
+			#GameEvents.control_to_player.emit("potion", 10)
+			#_on_event_finished()
+		#"TREASURE":
+			#GameEvents.add_money(100)
+			#_on_event_finished()
+		#"ELITE":
+			## คุณสามารถใช้ระบบเดียวกับ Monster แต่เปลี่ยนความยาก
+			#GameEvents.spawn_monster.emit() 
+		#"BOSS":
+			## Logic สำหรับ Boss
+			#GameEvents.spawn_monster.emit() 
+		#"EVENT":
+			#_on_event_finished()
+		#_:
+			#_on_event_finished()
 
 func _on_event_finished():
 	GameEvents.open_map.emit()
 
 func _on_route_chosen(type: String):
 	open_close_nam("open")
+	$CanvasLayer/NumpadPanel.grab_initial_focus()
 	GameEvents.current_route_type = type # อัปเดต Global
-	GameEvents.is_combat = false
+	GameEvents.is_stop = false
 	spawn_route_point()
 
 
@@ -120,9 +123,9 @@ func spawn_route_point():
 	var type = GameEvents.current_route_type
 	if not route_scenes.has(type): return
 	
-	# ลบจุดเก่าถ้ามี
-	if is_instance_valid(current_spawn_point):
-		current_spawn_point.queue_free()
+	## ลบจุดเก่าถ้ามี
+	#if is_instance_valid(current_spawn_point):
+		#current_spawn_point.queue_free()
 	
 	var scene = route_scenes[type]
 	var instance = scene.instantiate()
@@ -139,7 +142,7 @@ func _on_animation_finished(anim_name: StringName):
 		$CanvasLayer/ChangeScence.visible = false
 		$Player/PlayerHp.visible = true
 		$Player/BuffDebuff.visible = true
-		GameEvents.is_combat = true
+		GameEvents.is_stop = true
 		$CanvasLayer/Question/EquationContainer.visible = true
 		$CanvasLayer/Question.generate_dynamic_question()
 
