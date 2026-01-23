@@ -52,8 +52,11 @@ func _focus_current_available_room():
 			break
 
 func _on_map_room_selected(room: Room) -> void:
+	
 	if floors_climbed == 0:
-		GameEvents.emit_signal("first_room_selected")
+		#GameEvents.emit_signal("first_room_selected")
+		GameEvents.cam_fade_in.emit()
+		$"../../../../Player".activate_player_camera()
 	# 1. จัดการเรื่อง Visual ในแผนที่ (โค้ดเดิม)
 	for map_room: MapRoom in rooms.get_children():
 		if map_room.room.row == room.row:
@@ -65,6 +68,7 @@ func _on_map_room_selected(room: Room) -> void:
 	var type_string = Room.Type.keys()[room.type] 
 	GameEvents.set_route(type_string)
 	GameEvents.open_close_nam.emit("open")
+	
 	hide_map()
 
 func _process(delta: float) -> void:

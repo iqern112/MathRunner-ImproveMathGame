@@ -48,7 +48,6 @@ signal active_buff
 
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
 var current_route_type: String
-var last_selected_room_data: Dictionary = {}
 var data_items: Dictionary = {
 	"sword": {"title": "Sword", "price": "200", "desc": "Increase damage by 3.", "icon": preload("res://Resouce/ItemTres/sword.tres")},
 	"shield": {"title": "Shield", "price": "120", "desc": "Provides 3 defense.", "icon": preload("res://Resouce/ItemTres/shield.tres")},

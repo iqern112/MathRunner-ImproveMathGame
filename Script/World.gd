@@ -148,15 +148,17 @@ func _on_animation_finished(anim_name: StringName):
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "cam_fade_in":
-		player.activate_player_camera()
-		GameEvents.cam_fade_in.emit()
-		
-		# สปอนจุดแรกทันทีล่วงหน้าที่ 500 เมตร
+		#get_tree().paused = true
+		#player.activate_player_camera()
+		#GameEvents.cam_fade_in.emit()
+		$CanvasLayer/LevelControl.visible = false
+		$CanvasLayer/Wish.show()
+	
 		spawn_route_point() 
 		
-		$CanvasLayer/NumpadPanel.visible = true
-		$CanvasLayer/NumpadPanel.grab_initial_focus()
-		$CanvasLayer/Question.visible = true
+		#$CanvasLayer/NumpadPanel.visible = true
+		#$CanvasLayer/NumpadPanel.grab_initial_focus()
+		#$CanvasLayer/Question.visible = true
 		
 
 func open_close_nam(name : String):

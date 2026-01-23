@@ -7,18 +7,18 @@ const BUFF_DATA = {
 }
 
 @onready var buttons = [
-	$CanvasLayer/Wish/VBoxContainer/Button,
-	$CanvasLayer/Wish/VBoxContainer/Button2,
-	$CanvasLayer/Wish/VBoxContainer/Button3
+	$"../CanvasLayer/Wish/VBoxContainer/Button",
+	$"../CanvasLayer/Wish/VBoxContainer/Button2",
+	$"../CanvasLayer/Wish/VBoxContainer/Button3"
 ]
 @onready var text_butt = [
-	$CanvasLayer/Wish/VBoxContainer/Button/Label,
-	$CanvasLayer/Wish/VBoxContainer/Button2/Label2,
-	$CanvasLayer/Wish/VBoxContainer/Button3/Label3
+	$"../CanvasLayer/Wish/VBoxContainer/Button/Label",
+	$"../CanvasLayer/Wish/VBoxContainer/Button2/Label2",
+	$"../CanvasLayer/Wish/VBoxContainer/Button3/Label3"
 ]
-@onready var wish_panel = $CanvasLayer/Wish
-@onready var plan_panel = $CanvasLayer/Plan
-@onready var plan_butt = $CanvasLayer/Plan/VBoxContainer/Button
+@onready var wish_panel =$"../CanvasLayer/Wish"
+@onready var plan_panel = $"../CanvasLayer/Plan"
+@onready var plan_butt = $"../CanvasLayer/Plan/VBoxContainer/Button"
 
 func _ready() -> void:
 	
@@ -27,10 +27,6 @@ func _ready() -> void:
 		var btn = buttons[i]
 		btn.pressed.connect(_on_buff_selected.bind(i))
 	buttons[0].grab_focus()
-
-func activate_fisrt_camera():
-	$Camera2D.enabled = true
-	$Camera2D.make_current()
 
 func _setup_buff_texts() -> void:
 	var buff_keys = BUFF_DATA.keys()

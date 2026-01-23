@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=74 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -10,8 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://b6w6oaltjv0js" path="res://Asset/jungle tileset/jungle tileset.png" id="7_syx3x"]
 [ext_resource type="Script" uid="uid://pnry0grlt1uk" path="res://Script/Player.gd" id="8_degc6"]
 [ext_resource type="SpriteFrames" uid="uid://3fyfamth6gpi" path="res://Resouce/CharacterAnimad/Vangard.tres" id="9_aex2n"]
+[ext_resource type="Script" uid="uid://d3t53oonlfmwq" path="res://Script/IntroCamp.gd" id="9_syx3x"]
+[ext_resource type="Texture2D" uid="uid://dtwabyk5ay64g" path="res://Asset/Rock Base Fires/Tent Pack Sprite Sheet.png" id="10_degc6"]
 [ext_resource type="Texture2D" uid="uid://c5f0g20oolg2g" path="res://Asset/Effect/Water Effect and Bullet 16x16.png" id="10_eiaoc"]
+[ext_resource type="Texture2D" uid="uid://cyxvvkwixowvb" path="res://Asset/decorations/triangleroaster.png" id="11_aex2n"]
 [ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="11_k2jtq"]
+[ext_resource type="Texture2D" uid="uid://ck23vxcb03a1d" path="res://Asset/Rock Base Fires/Orange Mild 39x38.png" id="12_eiaoc"]
 [ext_resource type="Script" uid="uid://cnurwmw6pvhgl" path="res://Script/Pursuer.gd" id="12_i2oxt"]
 [ext_resource type="SpriteFrames" uid="uid://bsk71sm1lfv3t" path="res://Resouce/CharacterAnimad/Woof.tres" id="13_udd1q"]
 [ext_resource type="Texture2D" uid="uid://b5uyhstka6gjb" path="res://Resouce/RouteIcon/MonsterIcon.tres" id="14_enqny"]
@@ -33,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://dvtg4iibx5fh3" path="res://Resouce/SkillIcon/Gold.tres" id="30_k1vve"]
 [ext_resource type="Theme" uid="uid://cpifv1yekijtv" path="res://Theme/WishButt.tres" id="31_4laf0"]
 [ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="31_xrx30"]
+[ext_resource type="PackedScene" uid="uid://0qxdi2w0sf6h" path="res://Scene/Map.tscn" id="38_degc6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4laf0"]
 
@@ -450,6 +455,98 @@ terrain_set_0/terrain_0/name = "glass"
 terrain_set_0/terrain_0/color = Color(0.2112, 0.66, 0.35332, 1)
 sources/0 = SubResource("TileSetAtlasSource_5topm")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_63530"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(0, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhnad"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(39, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl48u"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(78, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hinah"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(117, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_866wm"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(156, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqs8e"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(195, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0if3"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(234, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k67m"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(273, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agh0s"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(312, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khv53"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(351, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag8nm"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(390, 0, 39, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc6kl"]
+atlas = ExtResource("12_eiaoc")
+region = Rect2(429, 0, 39, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2jtq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63530")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhnad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl48u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hinah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_866wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqs8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0if3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8k67m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agh0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khv53")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag8nm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc6kl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37r2r"]
 size = Vector2(20, 37)
 
@@ -711,6 +808,8 @@ _data = {
 &"RESET": SubResource("Animation_l52ld")
 }
 
+[sub_resource type="Theme" id="Theme_aex2n"]
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_4laf0")
 
@@ -776,6 +875,39 @@ texture_filter = 1
 position = Vector2(768, 0)
 tile_map_data = PackedByteArray("AAAXAA0AAAAGAAQAAAAXAAwAAAAGAAQAAAAWAA0AAAAGAAQAAAAWAAwAAAAGAAQAAAAVAA0AAAAGAAQAAAAVAAwAAAAGAAQAAAAUAA0AAAAGAAQAAAAUAAwAAAAGAAQAAAATAA0AAAAGAAQAAAATAAwAAAAGAAQAAAASAA0AAAAGAAQAAAASAAwAAAAGAAQAAAARAA0AAAAGAAQAAAARAAwAAAAGAAQAAAAQAA0AAAAGAAQAAAAQAAwAAAAGAAQAAAAPAA0AAAAGAAQAAAAPAAwAAAAGAAQAAAAOAA0AAAAGAAQAAAAOAAwAAAAGAAQAAAANAA0AAAAGAAQAAAANAAwAAAAGAAQAAAAMAA0AAAAGAAQAAAAMAAwAAAAGAAQAAAALAA0AAAAGAAQAAAALAAwAAAAGAAQAAAAKAA0AAAAGAAQAAAAKAAwAAAAGAAQAAAAJAA0AAAAGAAQAAAAJAAwAAAAGAAQAAAAIAA0AAAAGAAQAAAAIAAwAAAAGAAQAAAAHAA0AAAAGAAQAAAAHAAwAAAAGAAQAAAAGAA0AAAAGAAQAAAAGAAwAAAAGAAQAAAAFAA0AAAAGAAQAAAAFAAwAAAAGAAQAAAAEAA0AAAAGAAQAAAAEAAwAAAAGAAQAAAADAA0AAAAGAAQAAAADAAwAAAAGAAQAAAACAA0AAAAGAAQAAAACAAwAAAAGAAQAAAABAA0AAAAGAAQAAAABAAwAAAAGAAQAAAAAAA0AAAAGAAQAAAAAAAwAAAAGAAQAAAAXAAsAAAAGAAQAAAAXAAoAAAAGAAQAAAAXAAkAAAAGAAQAAAAXAAgAAAAGAAIAAAAWAAsAAAAGAAQAAAAWAAoAAAAGAAQAAAAWAAkAAAAGAAQAAAAWAAgAAAAGAAIAAAAVAAsAAAAGAAQAAAAVAAoAAAAGAAQAAAAVAAkAAAAGAAQAAAAVAAgAAAAGAAIAAAAUAAsAAAAGAAQAAAAUAAoAAAAGAAQAAAAUAAkAAAAGAAQAAAAUAAgAAAAGAAIAAAATAAsAAAAGAAQAAAATAAoAAAAGAAQAAAATAAkAAAAGAAQAAAATAAgAAAAGAAIAAAASAAsAAAAGAAQAAAASAAoAAAAGAAQAAAASAAkAAAAGAAQAAAASAAgAAAAGAAIAAAARAAsAAAAGAAQAAAARAAoAAAAGAAQAAAARAAkAAAAGAAQAAAARAAgAAAAGAAIAAAAQAAsAAAAGAAQAAAAQAAoAAAAGAAQAAAAQAAkAAAAGAAQAAAAQAAgAAAAGAAIAAAAPAAsAAAAGAAQAAAAPAAoAAAAGAAQAAAAPAAkAAAAGAAQAAAAPAAgAAAAGAAIAAAAOAAsAAAAGAAQAAAAOAAoAAAAGAAQAAAAOAAkAAAAGAAQAAAAOAAgAAAAGAAIAAAANAAsAAAAGAAQAAAANAAoAAAAGAAQAAAANAAkAAAAGAAQAAAANAAgAAAAGAAIAAAAMAAsAAAAGAAQAAAAMAAoAAAAGAAQAAAAMAAkAAAAGAAQAAAAMAAgAAAAGAAIAAAALAAsAAAAGAAQAAAALAAoAAAAGAAQAAAALAAkAAAAGAAQAAAALAAgAAAAGAAIAAAAKAAsAAAAGAAQAAAAKAAoAAAAGAAQAAAAKAAkAAAAGAAQAAAAKAAgAAAAGAAIAAAAJAAsAAAAGAAQAAAAJAAoAAAAGAAQAAAAJAAkAAAAGAAQAAAAJAAgAAAAGAAIAAAAIAAsAAAAGAAQAAAAIAAoAAAAGAAQAAAAIAAkAAAAGAAQAAAAIAAgAAAAGAAIAAAAHAAsAAAAGAAQAAAAHAAoAAAAGAAQAAAAHAAkAAAAGAAQAAAAHAAgAAAAGAAIAAAAGAAsAAAAGAAQAAAAGAAoAAAAGAAQAAAAGAAkAAAAGAAQAAAAGAAgAAAAGAAIAAAAFAAsAAAAGAAQAAAAFAAoAAAAGAAQAAAAFAAkAAAAGAAQAAAAFAAgAAAAGAAIAAAAEAAsAAAAGAAQAAAAEAAoAAAAGAAQAAAAEAAkAAAAGAAQAAAAEAAgAAAAGAAIAAAADAAsAAAAGAAQAAAADAAoAAAAGAAQAAAADAAkAAAAGAAQAAAADAAgAAAAGAAIAAAACAAsAAAAGAAQAAAACAAoAAAAGAAQAAAACAAkAAAAGAAQAAAACAAgAAAAGAAIAAAABAAsAAAAGAAQAAAABAAoAAAAGAAQAAAABAAkAAAAGAAQAAAABAAgAAAAGAAIAAAAAAAsAAAAGAAQAAAAAAAoAAAAGAAQAAAAAAAkAAAAGAAQAAAAAAAgAAAAGAAIAAAA=")
 tile_set = SubResource("TileSet_wv6q6")
+
+[node name="IntroCamp" type="Node2D" parent="."]
+script = ExtResource("9_syx3x")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="IntroCamp"]
+custom_minimum_size = Vector2(224, 96)
+offset_left = 147.0
+offset_top = 35.0
+offset_right = 371.0
+offset_bottom = 131.0
+texture = ExtResource("10_degc6")
+region_rect = Rect2(384, 256, 160, 96)
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="IntroCamp"]
+custom_minimum_size = Vector2(64, 32)
+offset_left = 27.0
+offset_top = 82.0
+offset_right = 91.0
+offset_bottom = 130.0
+texture = ExtResource("10_degc6")
+region_rect = Rect2(320, 16, 64, 32)
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="IntroCamp"]
+offset_left = 105.0
+offset_top = 90.0
+offset_right = 145.0
+offset_bottom = 130.0
+texture = ExtResource("11_aex2n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="IntroCamp"]
+position = Vector2(127, 111)
+sprite_frames = SubResource("SpriteFrames_k2jtq")
+autoplay = "default"
 
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 1
@@ -1904,6 +2036,7 @@ region_rect = Rect2(288, 128, 64, 32)
 
 [node name="Label" type="Label" parent="CanvasLayer/RouteEvent/CampfirePanel"]
 process_mode = 3
+layout_mode = 0
 offset_left = 143.0
 offset_top = 25.0
 offset_right = 241.0
@@ -1985,6 +2118,7 @@ region_rect = Rect2(288, 128, 64, 32)
 
 [node name="Label" type="Label" parent="CanvasLayer/RouteEvent/EventPanel"]
 process_mode = 3
+layout_mode = 0
 offset_left = 143.0
 offset_top = 25.0
 offset_right = 241.0
@@ -2066,6 +2200,7 @@ region_rect = Rect2(288, 128, 64, 32)
 
 [node name="Label" type="Label" parent="CanvasLayer/RouteEvent/TreasurePanel"]
 process_mode = 3
+layout_mode = 0
 offset_left = 143.0
 offset_top = 25.0
 offset_right = 241.0
@@ -2147,6 +2282,7 @@ region_rect = Rect2(288, 128, 64, 32)
 
 [node name="Label" type="Label" parent="CanvasLayer/RouteEvent/ShopPanel"]
 process_mode = 3
+layout_mode = 0
 offset_left = 143.0
 offset_top = 25.0
 offset_right = 241.0
@@ -2192,6 +2328,7 @@ layout_mode = 2
 theme = ExtResource("22_7xxj8")
 
 [node name="shopBtn" type="NinePatchRect" parent="CanvasLayer/RouteEvent/ShopPanel/HBoxContainer/Button2"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
@@ -2271,8 +2408,197 @@ theme = ExtResource("15_2ovhu")
 theme_override_font_sizes/font_size = 8
 text = "Back"
 
+[node name="Wish" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Wish"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -108.0
+offset_right = 51.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/Wish"]
+process_mode = 3
+layout_mode = 0
+offset_left = 144.0
+offset_top = 11.0
+offset_right = 242.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "One wish"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Wish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -46.0
+offset_right = 36.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Wish/VBoxContainer"]
+custom_minimum_size = Vector2(10, 12)
+layout_mode = 2
+theme = ExtResource("31_4laf0")
+
+[node name="Label" type="Label" parent="CanvasLayer/Wish/VBoxContainer/Button"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 92.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+theme_override_font_sizes/font_size = 8
+text = "+ 8 HP"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Wish/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("31_4laf0")
+
+[node name="Label2" type="Label" parent="CanvasLayer/Wish/VBoxContainer/Button2"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 92.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+theme_override_font_sizes/font_size = 8
+text = "+ 3 Attack"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Wish/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("31_4laf0")
+
+[node name="Label3" type="Label" parent="CanvasLayer/Wish/VBoxContainer/Button3"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 92.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+theme_override_font_sizes/font_size = 8
+text = "+ 3 Block"
+
+[node name="Plan" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Plan"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -108.0
+offset_right = 51.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_i8385")
+region_rect = Rect2(288, 128, 64, 32)
+
+[node name="Label" type="Label" parent="CanvasLayer/Plan"]
+process_mode = 3
+layout_mode = 0
+offset_left = 144.0
+offset_top = 11.0
+offset_right = 242.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Plan Route"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Plan"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -46.0
+offset_right = 36.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Plan/VBoxContainer"]
+custom_minimum_size = Vector2(10, 12)
+layout_mode = 2
+theme = ExtResource("31_4laf0")
+
+[node name="Label" type="Label" parent="CanvasLayer/Plan/VBoxContainer/Button"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 92.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.952941, 0.752941, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+theme_override_font_sizes/font_size = 8
+text = "Plan"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_aex2n")
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="Map" parent="CanvasLayer/SubViewportContainer/SubViewport" instance=ExtResource("38_degc6")]
+visible = false
+texture_filter = 1
+
 [connection signal="animation_finished" from="Player/PlayerAnimad" to="Player" method="_on_player_animad_animation_finished"]
 [connection signal="animation_finished" from="Player/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="Pursuer/pursuer_animad" to="Player" method="_on_pursuer_animad_animation_finished"]
 [connection signal="animation_finished" from="Pursuer/pursuer_animad" to="Pursuer" method="_on_pursuer_animad_animation_finished"]
 [connection signal="pressed" from="CanvasLayer/GameOver/VBoxContainer/Restart" to="CanvasLayer/GameOver" method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/Plan/VBoxContainer/Button" to="IntroCamp" method="_on_button_pressed"]

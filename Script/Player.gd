@@ -176,7 +176,9 @@ func _on_player_animad_animation_finished() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "cam_fade":
-		$AnimationPlayer.play("fade_out_cut")
+		get_tree().paused = true
+		#$AnimationPlayer.play("fade_out_cut")
 	elif anim_name == "fade_out_cut":
-		GameEvents.fade_out_cut.emit()
-		is_not_ready = false
+		get_tree().paused = true
+		#GameEvents.fade_out_cut.emit()
+		#is_not_ready = false
