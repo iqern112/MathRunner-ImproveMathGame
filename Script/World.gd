@@ -4,6 +4,7 @@ extends Node2D
 @onready var chagne_scence = $CanvasLayer/ChangeScence/AnimationPlayer
 @onready var distance_label = $CanvasLayer/Route/RouteIcon/DistanceLabel
 @onready var RouteIcon = $CanvasLayer/Route/RouteIcon
+@onready var spawn_node = $SpawnNode
 
 var route_scenes = {
 	"MONSTER": preload("res://Scene/Route/MonsterSpawn.tscn"),
@@ -122,19 +123,13 @@ func spawn_monster():
 func spawn_route_point():
 	var type = GameEvents.current_route_type
 	if not route_scenes.has(type): return
-	
-	## ลบจุดเก่าถ้ามี
-	#if is_instance_valid(current_spawn_point):
-		#current_spawn_point.queue_free()
-	
+	for child in spawn_node.get_children():
+		child.queue_free()
 	var scene = route_scenes[type]
 	var instance = scene.instantiate()
-	
-	# คำนวณตำแหน่ง: ตำแหน่งปัจจุบัน + (500 เมตร * 10 พิกเซลต่อเมตร)
 	var spawn_x = player.global_position.x + (event_interval * pixel_per_meter)
-	instance.global_position = Vector2(spawn_x, player.global_position.y + 15) # ปรับ Y ตามพื้นของคุณ
-	
-	add_child(instance)
+	instance.global_position = Vector2(spawn_x, player.global_position.y + 15)
+	spawn_node.add_child(instance)
 	current_spawn_point = instance
 
 func _on_animation_finished(anim_name: StringName):

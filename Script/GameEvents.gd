@@ -45,6 +45,7 @@ signal treasure_opened
 signal elite_opened
 
 signal active_buff
+signal add_skill
 
 var own_item: Dictionary = {} # เก็บไอเทมที่ซื้อแล้ว
 var current_route_type: String

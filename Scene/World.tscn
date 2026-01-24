@@ -909,6 +909,8 @@ position = Vector2(127, 111)
 sprite_frames = SubResource("SpriteFrames_k2jtq")
 autoplay = "default"
 
+[node name="SpawnNode" type="Node2D" parent="."]
+
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 1
 texture_filter = 1
@@ -1914,7 +1916,6 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
-alignment = 1
 
 [node name="Button" type="Button" parent="CanvasLayer/RouteEvent/RewardPanel/RewardContainer"]
 process_mode = 3

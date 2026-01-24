@@ -34,6 +34,8 @@ func _ready() -> void:
 	GameEvents.level_up_signal.connect(select_skill)
 	GameEvents.money_changed.connect(_update_money_display)
 	
+	GameEvents.add_skill.connect(apply_skill_effects)
+	
 func select_skill():
 	var keys = data_skills.keys()
 	keys.shuffle() # สลับตำแหน่งข้อมูลในลิสต์
@@ -55,16 +57,10 @@ func _show_desc(index: int):
 	desc_label.text = data["title"] + "\n" + data["desc"]
 
 func _on_skill_selected(index: int):
-	var skill_key = current_options[index] # ดึงชื่อคีย์ เช่น "lucky"
-
-	if own_skill.has(skill_key):
-		own_skill[skill_key] += 1 # ถ้ามีอยู่แล้ว บวกเพิ่ม 1
-		print("key",own_skill[skill_key])
-	else:
-		own_skill[skill_key] = 1  # ถ้ายังไม่มี ให้เริ่มที่ 1
+	var skill_key = current_options[index]
 	
-	apply_skill_effects(skill_key) # สั่งให้ความสามารถทำงานตาม Stack ใหม่
-	update_skill_hud_display() # อัปเดตไอคอนบนหน้าจอ
+	# เรียกใช้ฟังก์ชันกลางเพื่อจัดการเรื่อง Stack และ Effect (บวกเพิ่มทีละ 1 สำหรับเลเวลอัป)
+	apply_skill_effects(skill_key, 1)
 	
 	# ปิดหน้าต่างและเล่นเกมต่อ
 	$Panel.visible = false
@@ -72,28 +68,35 @@ func _on_skill_selected(index: int):
 	if numpad_button: numpad_button.grab_focus()
 	$"../Question/EquationContainer".visible = true
 
-func apply_skill_effects(key):
-	# ใช้ .get() เพื่อดึงค่า ถ้าไม่มีสกิลนั้นจะคืนค่า 0 (กัน Error)
-	if key == "lucky":
-		var lucky_exp: int = own_skill.get("lucky", 0)
-		GameEvents.skill_lucky.emit(lucky_exp)
-	elif key == "interest":
-		var interest_stack = own_skill.get("interest", 0)
-		extra_base_reward = interest_stack * 5
-	elif key == "learn":
-		var reduce_exp = own_skill.get("learn", 0)
-		GameEvents.skill_learn.emit(reduce_exp)
-	elif key == "power":
-		var power_count = own_skill.get("power", 0)
-		var on_power = 2
-		GameEvents.on_skill_recive.emit(key,on_power)
-	elif key == "shield":
-		var shield_count = own_skill.get("shield", 0)
-		var on_shield = 2
-		GameEvents.on_skill_recive.emit(key,on_shield)
-	elif key == "armor":
-		var armor_count = own_skill.get("armor", 0)
-		GameEvents.on_skill_recive.emit(key,1)
+# แก้ไขฟังก์ชันนี้ให้รับ key และ amount (จำนวนที่ได้เพิ่ม)
+func apply_skill_effects(key: String, amount: int = 1):
+	# 1. จัดการเรื่อง Stack: ตรวจสอบว่ามีสกิลนี้อยู่หรือยัง
+	if own_skill.has(key):
+		own_skill[key] += amount # เพิ่มจำนวนตามที่ได้รับมา (จาก reward อาจเป็น 1-3)
+	else:
+		own_skill[key] = amount # ถ้ายังไม่มี ให้เริ่มตามจำนวนที่ได้
+	
+	# 2. ประมวลผลความสามารถของสกิลตาม Stack ใหม่
+	match key:
+		"lucky":
+			var lucky_exp: int = own_skill.get("lucky", 0)
+			GameEvents.skill_lucky.emit(lucky_exp)
+		"interest":
+			var interest_stack = own_skill.get("interest", 0)
+			extra_base_reward = interest_stack * 5
+		"learn":
+			var reduce_exp = own_skill.get("learn", 0)
+			GameEvents.skill_learn.emit(reduce_exp)
+		"power":
+			# ส่งค่า bonus ที่สะสมได้ทั้งหมดไปให้ระบบต่อสู้
+			GameEvents.on_skill_recive.emit(key, 2 * amount) # สมมติว่าเพิ่มทีละ 2 ต่อ stack
+		"shield":
+			GameEvents.on_skill_recive.emit(key, 2 * amount)
+		"armor":
+			GameEvents.on_skill_recive.emit(key, 1 * amount)
+			
+	# 3. อัปเดตการแสดงผลไอคอนบนหน้าจอ
+	update_skill_hud_display()
 	
 func update_skill_hud_display():
 	# 1. ล้างไอคอนเก่าใน HBox ก่อนแสดงใหม่
