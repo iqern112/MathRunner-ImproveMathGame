@@ -41,6 +41,12 @@ func _ready() -> void:
 	GameEvents.monster_to_control.connect(mons_act_handle)
 	set_up_combat_panel()
 	
+	GameEvents.add_skill.connect(_on_data_changed)
+	GameEvents.on_skill_recive.connect(_on_data_changed)
+
+func _on_data_changed():
+	# ทุกครั้งที่ข้อมูลเปลี่ยน ให้วาดแผงคำสั่งใหม่เพื่ออัปเดตตัวเลข
+	set_up_combat_panel()
 
 func _input(event):
 	if not $Panel.visible: return
@@ -131,6 +137,30 @@ func add_buff(buff_key):
 	set_up_combat_panel() # อัปเดตตัวเลขบนปุ่ม
 	
 
+#func set_up_combat_panel():
+	#for child in action_list.get_children():
+		#child.queue_free()
+	#
+	#for a_key in data_action:
+		#var data = data_action[a_key]
+		#var new_action_btn = ACTION_BUTT.instantiate()
+		#action_list.add_child(new_action_btn)
+		#
+		## --- ส่วนที่เพิ่ม/แก้ไข ---
+		#var display_value = 0
+		#
+		#if a_key == "Attack":
+			#
+			#display_value = cal_all_p_damage() # เรียกใช้ฟังก์ชันคำนวณ 5 + bonus_damage
+		#elif a_key == "Block":
+			#display_value = cal_block()   # คำนวณค่าพลังป้องกันพื้นฐาน + โบนัส
+			#
+		## ส่งค่า display_value ที่คำนวณแล้วเข้าไปแทนเลข 5 เดิม
+		#new_action_btn.set_butt_action(data["icon"], data["title"], display_value)
+		## -----------------------
+		#
+		#new_action_btn.pressed.connect(_on_action_pressed.bind(a_key))
+
 func set_up_combat_panel():
 	for child in action_list.get_children():
 		child.queue_free()
@@ -140,21 +170,43 @@ func set_up_combat_panel():
 		var new_action_btn = ACTION_BUTT.instantiate()
 		action_list.add_child(new_action_btn)
 		
-		# --- ส่วนที่เพิ่ม/แก้ไข ---
 		var display_value = 0
 		
+		# --- เรียกใช้ EffectProcessor แทนการคำนวณเอง ---
 		if a_key == "Attack":
-			
-			display_value = cal_all_p_damage() # เรียกใช้ฟังก์ชันคำนวณ 5 + bonus_damage
+			display_value = EffectProcessor.calculate_player_attack()
+			print("calculate_player_attack")
 		elif a_key == "Block":
-			display_value = cal_block()   # คำนวณค่าพลังป้องกันพื้นฐาน + โบนัส
+			display_value = EffectProcessor.calculate_player_block()
 			
-		# ส่งค่า display_value ที่คำนวณแล้วเข้าไปแทนเลข 5 เดิม
 		new_action_btn.set_butt_action(data["icon"], data["title"], display_value)
-		# -----------------------
-		
 		new_action_btn.pressed.connect(_on_action_pressed.bind(a_key))
 
+#func _on_action_pressed(action_name: String):
+	#current_selected_action = action_name
+	#update_buff()
+	## ปิดหน้าต่างเลือกคำสั่ง
+	#$Panel.visible = false
+	## แยกการทำงานตามชื่อที่กดมา
+	#match action_name:
+		#"Attack":
+			#if buff_count.get("Piercing", 0) > 0:
+				#buff_count["Piercing"] -= 1
+				#GameEvents.control_to_monster.emit("Drill",cal_all_p_damage())
+				#
+			#else : 
+				#GameEvents.control_to_monster.emit("Attack",cal_all_p_damage())
+			#if buff_count.get("AddNextDmg", 0) > 0:
+				#buff_count["AddNextDmg"] -= 1
+				#bonus_damage -= 10
+		#"Block":
+			#GameEvents.control_to_player.emit("Block",cal_block())
+	#await get_tree().process_frame
+	#set_up_combat_panel()
+	#update_buff() # อัปเดตไอคอนบนหัวตัวละคร
+	#$"../Question/EquationContainer".visible = true
+	#$"../NumpadPanel/GridContainer/1".grab_focus()
+	#GameEvents.combat_panel_open.emit("close")
 
 func _on_action_pressed(action_name: String):
 	current_selected_action = action_name
@@ -162,19 +214,12 @@ func _on_action_pressed(action_name: String):
 	# ปิดหน้าต่างเลือกคำสั่ง
 	$Panel.visible = false
 	# แยกการทำงานตามชื่อที่กดมา
-	match action_name:
-		"Attack":
-			if buff_count.get("Piercing", 0) > 0:
-				buff_count["Piercing"] -= 1
-				GameEvents.control_to_monster.emit("Drill",cal_all_p_damage())
-				
-			else : 
-				GameEvents.control_to_monster.emit("Attack",cal_all_p_damage())
-			if buff_count.get("AddNextDmg", 0) > 0:
-				buff_count["AddNextDmg"] -= 1
-				bonus_damage -= 10
-		"Block":
-			GameEvents.control_to_player.emit("Block",cal_block())
+	if action_name == "Attack":
+		var final_dmg = EffectProcessor.calculate_player_attack()
+		GameEvents.control_to_monster.emit("Attack", final_dmg)
+	elif action_name == "Block":
+		var final_block = EffectProcessor.calculate_player_block()
+		GameEvents.control_to_player.emit("Block", final_block)
 	await get_tree().process_frame
 	set_up_combat_panel()
 	update_buff() # อัปเดตไอคอนบนหัวตัวละคร
@@ -231,15 +276,25 @@ func update_buff():
 				new_buff_icon.set_skill_info(data["icon"], count)
 
 func show_action_panel():
-	current_tab = 0 # กลับมาหน้าแรกทุกครั้งที่เปิด
+	# 1. สั่งวาดปุ่มใหม่ตามข้อมูลล่าสุด
+	set_up_combat_panel()
+	
+	# 2. ตั้งค่า Tab
+	current_tab = 0 
 	switch_tab()
 	update_tab_visuals()
+	
+	# 3. เปิดหน้าจอ
 	GameEvents.combat_panel_open.emit("open")
 	$Panel.visible = true
 	$"../Question/EquationContainer".visible = false
-	# เลือกปุ่มแรกที่มีอยู่ใน VBoxContainer ปัจจุบัน
-	#if action_list.get_child_count() > 0:
-		#action_list.get_child(0).grab_focus()
+	
+	# --- จุดสำคัญ: รอให้ Godot สร้างปุ่มเสร็จในเฟรมนี้ก่อน ---
+	await get_tree().process_frame
+	
+	# 4. เมื่อปุ่มถูกสร้างเสร็จแล้วจริงๆ ค่อยสั่ง Grab Focus
+	if action_list.get_child_count() > 0:
+		action_list.get_child(0).grab_focus()
 
 func update_tab_visuals():
 	var empty_style = StyleBoxEmpty.new()

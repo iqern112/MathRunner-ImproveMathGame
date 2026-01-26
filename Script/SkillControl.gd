@@ -8,121 +8,137 @@ const SKILL_ITEM_SCENE = preload("res://Scene/SkillOnItem.tscn")
 
 var extra_base_reward = 0
 
-var current_options = []
-var own_skill = {}
-var data_skills = {
-	"lucky": {"title": "Lucky", "desc": "40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
-	"interest": {"title": "Interest", "desc": "Earn an extra +5 money.", "icon": preload("res://Resouce/SkillIcon/interest.tres")},
-	"learn": {"title": "Learn", "desc": "Reduce MAX EXP -1.", "icon": preload("res://Resouce/SkillIcon/learn.tres")},
-	"power": {"title": "Power", "desc": "Increase +2 damage.", "icon": preload("res://Resouce/SkillIcon/power.tres")},
-	"shield": {"title": "Shield", "desc": "Gain +2 shield.", "icon": preload("res://Resouce/SkillIcon/shield.tres")},
-	"armor": {"title": "Armor", "desc": "Reduce damage 1.", "icon": preload("res://Resouce/SkillIcon/armor.tres")},
-}
+# --- การจัดการข้อมูล ---
+#var all_skills: Array[SkillData] = [] 
+var current_options: Array[SkillData] = [] 
+#var own_skill: Dictionary = {} # { SkillData: int_stack }
+var skill_ui_nodes: Dictionary = {} # { SkillData: UI_Node }
 
 func _ready() -> void:
-	# 1. เชื่อมต่อสัญญาณไว้ล่วงหน้าด้วย "ลำดับของปุ่ม" (0, 1, 2)
-	# ทำที่นี่ครั้งเดียว ไม่เกิด Error 'already connected' แน่นอน
-	$Panel/SkillButtonsContainer/Button.pressed.connect(_on_skill_selected.bind(0))
-	$Panel/SkillButtonsContainer/Button2.pressed.connect(_on_skill_selected.bind(1))
-	$Panel/SkillButtonsContainer/Button3.pressed.connect(_on_skill_selected.bind(2))
-
-	$Panel/SkillButtonsContainer/Button.focus_entered.connect(_show_desc.bind(0))
-	$Panel/SkillButtonsContainer/Button2.focus_entered.connect(_show_desc.bind(1))
-	$Panel/SkillButtonsContainer/Button3.focus_entered.connect(_show_desc.bind(2))
+	# ต้องแน่ใจว่า Path นี้สะกดถูกต้องตามใน FileSystem ของคุณ
+	#var skill_path = "res://Resouce/SkillData/"
+	#load_all_skills_from_folder(skill_path)
 	
-	#GameEvents.correct_answer_signal.connect(make_money)
+	# เชื่อมต่อปุ่ม
+	var buttons = [$Panel/SkillButtonsContainer/Button, $Panel/SkillButtonsContainer/Button2, $Panel/SkillButtonsContainer/Button3]
+	for i in range(buttons.size()):
+		buttons[i].pressed.connect(_on_skill_selected.bind(i))
+		buttons[i].focus_entered.connect(_show_desc.bind(i))
 	GameEvents.level_up_signal.connect(select_skill)
 	GameEvents.money_changed.connect(_update_money_display)
-	
-	GameEvents.add_skill.connect(apply_skill_effects)
-	
+	GameEvents.add_skill.connect(_smart_update_hud)
+
+#func load_all_skills_from_folder(path: String):
+	#var dir = DirAccess.open(path)
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if file_name.ends_with(".tres") or file_name.ends_with(".res"):
+				#var skill = load(path + file_name)
+				#if skill is SkillData:
+					#all_skills.append(skill)
+			#file_name = dir.get_next()
+		#print("Successfully loaded ", all_skills.size(), " skills.")
+	#else:
+		#print("CRITICAL ERROR: Cannot open path: ", path)
+
 func select_skill():
-	var keys = data_skills.keys()
-	keys.shuffle() # สลับตำแหน่งข้อมูลในลิสต์
-	current_options = keys.slice(0, 3)
+	# --- ส่วนที่เพิ่มเพื่อป้องกันการเด้งซ้อน ---
+	if $Panel.visible:
+		print("Skill Panel is already open, skipping this trigger.")
+		return
+	# ---------------------------------------
+	print("Level Up Signal Received!") # ถ้าคำนี้ไม่ขึ้น แสดงว่าสัญญาณส่งมาไม่ถึง
 	
-	$Panel/SkillButtonsContainer/Button/NinePatchRect.texture = data_skills[current_options[0]]["icon"]
-	$Panel/SkillButtonsContainer/Button2/NinePatchRect.texture = data_skills[current_options[1]]["icon"]
-	$Panel/SkillButtonsContainer/Button3/NinePatchRect.texture = data_skills[current_options[2]]["icon"]
+	if PlayerData.all_skills.is_empty(): 
+		print("Warning: all_skills is empty, cannot show UI")
+		return
+
+	# สุ่มสกิล
+	var pool = PlayerData.all_skills.duplicate()
+	pool.shuffle()
 	
+	# ป้องกัน Error กรณีมีสกิลน้อยกว่า 3
+	var pick_amount = min(3, pool.size())
+	current_options = pool.slice(0, pick_amount)
+	
+	var buttons = [$Panel/SkillButtonsContainer/Button, $Panel/SkillButtonsContainer/Button2, $Panel/SkillButtonsContainer/Button3]
+	
+	# รีเซ็ตปุ่มทั้งหมด
+	for b in buttons: b.visible = false
+	
+	# ตั้งค่าปุ่มตามสกิลที่สุ่มได้
+	for i in range(current_options.size()):
+		buttons[i].visible = true
+		buttons[i].get_node("NinePatchRect").texture = current_options[i].icon
+	
+	# แสดงหน้าจอ
 	get_tree().paused = true
 	$Panel.visible = true
-	$Panel/SkillButtonsContainer/Button.grab_focus()
-	$"../Question/EquationContainer".visible = false
+	buttons[0].grab_focus()
+	
+	if has_node("../Question/EquationContainer"):
+		$"../Question/EquationContainer".visible = false
 
 func _show_desc(index: int):
-	# ฟังก์ชันนี้จะดึงชื่อสกิลล่าสุดจาก current_options ตามลำดับปุ่มที่ส่งมา
-	var skill_key = current_options[index] 
-	var data = data_skills[skill_key]
-	desc_label.text = data["title"] + "\n" + data["desc"]
+	if index < current_options.size():
+		var skill = current_options[index]
+		desc_label.text = skill.title + "\n" + skill.desc
 
 func _on_skill_selected(index: int):
-	var skill_key = current_options[index]
+	var selected_skill = current_options[index]
+	# ส่งสัญญาณออกไปให้โลกภายนอกรู้ (PlayerData และ HUD จะรับช่วงต่อเอง)
+	GameEvents.add_skill.emit(selected_skill, 1)
 	
-	# เรียกใช้ฟังก์ชันกลางเพื่อจัดการเรื่อง Stack และ Effect (บวกเพิ่มทีละ 1 สำหรับเลเวลอัป)
-	apply_skill_effects(skill_key, 1)
-	
-	# ปิดหน้าต่างและเล่นเกมต่อ
 	$Panel.visible = false
 	get_tree().paused = false
 	if numpad_button: numpad_button.grab_focus()
-	$"../Question/EquationContainer".visible = true
+	
+	if has_node("../Question/EquationContainer"):
+		$"../Question/EquationContainer".visible = true
+	
+	# --- เพิ่มตรงนี้: เช็คว่า EXP ที่ทบไว้ มันยังล้นหลอดอยู่ไหม ---
+	# ถ้าล้น ให้สั่งเปิดหน้าเลือกสกิลอีกครั้งในเฟรมถัดไป
+	_check_for_next_level()
 
-# แก้ไขฟังก์ชันนี้ให้รับ key และ amount (จำนวนที่ได้เพิ่ม)
-func apply_skill_effects(key: String, amount: int = 1):
-	# 1. จัดการเรื่อง Stack: ตรวจสอบว่ามีสกิลนี้อยู่หรือยัง
-	if own_skill.has(key):
-		own_skill[key] += amount # เพิ่มจำนวนตามที่ได้รับมา (จาก reward อาจเป็น 1-3)
-	else:
-		own_skill[key] = amount # ถ้ายังไม่มี ให้เริ่มตามจำนวนที่ได้
+func _check_for_next_level():
+	# รอ 1 เฟรมให้ UI ปิดสนิทก่อน
+	await get_tree().process_frame 
 	
-	# 2. ประมวลผลความสามารถของสกิลตาม Stack ใหม่
-	match key:
-		"lucky":
-			var lucky_exp: int = own_skill.get("lucky", 0)
-			GameEvents.skill_lucky.emit(lucky_exp)
-		"interest":
-			var interest_stack = own_skill.get("interest", 0)
-			extra_base_reward = interest_stack * 5
-		"learn":
-			var reduce_exp = own_skill.get("learn", 0)
-			GameEvents.skill_learn.emit(reduce_exp)
-		"power":
-			# ส่งค่า bonus ที่สะสมได้ทั้งหมดไปให้ระบบต่อสู้
-			GameEvents.on_skill_recive.emit(key, 2 * amount) # สมมติว่าเพิ่มทีละ 2 ต่อ stack
-		"shield":
-			GameEvents.on_skill_recive.emit(key, 2 * amount)
-		"armor":
-			GameEvents.on_skill_recive.emit(key, 1 * amount)
+	# อ้างอิงไปที่โหนด LevelControl
+	var level_sys = get_node_or_null("../LevelControl")
+	
+	if level_sys:
+		# ถ้า EXP ยังล้นหลอดอยู่ (ทบมาเยอะ)
+		if level_sys.current_exp >= level_sys.level_bar.max_value:
+			print("EXP ยังล้นอยู่ ส่งสัญญาณเลเวลอัปอีกรอบ!")
 			
-	# 3. อัปเดตการแสดงผลไอคอนบนหน้าจอ
-	update_skill_hud_display()
+			# เรียกสัญญาณเดิมซ้ำ เพื่อให้ select_skill() ทำงานอีกครั้ง
+			GameEvents.level_up_signal.emit()
+
+
+func _smart_update_hud(skill: SkillData, _amount: int):
+	# ดึงเลข Stack ปัจจุบันจาก PlayerData
+	var stack_count = PlayerData.own_skills[skill]
 	
-func update_skill_hud_display():
-	# 1. ล้างไอคอนเก่าใน HBox ก่อนแสดงใหม่
-	for child in show_skill_hbox.get_children():
-		child.queue_free()
+	if skill_ui_nodes.has(skill):
+		skill_ui_nodes[skill].set_skill_info(skill.icon, stack_count)
+	else:
+		var new_ui = SKILL_ITEM_SCENE.instantiate()
+		show_skill_hbox.add_child(new_ui)
+		new_ui.set_skill_info(skill.icon, stack_count)
+		skill_ui_nodes[skill] = new_ui
 		
-	# 2. วนลูปตามสกิลที่ผู้เล่นมีเก็บไว้ใน own_skill (Dictionary)
-	for skill_key in own_skill:
-		var count = own_skill[skill_key]
-		var data = data_skills[skill_key]
-		
-		# 3. สร้าง Instance ของเทมเพลตขึ้นมา
-		var new_item = SKILL_ITEM_SCENE.instantiate()
-		
-		# 4. เพิ่มเข้าไปใน HBoxContainer ก่อน
-		show_skill_hbox.add_child(new_item)
-		
-		# 5. สั่งให้แสดงผล Icon และ เลข Stack
-		# โดยส่ง Texture จาก data_skills และจำนวนจาก own_skill
-		new_item.set_skill_info(data["icon"], count)
-		$"../../Player/AnimationPlayer".play("exp_plus_animad")
+	# เล่นแอนิเมชัน
+	var player_anim = get_node_or_null("../../Player/AnimationPlayer")
+	if player_anim:
+		player_anim.play("exp_plus_animad")
 
 func make_money(difficulty : int):
 	var on_money:int = 0
 	on_money += (5*difficulty) + extra_base_reward
-	GameEvents.add_money(on_money)
+	PlayerData.add_money(on_money)
 	
 
 func _update_money_display(new_amount):

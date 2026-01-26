@@ -138,7 +138,7 @@ func _on_reroll_pressed():
 	var cost = reroll_cost * (reroll_count + 1) # คำนวณราคาครั้งถัดไป
 	
 	# ตรวจสอบและตัดเงินผ่าน GameManager (หรือชื่อ Autoload ที่คุณตั้งไว้)
-	if GameEvents.remove_money(cost):
+	if PlayerData.remove_money(cost):
 		reroll_count += 1
 		fill_shop_items()
 		update_reroll_button_text()
@@ -173,7 +173,7 @@ func _on_buy_selected(index: int):
 	var data = GameEvents.data_items[item_key]
 	var price = int(data.get("price", 0))
 	
-	if GameEvents.remove_money(price):
+	if PlayerData.remove_money(price):
 		# เก็บเข้า GameEvents แทนตัวแปรในเครื่อง
 		if GameEvents.own_item.has(item_key):
 			GameEvents.own_item[item_key] += 1

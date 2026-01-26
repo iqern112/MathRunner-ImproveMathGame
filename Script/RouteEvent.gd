@@ -28,20 +28,11 @@ extends Control
 
 var rewards_remaining = 0
 
-var data_skills = {
-	"lucky": {"title": "Lucky", "desc": "40% chance of a +1 EXP.", "icon": preload("res://Resouce/SkillIcon/lucky.tres")},
-	"interest": {"title": "Interest", "desc": "Earn an extra +5 money.", "icon": preload("res://Resouce/SkillIcon/interest.tres")},
-	"learn": {"title": "Learn", "desc": "Reduce MAX EXP -1.", "icon": preload("res://Resouce/SkillIcon/learn.tres")},
-	"power": {"title": "Power", "desc": "Increase +2 damage.", "icon": preload("res://Resouce/SkillIcon/power.tres")},
-	"shield": {"title": "Shield", "desc": "Gain +2 shield.", "icon": preload("res://Resouce/SkillIcon/shield.tres")},
-	"armor": {"title": "Armor", "desc": "Reduce damage 1.", "icon": preload("res://Resouce/SkillIcon/armor.tres")},
-}
-
 var monney = {
 	"gold": {
 		"title": "Gold", 
 		"desc": "Receive gold coins for shopping.", 
-		"icon": preload("res://Resouce/SkillIcon/Gold.tres")
+		"icon": preload("res://Resouce/SkillData1/Gold.tres")
 	}
 }
 
@@ -115,20 +106,20 @@ func mons_die():
 	
 	btn1.grab_focus()
 
+
+
 func setup_skill_reward(rect: NinePatchRect, stack: Label, btn: Button):
-	var selected_key = data_skills.keys().pick_random()
-	var skill_data = data_skills[selected_key]
-	var count = 1
+	# ดึงจาก Global ตรงๆ
+	if PlayerData.all_skills.is_empty(): return
 	
-	# กำหนดค่าลงโหนดโดยตรง (Direct Property Access)
-	rect.texture = skill_data["icon"]
-	stack.text = skill_data["title"]
+	var selected_skill = PlayerData.all_skills.pick_random()
 	
-	# เก็บ Metadata เหมือนเดิมเพื่อให้ระบบเลือกรางวัลทำงานได้
+	rect.texture = selected_skill.icon
+	stack.text = selected_skill.title
+	
 	btn.set_meta("reward_type", "SKILL")
-	btn.set_meta("skill_key", selected_key)
-	btn.set_meta("count", count)
-	btn.tooltip_text = skill_data["desc"]
+	btn.set_meta("skill_resource", selected_skill) # เก็บตัว Resource ไว้เลย
+	btn.tooltip_text = selected_skill.desc
 
 func setup_gold_reward(rect: NinePatchRect, stack: Label, btn: Button):
 	var gold_data = monney["gold"]
@@ -147,12 +138,12 @@ func _on_reward_selected(btn: Button):
 	
 	# 1. จัดการประมวลผลรางวัล
 	if type == "SKILL":
-		var key = btn.get_meta("skill_key")
-		var count = btn.get_meta("count")
-		GameEvents.add_skill.emit(key, count)
+		var skill_res = btn.get_meta("skill_resource")
+		# เรียกใช้ฟังก์ชันเพิ่มสกิลที่ Global
+		GameEvents.add_skill.emit(skill_res, 1)
 	elif type == "GOLD":
 		var amount = btn.get_meta("amount")
-		GameEvents.add_money(amount)
+		PlayerData.add_money(amount)
 	
 	# 2. เรียกใช้แอนิเมชัน และรอให้จบก่อน (ใช้ await)
 	await smooth_hide_button(btn)
@@ -200,7 +191,7 @@ func camfire_select(btn: Button,action: String):
 
 func event_select(btn: Button,action: String):
 	if action == "event":
-		GameEvents.add_money(300)
+		PlayerData.add_money(300)
 	#GameEvents.open_close_nam.emit("open")
 	btn.release_focus()
 	$EventPanel.visible = false
@@ -208,7 +199,7 @@ func event_select(btn: Button,action: String):
 
 func treasur_select(btn: Button,action):
 	if action == "treasure":
-		GameEvents.add_money(300)
+		PlayerData.add_money(300)
 	#GameEvents.open_close_nam.emit("open")
 	btn.release_focus()
 	$TreasurePanel.visible = false

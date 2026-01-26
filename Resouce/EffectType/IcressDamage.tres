@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseEffect" load_steps=2 format=3 uid="uid://gaxkutu6y4s"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_l6nvk"]
+
+[resource]
+script = ExtResource("1_l6nvk")
+type = 0
+value = 2.0
+chance = 1.0
+is_percentage = false
+metadata/_custom_type_script = "uid://btdu76pe2h0d4"

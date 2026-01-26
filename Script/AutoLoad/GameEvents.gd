@@ -1,6 +1,5 @@
 extends Node
 
-var money: int = 0
 var is_stop: bool = false
 var is_combat: bool = false
 signal monster_died
@@ -61,15 +60,3 @@ var data_items: Dictionary = {
 func set_route(type: String):
 	current_route_type = type
 	route_changed.emit(type)
-
-func add_money(amount: int):
-	money += amount
-	money_changed.emit(money) # ส่งสัญญาณบอก Node อื่นๆ ว่าเงินเปลี่ยนแล้ว
-
-func remove_money(amount: int) -> bool:
-	if money >= amount:
-		money -= amount
-		money_changed.emit(money)
-		return true # ลบสำเร็จ
-	else:
-		return false # เงินไม่พอ ลบไม่สำเร็จ

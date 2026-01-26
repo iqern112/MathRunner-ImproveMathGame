@@ -67,10 +67,6 @@ func active_buff(buff_name: String):
 	if buff_name == "hp_incress":
 		max_hp += 8
 		current_hp += 8
-	elif buff_name == "attack_incress":
-		incress_damage += 3
-	elif buff_name == "block_incress":
-		add_block += 3
 	set_player_status()
 
 	#"hp_incress": "+ 8 HP",
@@ -148,11 +144,13 @@ func take_damage(final_damage: int):
 	set_player_status()
 	if current_hp <= 0: die()
 
-func combat_action_handle(action,value):
+func combat_action_handle(action, value):
 	if action == "Block":
-		shield += value
-	elif action == "ATTACK":
-		take_damage(value)
+		shield += value # รับค่า Block เต็มๆ จาก UI ที่คำนวณมาแล้ว
+	elif action == "ATTACK": # กรณี Monster โจมตีมา
+		# ส่งค่าดาเมจดิบไปให้ Processor คำนวณลดหย่อนตามชุดเกราะ
+		var final_damage = EffectProcessor.process_incoming_damage(value)
+		take_damage(final_damage)
 	elif action == "potion":
 		current_hp += value
 	set_player_status()

@@ -30,7 +30,7 @@ var monster_scenes = [
 ]
 
 var next_event_type # เริ่มต้นบังคับเป็น Monster ตัวแรก
-var event_interval = 100.0 # ระยะห่างแต่ละเหตุการณ์
+var event_interval = 500.0 # ระยะห่างแต่ละเหตุการณ์
 
 var last_spawn_x = 0.0      # ตำแหน่ง X ล่าสุดที่เพิ่ง spawn ไป
 var spawn_distance_meters = 500.0 # ระยะทางที่ต้องวิ่งเพื่อเจอ Monster (ปรับตามความเหมาะสม)
@@ -148,9 +148,9 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		#GameEvents.cam_fade_in.emit()
 		$CanvasLayer/LevelControl.visible = false
 		$CanvasLayer/Wish.show()
-	
-		spawn_route_point() 
 		
+		spawn_route_point() 
+		$CanvasLayer/Wish/VBoxContainer/Button.grab_focus()
 		#$CanvasLayer/NumpadPanel.visible = true
 		#$CanvasLayer/NumpadPanel.grab_initial_focus()
 		#$CanvasLayer/Question.visible = true
@@ -167,3 +167,4 @@ func open_close_nam(name : String):
 		$CanvasLayer/Question.visible = true
 		$CanvasLayer/Route.visible = true
 		$CanvasLayer/LevelControl.visible = true
+		

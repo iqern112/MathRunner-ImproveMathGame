@@ -17,7 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameEvents="*res://Script/GameEvents.gd"
+PlayerData="*res://Script/AutoLoad/PlayerData.gd"
+EffectProcessor="*res://Script/AutoLoad/EffectProcessor.gd"
+GameEvents="*res://Script/AutoLoad/GameEvents.gd"
 
 [display]
 
