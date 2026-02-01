@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhvx1t7bfcw5r"]
 
 [ext_resource type="Script" uid="uid://cjum2yyjnovxv" path="res://Script/Monster.gd" id="1_677wb"]
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_ewfen"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_ewfen"]
 [ext_resource type="SpriteFrames" uid="uid://cbwgm5osbxw3r" path="res://Resouce/CharacterAnimad/Bringer-Of-Death.tres" id="3_oo5i6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]

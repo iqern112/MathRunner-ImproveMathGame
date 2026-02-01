@@ -6,8 +6,11 @@ const ON_SELECT_ACT = preload("res://Theme/ActionSelected.tres")
 
 @onready var buff_show = $"../../Player/BuffDebuff"
 @onready var action_list = $Panel/ActionSelect/VBoxContainer
+@onready var skill_list_vbox = $Panel/Skill/VBoxContainer
 @onready var item_list = $Panel/ItemList/VBoxContainer
+
 @onready var action_head = $Panel/HBoxContainer/Action
+@onready var Skill_head = $Panel/HBoxContainer/Skill
 @onready var item_head = $Panel/HBoxContainer/Item
 
 var current_tab: int = 0
@@ -51,27 +54,78 @@ func _on_data_changed():
 func _input(event):
 	if not $Panel.visible: return
 	
-	# กด A (ซ้าย) หรือ D (ขวา) เพื่อสลับหน้า
-	if event.is_action_pressed("ui_left"): # หรือ "ui_left"
-		current_tab  = 0
+	if event.is_action_pressed("ui_left"):
+		current_tab = posmod(current_tab - 1, 3) # สลับ 0 -> 2 -> 1
 		switch_tab()
-	elif event.is_action_pressed("ui_right"): # หรือ "ui_right"
-		current_tab = 1
+	elif event.is_action_pressed("ui_right"):
+		current_tab = posmod(current_tab + 1, 3) # สลับ 0 -> 1 -> 2
 		switch_tab()
 
 func switch_tab():
 	update_tab_visuals()
-	if current_tab == 0:
-		action_list.get_parent().visible = true
-		item_list.get_parent().visible = false
-		# โฟกัสปุ่มแรกของ Action
-		if action_list.get_child_count() > 0:
-			action_list.get_child(0).grab_focus()
+	# ปิดทุกหน้าก่อน
+	action_list.get_parent().visible = false
+	item_list.get_parent().visible = false
+	skill_list_vbox.visible = false
+	
+	match current_tab:
+		0: # Action
+			action_list.get_parent().visible = true
+			if action_list.get_child_count() > 0: action_list.get_child(0).grab_focus()
+		1: # Skill (เพิ่มใหม่)
+			skill_list_vbox.visible = true
+			set_skill_panel()
+		2: # Item
+			item_list.get_parent().visible = true
+			set_item_panel()
+
+func set_skill_panel():
+	# 1. ล้างปุ่มเก่า
+	for child in skill_list_vbox.get_children():
+		child.queue_free()
+	
+	# 2. กรองเฉพาะสกิลที่เป็น Active
+	var buttons = []
+	for skill in PlayerData.own_skills.keys():
+		if not skill.is_passive:
+			var new_btn = ACTION_BUTT.instantiate()
+			skill_list_vbox.add_child(new_btn)
+			
+			# แสดงค่า Mana Cost แทนในช่องตัวเลข (ถ้าต้องการ)
+			new_btn.set_butt_action(skill.icon, skill.title, skill.mana_cost)
+			new_btn.pressed.connect(_on_active_skill_used.bind(skill))
+			buttons.append(new_btn)
+	
+	# 3. จัดการ Focus
+	if buttons.size() > 0:
+		for i in range(buttons.size()):
+			if i > 0: buttons[i].set_focus_neighbor(SIDE_TOP, buttons[i-1].get_path())
+			if i < buttons.size() - 1: buttons[i].set_focus_neighbor(SIDE_BOTTOM, buttons[i+1].get_path())
+		
+		await get_tree().process_frame
+		buttons[0].grab_focus()
+
+func _on_active_skill_used(skill: SkillData):
+	# เช็คมานา
+	if PlayerData.use_mana(skill.mana_cost):
+		# จัดการ Effect ของสกิล (ตัวอย่างการใช้ match ตามชื่อสกิล)
+		match skill.title:
+			"Dmg Buff":
+				PlayerData.active_atk_buff += 5
+			"Def Buff":
+				PlayerData.active_def_buff += 5
+		
+		# ปิด Panel และเริ่มการคำนวณเหมือนกด Action
+		$Panel.visible = false
+		set_up_combat_panel() # อัปเดตตัวเลขเผื่อผู้เล่นกลับมาดู
+		update_buff()
+		
+		# กลับไปสู่ขั้นตอน Numpad
+		$"../Question/EquationContainer".visible = true
+		$"../NumpadPanel/GridContainer/1".grab_focus()
+		GameEvents.combat_panel_open.emit("close")
 	else:
-		action_list.get_parent().visible = false
-		item_list.get_parent().visible = true
-		set_item_panel()
-		 # อัปเดตรายการไอเทมก่อนโชว์
+		print("Not enough Mana!")
 
 func set_item_panel():
 	for child in item_list.get_children():
@@ -137,30 +191,6 @@ func add_buff(buff_key):
 	set_up_combat_panel() # อัปเดตตัวเลขบนปุ่ม
 	
 
-#func set_up_combat_panel():
-	#for child in action_list.get_children():
-		#child.queue_free()
-	#
-	#for a_key in data_action:
-		#var data = data_action[a_key]
-		#var new_action_btn = ACTION_BUTT.instantiate()
-		#action_list.add_child(new_action_btn)
-		#
-		## --- ส่วนที่เพิ่ม/แก้ไข ---
-		#var display_value = 0
-		#
-		#if a_key == "Attack":
-			#
-			#display_value = cal_all_p_damage() # เรียกใช้ฟังก์ชันคำนวณ 5 + bonus_damage
-		#elif a_key == "Block":
-			#display_value = cal_block()   # คำนวณค่าพลังป้องกันพื้นฐาน + โบนัส
-			#
-		## ส่งค่า display_value ที่คำนวณแล้วเข้าไปแทนเลข 5 เดิม
-		#new_action_btn.set_butt_action(data["icon"], data["title"], display_value)
-		## -----------------------
-		#
-		#new_action_btn.pressed.connect(_on_action_pressed.bind(a_key))
-
 func set_up_combat_panel():
 	for child in action_list.get_children():
 		child.queue_free()
@@ -174,39 +204,14 @@ func set_up_combat_panel():
 		
 		# --- เรียกใช้ EffectProcessor แทนการคำนวณเอง ---
 		if a_key == "Attack":
-			display_value = EffectProcessor.calculate_player_attack()
-			print("calculate_player_attack")
+			# ส่ง true เพื่อบอกว่าเป็น preview เลขจะไม่หาย
+			display_value = EffectProcessor.calculate_player_attack(true) 
 		elif a_key == "Block":
-			display_value = EffectProcessor.calculate_player_block()
+			display_value = EffectProcessor.calculate_player_block(true)
 			
 		new_action_btn.set_butt_action(data["icon"], data["title"], display_value)
 		new_action_btn.pressed.connect(_on_action_pressed.bind(a_key))
 
-#func _on_action_pressed(action_name: String):
-	#current_selected_action = action_name
-	#update_buff()
-	## ปิดหน้าต่างเลือกคำสั่ง
-	#$Panel.visible = false
-	## แยกการทำงานตามชื่อที่กดมา
-	#match action_name:
-		#"Attack":
-			#if buff_count.get("Piercing", 0) > 0:
-				#buff_count["Piercing"] -= 1
-				#GameEvents.control_to_monster.emit("Drill",cal_all_p_damage())
-				#
-			#else : 
-				#GameEvents.control_to_monster.emit("Attack",cal_all_p_damage())
-			#if buff_count.get("AddNextDmg", 0) > 0:
-				#buff_count["AddNextDmg"] -= 1
-				#bonus_damage -= 10
-		#"Block":
-			#GameEvents.control_to_player.emit("Block",cal_block())
-	#await get_tree().process_frame
-	#set_up_combat_panel()
-	#update_buff() # อัปเดตไอคอนบนหัวตัวละคร
-	#$"../Question/EquationContainer".visible = true
-	#$"../NumpadPanel/GridContainer/1".grab_focus()
-	#GameEvents.combat_panel_open.emit("close")
 
 func _on_action_pressed(action_name: String):
 	current_selected_action = action_name
@@ -298,9 +303,13 @@ func show_action_panel():
 
 func update_tab_visuals():
 	var empty_style = StyleBoxEmpty.new()
-	if current_tab == 0: # หน้า Action ถูกเลือก
-		action_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
-		item_head.add_theme_stylebox_override("panel", empty_style)
-	else: # หน้า Item ถูกเลือก
-		action_head.add_theme_stylebox_override("panel", empty_style)
-		item_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
+	# รีเซ็ตทุก Head
+	action_head.add_theme_stylebox_override("panel", empty_style)
+	Skill_head.add_theme_stylebox_override("panel", empty_style)
+	item_head.add_theme_stylebox_override("panel", empty_style)
+	
+	# ไฮไลต์ตาม current_tab
+	match current_tab:
+		0: action_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
+		1: Skill_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)
+		2: item_head.add_theme_stylebox_override("panel", ON_SELECT_ACT)

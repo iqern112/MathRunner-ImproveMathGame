@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://fr25e5vpk8ly"]
 
 [ext_resource type="Script" uid="uid://b16akg6i6f2u2" path="res://Script/Skeleton.gd" id="1_nq8ot"]
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_xht65"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_xht65"]
 [ext_resource type="SpriteFrames" uid="uid://dxpvw1lls1le5" path="res://Resouce/CharacterAnimad/Skeleton.tres" id="3_nq8ot"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]

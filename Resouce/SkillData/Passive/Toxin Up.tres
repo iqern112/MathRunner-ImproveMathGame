@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://8l4assg5mw00"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_o0awt"]
+[ext_resource type="Resource" uid="uid://655xdfe4ulwq" path="res://Resouce/EffectType/Poison.tres" id="2_o0awt"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="3_clheq"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_qgi8r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlux"]
+atlas = ExtResource("3_clheq")
+region = Rect2(208, 1072, 16, 16)
+
+[resource]
+script = ExtResource("4_qgi8r")
+title = "Toxin Up"
+icon = SubResource("AtlasTexture_gmlux")
+desc = "+1 Poison"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_o0awt")]([ExtResource("2_o0awt")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

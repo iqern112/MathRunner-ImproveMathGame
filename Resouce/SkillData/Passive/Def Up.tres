@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://bd5r2yquel31l"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_cbhcf"]
+[ext_resource type="Resource" uid="uid://fqejxoo7a802" path="res://Resouce/EffectType/IcressBlock.tres" id="2_lk7l5"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="3_rcyqi"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_741vj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlux"]
+atlas = ExtResource("3_rcyqi")
+region = Rect2(192, 1088, 16, 16)
+
+[resource]
+script = ExtResource("4_741vj")
+title = "Shield"
+icon = SubResource("AtlasTexture_gmlux")
+desc = "+2 Block"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_cbhcf")]([ExtResource("2_lk7l5")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

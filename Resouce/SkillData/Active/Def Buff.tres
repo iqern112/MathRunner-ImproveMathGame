@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://bqksadvcq3kkt"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_3jar1"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_m6jyg"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="3_1fni8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc75a"]
+atlas = ExtResource("2_m6jyg")
+region = Rect2(112, 848, 16, 16)
+
+[resource]
+script = ExtResource("3_1fni8")
+title = "Def Buff"
+icon = SubResource("AtlasTexture_oc75a")
+desc = "Next def +5"
+is_passive = false
+mana_cost = 10
+effects = Array[ExtResource("1_3jar1")]([])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

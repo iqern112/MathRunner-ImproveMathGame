@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_vituj")
 type = 3
-value = 2.0
+value = 1.0
 chance = 1.0
 is_percentage = false
 metadata/_custom_type_script = "uid://btdu76pe2h0d4"

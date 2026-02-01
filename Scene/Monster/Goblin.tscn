@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c2el07cngiy0x"]
 
 [ext_resource type="Script" uid="uid://ds15yikq8ruub" path="res://Script/Goblin.gd" id="1_vo1ug"]
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_uj2ha"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_uj2ha"]
 [ext_resource type="SpriteFrames" uid="uid://673mx1k75c1l" path="res://Resouce/CharacterAnimad/Goblin.tres" id="3_vo1ug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]

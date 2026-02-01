@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ff0qsvxxob75"]
 
 [ext_resource type="Script" uid="uid://crc58uq68ff6o" path="res://Script/FlyingEye.gd" id="1_gocuj"]
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_34xe3"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_34xe3"]
 [ext_resource type="SpriteFrames" uid="uid://ddie7p57gyji5" path="res://Resouce/CharacterAnimad/FlyingEye.tres" id="3_gocuj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://bhrf0b8fuy7o5"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_g1dld"]
+[ext_resource type="Resource" uid="uid://bm0i0ygyyh5f1" path="res://Resouce/EffectType/DropRate.tres" id="2_8igql"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="3_g1dld"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_k2n2x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8igql"]
+atlas = ExtResource("3_g1dld")
+region = Rect2(176, 656, 16, 16)
+
+[resource]
+script = ExtResource("4_k2n2x")
+title = "Luck Up"
+icon = SubResource("AtlasTexture_8igql")
+desc = "+5% Drop rate"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_g1dld")]([ExtResource("2_8igql")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

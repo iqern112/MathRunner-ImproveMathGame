@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://cbju1cgd2qthi"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_c6kfw"]
+[ext_resource type="Resource" uid="uid://ctj5dv38xnq6x" path="res://Resouce/EffectType/ExpBonus.tres" id="2_23ni6"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="3_c6kfw"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_8oae6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlux"]
+atlas = ExtResource("3_c6kfw")
+region = Rect2(48, 608, 16, 16)
+
+[resource]
+script = ExtResource("4_8oae6")
+title = "EXP Up"
+icon = SubResource("AtlasTexture_gmlux")
+desc = "+1 EXP"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_c6kfw")]([ExtResource("2_23ni6")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

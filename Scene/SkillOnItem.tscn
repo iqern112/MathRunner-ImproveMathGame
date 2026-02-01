@@ -1,15 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyesl41ge5bmg"]
 
-[ext_resource type="Texture2D" uid="uid://b2sjjy5ku2xqv" path="res://Asset/Item/items_sheet.png" id="1_568yd"]
+[ext_resource type="Texture2D" uid="uid://bt2spts6e4416" path="res://Resouce/SkillData/PassiveSlot.tres" id="1_dooe8"]
 [ext_resource type="Script" uid="uid://cygulqtxljyt5" path="res://Script/SkillOnItem.gd" id="2_dooe8"]
 
 [node name="NinePatchRect" type="NinePatchRect"]
 texture_filter = 1
 custom_minimum_size = Vector2(16, 16)
-texture = ExtResource("1_568yd")
+texture = ExtResource("1_dooe8")
 script = ExtResource("2_dooe8")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 7.5
@@ -17,4 +18,4 @@ offset_right = 14.0
 offset_bottom = 21.5
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "20"
+text = "0"

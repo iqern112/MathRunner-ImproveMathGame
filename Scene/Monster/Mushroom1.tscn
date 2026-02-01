@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://jgqep1qrq31o"]
 
 [ext_resource type="Script" uid="uid://bxpturkfrcd0y" path="res://Script/Mushroom1.gd" id="1_lns34"]
-[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_hikas"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="2_hikas"]
 [ext_resource type="SpriteFrames" uid="uid://c5gpxwwmqocp3" path="res://Resouce/CharacterAnimad/Mushroom1.tres" id="3_lns34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwmrk"]

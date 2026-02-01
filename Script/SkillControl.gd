@@ -4,22 +4,11 @@ extends Control
 @onready var desc_label = $Panel/DescriptionLabel
 @onready var show_skill_hbox = $ShowSkill
 
-const SKILL_ITEM_SCENE = preload("res://Scene/SkillOnItem.tscn")
-
 var extra_base_reward = 0
-
-# --- การจัดการข้อมูล ---
-#var all_skills: Array[SkillData] = [] 
 var current_options: Array[SkillData] = [] 
-#var own_skill: Dictionary = {} # { SkillData: int_stack }
-var skill_ui_nodes: Dictionary = {} # { SkillData: UI_Node }
+var skill_ui_nodes: Dictionary = {} 
 
 func _ready() -> void:
-	# ต้องแน่ใจว่า Path นี้สะกดถูกต้องตามใน FileSystem ของคุณ
-	#var skill_path = "res://Resouce/SkillData/"
-	#load_all_skills_from_folder(skill_path)
-	
-	# เชื่อมต่อปุ่ม
 	var buttons = [$Panel/SkillButtonsContainer/Button, $Panel/SkillButtonsContainer/Button2, $Panel/SkillButtonsContainer/Button3]
 	for i in range(buttons.size()):
 		buttons[i].pressed.connect(_on_skill_selected.bind(i))
@@ -28,38 +17,23 @@ func _ready() -> void:
 	GameEvents.money_changed.connect(_update_money_display)
 	GameEvents.add_skill.connect(_smart_update_hud)
 
-#func load_all_skills_from_folder(path: String):
-	#var dir = DirAccess.open(path)
-	#if dir:
-		#dir.list_dir_begin()
-		#var file_name = dir.get_next()
-		#while file_name != "":
-			#if file_name.ends_with(".tres") or file_name.ends_with(".res"):
-				#var skill = load(path + file_name)
-				#if skill is SkillData:
-					#all_skills.append(skill)
-			#file_name = dir.get_next()
-		#print("Successfully loaded ", all_skills.size(), " skills.")
-	#else:
-		#print("CRITICAL ERROR: Cannot open path: ", path)
 
 func select_skill():
-	# --- ส่วนที่เพิ่มเพื่อป้องกันการเด้งซ้อน ---
-	if $Panel.visible:
-		print("Skill Panel is already open, skipping this trigger.")
-		return
-	# ---------------------------------------
-	print("Level Up Signal Received!") # ถ้าคำนี้ไม่ขึ้น แสดงว่าสัญญาณส่งมาไม่ถึง
+	if $Panel.visible: return
 	
-	if PlayerData.all_skills.is_empty(): 
-		print("Warning: all_skills is empty, cannot show UI")
-		return
+	var pool: Array[SkillData] = []
+	# ดึงรายชื่อสกิลที่ผู้เล่นมีอยู่แล้วออกมา
+	var owned_list = PlayerData.own_skills.keys()
 
-	# สุ่มสกิล
-	var pool = PlayerData.all_skills.duplicate()
+	if owned_list.size() < 5:
+		# กรณีสกิลยังไม่เต็ม 5 ช่อง: สุ่มจากสกิลทั้งหมดที่มีในเกม
+		pool.assign(PlayerData.all_skills.duplicate())
+	else:
+		# กรณีสกิลเต็ม 5 ช่องแล้ว: สุ่มเฉพาะ 3 อย่างจาก 5 อย่างที่มี เพื่ออัปเกรดเลเวล
+		pool.assign(owned_list)
+		
 	pool.shuffle()
 	
-	# ป้องกัน Error กรณีมีสกิลน้อยกว่า 3
 	var pick_amount = min(3, pool.size())
 	current_options = pool.slice(0, pick_amount)
 	
@@ -119,25 +93,41 @@ func _check_for_next_level():
 
 
 func _smart_update_hud(skill: SkillData, _amount: int):
-	# ดึงเลข Stack ปัจจุบันจาก PlayerData
-	var stack_count = PlayerData.own_skills[skill]
-	
-	if skill_ui_nodes.has(skill):
-		skill_ui_nodes[skill].set_skill_info(skill.icon, stack_count)
-	else:
-		var new_ui = SKILL_ITEM_SCENE.instantiate()
-		show_skill_hbox.add_child(new_ui)
-		new_ui.set_skill_info(skill.icon, stack_count)
-		skill_ui_nodes[skill] = new_ui
-		
-	# เล่นแอนิเมชัน
+
 	var player_anim = get_node_or_null("../../Player/AnimationPlayer")
 	if player_anim:
 		player_anim.play("exp_plus_animad")
 
+	if not skill.is_passive:
+		print("Active Skill detected: ", skill.title)
+		# ไม่ต้องทำต่อ (ไม่ต้องวาดลง HUD) เพราะเดี๋ยว Combat Panel จะดึงจาก own_skills เอง
+		return
+
+	var stack_count = PlayerData.own_skills[skill]
+	if skill_ui_nodes.has(skill):
+		skill_ui_nodes[skill].set_skill_info(skill.icon, stack_count)
+	
+	else:
+		# 2. ถ้าเป็นสกิลใหม่ ให้หา "ช่องว่าง" ใน NinePatchRect1-5
+		var current_skill_count = skill_ui_nodes.size()
+		
+		if current_skill_count < 5:
+			# ดึงโหนดลูกลำดับที่ current_skill_count (0 ถึง 4)
+			var target_node = show_skill_hbox.get_child(current_skill_count)
+			
+			# สมมติว่าโหนด NinePatchRect มีฟังก์ชัน set_skill_info หรือเราจะสั่งตรงๆ ก็ได้
+			# ในที่นี้ถ้าคุณใช้โหนดธรรมดาที่ไม่มีสคริปต์ ให้เซ็ต Texture โดยตรง:
+			target_node.texture = skill.icon
+			# ถ้ามี Label บอกจำนวน Stack อยู่ข้างใน:
+			target_node.get_node("Label").text = str(stack_count)
+			
+			# เก็บข้อมูลไว้ใน Dictionary ว่าสกิลนี้ใช้ Node ไหน
+			skill_ui_nodes[skill] = target_node
+
+
 func make_money(difficulty : int):
 	var on_money:int = 0
-	on_money += (5*difficulty) + extra_base_reward
+	on_money += (5*difficulty) + EffectProcessor.get_total_bonus(BaseEffect.StatType.GOLD_BONUS)
 	PlayerData.add_money(on_money)
 	
 
