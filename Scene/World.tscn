@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=79 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -776,6 +776,8 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygjsc"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k2jtq"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7fjm"]
 
 [sub_resource type="Animation" id="Animation_iyyjw"]
@@ -1321,6 +1323,37 @@ layout_mode = 2
 [node name="NinePatchRect5" parent="CanvasLayer/SkillControl/ShowSkill" instance=ExtResource("29_k2jtq")]
 layout_mode = 2
 
+[node name="ShowActive" type="HBoxContainer" parent="CanvasLayer/SkillControl"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -74.0
+offset_right = -94.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" parent="CanvasLayer/SkillControl/ShowActive" instance=ExtResource("29_k2jtq")]
+layout_mode = 2
+
+[node name="NinePatchRect2" parent="CanvasLayer/SkillControl/ShowActive" instance=ExtResource("29_k2jtq")]
+layout_mode = 2
+
+[node name="NinePatchRect3" parent="CanvasLayer/SkillControl/ShowActive" instance=ExtResource("29_k2jtq")]
+layout_mode = 2
+
+[node name="NinePatchRect4" parent="CanvasLayer/SkillControl/ShowActive" instance=ExtResource("29_k2jtq")]
+layout_mode = 2
+
+[node name="NinePatchRect5" parent="CanvasLayer/SkillControl/ShowActive" instance=ExtResource("29_k2jtq")]
+layout_mode = 2
+
 [node name="Panel" type="Panel" parent="CanvasLayer/SkillControl"]
 process_mode = 3
 visible = false
@@ -1808,6 +1841,26 @@ vertical_scroll_mode = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/ActionSelect"]
 layout_mode = 2
 
+[node name="Skill" type="ScrollContainer" parent="CanvasLayer/CombatControl/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -49.0
+offset_right = 60.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CombatControl/Panel/Skill"]
+layout_mode = 2
+
 [node name="ItemList" type="ScrollContainer" parent="CanvasLayer/CombatControl/Panel"]
 process_mode = 3
 layout_mode = 1
@@ -1862,6 +1915,29 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_k2jtq")
 region_rect = Rect2(128, 720, 16, 16)
+
+[node name="Skill" type="Panel" parent="CanvasLayer/CombatControl/Panel/HBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k2jtq")
+
+[node name="Image" type="NinePatchRect" parent="CanvasLayer/CombatControl/Panel/HBoxContainer/Skill"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_k2jtq")
+region_rect = Rect2(16, 720, 16, 16)
+patch_margin_top = 16
 
 [node name="Item" type="Panel" parent="CanvasLayer/CombatControl/Panel/HBoxContainer"]
 process_mode = 3

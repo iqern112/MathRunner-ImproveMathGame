@@ -3,6 +3,7 @@ extends Control
 @onready var numpad_button = $"../NumpadPanel/GridContainer/1"
 @onready var desc_label = $Panel/DescriptionLabel
 @onready var show_skill_hbox = $ShowSkill
+@onready var show_skillactive_hbox = $ShowActive
 
 var extra_base_reward = 0
 var current_options: Array[SkillData] = [] 
