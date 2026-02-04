@@ -1,11 +1,24 @@
 # PlayerData.gd (Global Autoload)
 extends Node
+signal refresh_hp
+signal mana_changed(curr, m_mana)
+
+var base_max_hp: int = 20
+var current_hp: int = 20
+
+var max_mana: int = 50
+var current_mana: int = 50
+
+# ตัวแปรพักค่า Buff (Active Skill)
+var active_atk_buff: int = 0
+var active_def_buff: int = 0
 
 # --- 1. ข้อมูลสกิล (Skill Data) ---
 var all_skills: Array[SkillData] = []
 var own_skills: Dictionary = {} # { SkillData: stack_count }
 var wish_bonus_atk = 0
 var wish_bonus_def = 0
+var wish_hp_bonus = 0
 # --- 2. ข้อมูลเงิน (Economy) ---
 var money: int = 0
 
@@ -18,13 +31,29 @@ func _ready():
 	GameEvents.add_skill.connect(_on_skill_added)
 	GameEvents.active_buff.connect(_on_buff_received)
 
+func use_mana(amount: int) -> bool:
+	if current_mana >= amount:
+		current_mana -= amount
+		mana_changed.emit(current_mana, max_mana)
+		return true
+	return false
+
+func recover_mana(amount: int):
+	current_mana = clampi(current_mana + amount, 0, max_mana)
+	mana_changed.emit(current_mana, max_mana)
+
 func load_all_resources():
 	# โหลดสกิล
-	_scan_folder("res://Resouce/SkillData/", all_skills)
+	_scan_folder("res://Resouce/SkillData/Passive/", all_skills)
+	_scan_folder("res://Resouce/SkillData/Active/", all_skills)
 	print("PlayerData: Loaded ", all_skills.size(), " skills.")
 
 func _on_buff_received(buff_name: String):
-	if buff_name == "attack_incress":
+	if buff_name == "hp_incress":
+		current_hp += 8
+		wish_hp_bonus += 8
+		PlayerData.refresh_hp.emit()
+	elif buff_name == "attack_incress":
 		wish_bonus_atk += 3
 	elif buff_name == "block_incress":
 		wish_bonus_def += 3
@@ -58,5 +87,9 @@ func _on_skill_added(skill_resource: SkillData, amount: int):
 		own_skills[skill_resource] += amount
 	else:
 		own_skills[skill_resource] = amount
-	
-	print("PlayerData updated: ", skill_resource.title, " now has ", own_skills[skill_resource], " stacks.")
+	for effect in skill_resource.effects:
+		if effect.type == BaseEffect.StatType.HP:
+			# เพิ่ม HP ปัจจุบันตามค่าโบนัสที่ได้มาใหม่ (เช่น ได้ +3 ก็ฮีลให้ +3 เลย)
+			current_hp += int(effect.value * amount)
+			# บอกให้ Player ทราบว่าเลือดปัจจุบันเปลี่ยนไปแล้วนะ
+			PlayerData.refresh_hp.emit()

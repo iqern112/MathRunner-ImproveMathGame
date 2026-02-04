@@ -1,4 +1,4 @@
-class_name GameMap
+class_name Map
 extends Control
 
 const SCROLL_SPEED := 5

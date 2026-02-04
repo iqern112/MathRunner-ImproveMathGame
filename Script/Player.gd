@@ -3,18 +3,15 @@ const SPEED = 150.0  # ความเร็วในการเดิน
 const JUMP_VELOCITY = -300.0 # ความสูงในการกระโดด (ค่าติดลบคือขึ้นบน)
 
 @onready var PlayerAni = $PlayerAnimad
+@onready var mana_var = $ManaBar
 
 var is_dashing = false
 var is_die = false
 var is_not_ready = true
 
-var max_hp_base: int = 20
-var current_hp_base: int = 20
-
 var max_hp: int
 var current_hp: int
 var shield: int
-
 
 var incress_damage: int = 0
 var add_block: int = 0
@@ -31,12 +28,26 @@ func _ready() -> void:
 	GameEvents.control_to_player.connect(combat_action_handle)
 	GameEvents.route_changed.connect(_on_monster_died)
 	GameEvents.into_out_cut.connect(player_fade_out)
-	GameEvents.active_buff.connect(active_buff)
-	max_hp = max_hp_base
-	current_hp = current_hp_base
+	GameEvents.add_skill.connect(refresh_stats)
+	PlayerData.refresh_hp.connect(refresh_stats)
+	PlayerData.mana_changed.connect(_update_mana_ui)
+	_update_mana_ui(PlayerData.current_mana, PlayerData.max_mana)
+	max_hp = EffectProcessor.calculate_max_hp(PlayerData.base_max_hp)
+	current_hp = PlayerData.current_hp
 	shield = 0
 	set_player_status()
 
+func _update_mana_ui(curr: int, m_mana: int):
+	if mana_var:
+		mana_var.max_value = m_mana
+		# ใช้ Tween เพื่อให้หลอดมานาเลื่อนนุ่มนวล
+		var tween = create_tween()
+		tween.tween_property(mana_var, "value", curr, 0.3).set_trans(Tween.TRANS_SINE)
+
+func refresh_stats():
+	max_hp = EffectProcessor.calculate_max_hp(PlayerData.base_max_hp)
+	current_hp = PlayerData.current_hp 
+	set_player_status()
 
 func _physics_process(delta):
 	if is_not_ready:
@@ -58,20 +69,6 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-#func base_player_status():
-	#$PlayerHp.max_value = max_hp_base
-	#$PlayerHp.value = current_hp_base
-	#$PlayerHp/PlayerHpLabel.text = str(current_hp_base) + "/" + str(max_hp_base)
-
-func active_buff(buff_name: String):
-	if buff_name == "hp_incress":
-		max_hp += 8
-		current_hp += 8
-	set_player_status()
-
-	#"hp_incress": "+ 8 HP",
-	#"attack_incress": "+ 3 Attack",
-	#"block_incress": "+ 3 Block"
 
 func player_fade_out():
 	$AnimationPlayer.play("fade_out_cut")
@@ -94,14 +91,11 @@ func dash():
 	if is_dashing or is_die or GameEvents.is_stop: return # ไม่ Dash ถ้ากำลังสู้หรือตาย
 	is_dashing = true
 	
-	# สุ่มท่าทาง
 	var actions = ["Dash", "Slide"]
 	var selected_action = actions.pick_random()
 	PlayerAni.play(selected_action)
 	
-	# ใช้ Tween เพื่อควบคุมความเร็วให้คงที่ในช่วงเวลาหนึ่ง
 	var dash_tween = create_tween()
-	# พุ่งด้วยความเร็ว SPEED * 2 เป็นเวลา 0.4 วินาที
 	dash_tween.tween_method(func(v): velocity.x = v, SPEED * 2.5, SPEED, 1.54).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
 	# เมื่อจบ Tween ให้คืนค่าสถานะ
@@ -124,11 +118,7 @@ func _on_animated_sprite_2d_animation_finished():
 	if PlayerAni.animation == "Dash" or PlayerAni.animation == "Slide":
 		is_dashing = false
 
-
-# ฟังก์ชันรับดาเมจ (เอาไว้ให้ Monster เรียกใช้)
 func take_damage(final_damage: int):
-	# ลดดาเมจตามสกิล armor
-	#var final_damage = max(1, amount - GameEvents.damage_reduction)
 	if shield > 0:
 		if shield >= final_damage:
 			shield -= final_damage
@@ -140,7 +130,7 @@ func take_damage(final_damage: int):
 	else:
 		current_hp -= final_damage
 		PlayerAni.play("Hurt")
-	
+	PlayerData.current_hp = current_hp
 	set_player_status()
 	if current_hp <= 0: die()
 

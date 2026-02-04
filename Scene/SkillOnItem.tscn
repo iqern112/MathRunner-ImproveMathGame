@@ -1,15 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyesl41ge5bmg"]
+[gd_scene load_steps=2 format=3 uid="uid://cyesl41ge5bmg"]
 
-[ext_resource type="Texture2D" uid="uid://b2sjjy5ku2xqv" path="res://Asset/Item/items_sheet.png" id="1_568yd"]
 [ext_resource type="Script" uid="uid://cygulqtxljyt5" path="res://Script/SkillOnItem.gd" id="2_dooe8"]
 
 [node name="NinePatchRect" type="NinePatchRect"]
 texture_filter = 1
 custom_minimum_size = Vector2(16, 16)
-texture = ExtResource("1_568yd")
 script = ExtResource("2_dooe8")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 7.5
