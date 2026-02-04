@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cpifv1yekijtv"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cpifv1yekijtv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34k1a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pa60"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -12,6 +14,7 @@ expand_margin_left = 5.0
 
 [resource]
 Button/font_sizes/font_size = 8
+Button/styles/disabled = SubResource("StyleBoxEmpty_34k1a")
 Button/styles/focus = SubResource("StyleBoxFlat_4pa60")
 Button/styles/hover = SubResource("StyleBoxFlat_4pa60")
 Button/styles/normal = SubResource("StyleBoxEmpty_63530")

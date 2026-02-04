@@ -2,6 +2,8 @@
 extends Node
 signal refresh_hp
 signal mana_changed(curr, m_mana)
+signal active_skill_updated(skill: SkillData, stack: int)
+signal passive_skill_updated(skill: SkillData, stack: int)
 
 var base_max_hp: int = 20
 var current_hp: int = 20
@@ -81,15 +83,23 @@ func remove_money(amount: int) -> bool:
 		return true
 	return false
 
-# --- ระบบจัดการสกิล ---
 func _on_skill_added(skill_resource: SkillData, amount: int):
+	# อัปเดตที่เดียวจบ
 	if own_skills.has(skill_resource):
 		own_skills[skill_resource] += amount
 	else:
 		own_skills[skill_resource] = amount
+
+	var current_stack = own_skills[skill_resource]
+
+	# ส่งสัญญาณแยกเพื่อให้ UI (HUD) รู้ว่าต้องวาดที่แถวไหน
+	if skill_resource.is_passive:
+		passive_skill_updated.emit(skill_resource, current_stack)
+	else:
+		active_skill_updated.emit(skill_resource, current_stack)
+
+	# จัดการ HP (เหมือนเดิม)
 	for effect in skill_resource.effects:
 		if effect.type == BaseEffect.StatType.HP:
-			# เพิ่ม HP ปัจจุบันตามค่าโบนัสที่ได้มาใหม่ (เช่น ได้ +3 ก็ฮีลให้ +3 เลย)
 			current_hp += int(effect.value * amount)
-			# บอกให้ Player ทราบว่าเลือดปัจจุบันเปลี่ยนไปแล้วนะ
 			PlayerData.refresh_hp.emit()

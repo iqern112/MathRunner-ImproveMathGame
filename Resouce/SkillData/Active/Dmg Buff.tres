@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="SkillData" load_steps=5 format=3 uid="uid://6imffwitefcx"]
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://6imffwitefcx"]
 
 [ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_wbg3r"]
 [ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="2_7mj0j"]
+[ext_resource type="Resource" uid="uid://lfkr4p1hacol" path="res://Resouce/EffectType/AtkBuff.tres" id="2_oc75a"]
 [ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_rrkd3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oc75a"]
@@ -12,8 +13,8 @@ region = Rect2(48, 864, 16, 16)
 script = ExtResource("2_7mj0j")
 title = "Dmg Buff"
 icon = SubResource("AtlasTexture_oc75a")
-desc = ""
+desc = "Next atk +5"
 is_passive = false
-mana_cost = 0
-effects = Array[ExtResource("1_wbg3r")]([])
+mana_cost = 10
+effects = Array[ExtResource("1_wbg3r")]([ExtResource("2_oc75a")])
 metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

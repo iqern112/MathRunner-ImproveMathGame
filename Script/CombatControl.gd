@@ -43,13 +43,17 @@ func _ready() -> void:
 	GameEvents.on_skill_recive.connect(effect_bonus_stats)
 	GameEvents.monster_to_control.connect(mons_act_handle)
 	set_up_combat_panel()
-	
+	set_skill_panel() 
+	set_item_panel()  
 	GameEvents.add_skill.connect(_on_data_changed)
 	GameEvents.on_skill_recive.connect(_on_data_changed)
+
 
 func _on_data_changed():
 	# ทุกครั้งที่ข้อมูลเปลี่ยน ให้วาดแผงคำสั่งใหม่เพื่ออัปเดตตัวเลข
 	set_up_combat_panel()
+	set_skill_panel() # เพิ่มการโหลด Skill ไว้รอเลย
+	set_item_panel()
 
 func _input(event):
 	if not $Panel.visible: return
@@ -80,23 +84,22 @@ func switch_tab():
 			set_item_panel()
 
 func set_skill_panel():
-	# 1. ล้างปุ่มเก่า
 	for child in skill_list_vbox.get_children():
 		child.queue_free()
 	
-	# 2. กรองเฉพาะสกิลที่เป็น Active
 	var buttons = []
 	for skill in PlayerData.own_skills.keys():
+		# กรองเอาเฉพาะ Active มาสร้างปุ่ม
 		if not skill.is_passive:
 			var new_btn = ACTION_BUTT.instantiate()
 			skill_list_vbox.add_child(new_btn)
 			
-			# แสดงค่า Mana Cost แทนในช่องตัวเลข (ถ้าต้องการ)
-			new_btn.set_butt_action(skill.icon, skill.title, skill.mana_cost)
+			var stack = PlayerData.own_skills[skill]
+			# ส่งค่า Mana หรือจะส่งเลเวล (stack) ไปโชว์ก็ได้
+			new_btn.set_butt_action(skill.icon, skill.title, skill.mana_cost) 
 			new_btn.pressed.connect(_on_active_skill_used.bind(skill))
 			buttons.append(new_btn)
-	
-	# 3. จัดการ Focus
+
 	if buttons.size() > 0:
 		for i in range(buttons.size()):
 			if i > 0: buttons[i].set_focus_neighbor(SIDE_TOP, buttons[i-1].get_path())
@@ -108,16 +111,11 @@ func set_skill_panel():
 func _on_active_skill_used(skill: SkillData):
 	# เช็คมานา
 	if PlayerData.use_mana(skill.mana_cost):
-		# จัดการ Effect ของสกิล (ตัวอย่างการใช้ match ตามชื่อสกิล)
-		match skill.title:
-			"Dmg Buff":
-				PlayerData.active_atk_buff += 5
-			"Def Buff":
-				PlayerData.active_def_buff += 5
+		# เรียกใช้ผ่าน EffectProcessor แทนการเขียน match เองใน UI
+		EffectProcessor.apply_active_skill_effect(skill)
 		
-		# ปิด Panel และเริ่มการคำนวณเหมือนกด Action
 		$Panel.visible = false
-		set_up_combat_panel() # อัปเดตตัวเลขเผื่อผู้เล่นกลับมาดู
+		set_up_combat_panel() 
 		update_buff()
 		
 		# กลับไปสู่ขั้นตอน Numpad

@@ -6,7 +6,7 @@ extends Control
 
 var base_max_exp = 5.0 # ปรับ Max ต้นให้สูงขึ้นเล็กน้อย
 var current_exp = 0
-var current_level = 1
+var current_level = 0
 
 func _ready() -> void:
 	GameEvents.correct_answer_signal.connect(on_answer_correct)
@@ -18,7 +18,7 @@ func _ready() -> void:
 func on_answer_correct():
 	if GameEvents.is_stop: return
 	
-	var bonus_exp = EffectProcessor.get_total_bonus(BaseEffect.StatType.EXP_BONUS)
+	var bonus_exp = EffectProcessor.get_passive_bonus(BaseEffect.StatType.EXP_BONUS)
 	current_exp += 1 + int(bonus_exp)
 	
 	# อัปเดตตัวเลข 0/0 ทันทีที่ได้ EXP

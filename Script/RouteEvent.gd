@@ -1,14 +1,7 @@
 extends Control
 
-# อ้างอิงโหนดที่คุณเตรียมไว้แล้ว
-@onready var reward_rect1 = $RewardPanel/RewardContainer/Button/NinePatchRect
-@onready var reward_rect2 = $RewardPanel/RewardContainer/Button2/NinePatchRect
-@onready var stack_label1 = $RewardPanel/RewardContainer/Button/NinePatchRect/Label2
-@onready var stack_label2 = $RewardPanel/RewardContainer/Button2/NinePatchRect/Label2
-
-# อ้างอิงปุ่ม
-@onready var btn1 = $RewardPanel/RewardContainer/Button
-@onready var btn2 = $RewardPanel/RewardContainer/Button2
+const REWARD_BUTTON_SCENE = preload("res://Scene/ActionButtom.tscn")
+@onready var reward_container = $RewardPanel/RewardContainer/VBoxContainer
 
 @onready var rest_btn = $CampfirePanel/HBoxContainer/Button
 @onready var anvil_btn = $CampfirePanel/HBoxContainer/Button2
@@ -25,6 +18,7 @@ extends Control
 # ส่วนบนของสคริปต์
 @onready var skip_button = $RewardPanel/Button3
 @onready var skip_label = $RewardPanel/Button3/Label
+
 
 var rewards_remaining = 0
 
@@ -43,8 +37,8 @@ func _ready() -> void:
 	GameEvents.treasure_opened.connect(treasure_open)
 	GameEvents.shop_opened.connect(shop_open)
 	
-	btn1.pressed.connect(_on_reward_selected.bind(btn1))
-	btn2.pressed.connect(_on_reward_selected.bind(btn2))
+	#btn1.pressed.connect(_on_reward_selected.bind(btn1))
+	#btn2.pressed.connect(_on_reward_selected.bind(btn2))
 	
 	rest_btn.pressed.connect(camfire_select.bind(rest_btn,"rest"))
 	anvil_btn.pressed.connect(camfire_select.bind(anvil_btn,"anvil"))
@@ -89,97 +83,119 @@ func mons_die():
 	$RewardPanel.visible = true
 	GameEvents.open_close_nam.emit("close")
 	
-	# --- จุดสำคัญ: ต้องรีเซ็ตค่า Modulate และสถานะปุ่มกลับมาด้วย ---
-	btn1.modulate.a = 1.0
-	btn1.disabled = false
-	btn1.show()
+	# 1. ล้างรางวัลเก่าออกก่อน
+	for child in reward_container.get_children():
+		child.queue_free()
 	
-	btn2.modulate.a = 1.0
-	btn2.disabled = false
-	btn2.show()
+	# 2. คำนวณจำนวนช่องรางวัล (Base 2 ช่อง + สุ่มจาก Luck)
+	var luck_percent = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE)
+	var total_slots = 2
 	
-	rewards_remaining = 2
-	skip_label.text = "Skip Reward"
+	# สุ่มเพิ่มช่องที่ 3 และ 4 ตามค่า Luck
+	if randf() <= (luck_percent / 100.0):
+		total_slots += 1
+		if randf() <= (luck_percent / 100.0):
+			total_slots += 1
 	
-	setup_skill_reward(reward_rect1, stack_label1, btn1)
-	setup_gold_reward(reward_rect2, stack_label2, btn2)
+	rewards_remaining = total_slots
+	skip_label.text = "Skip Rewards (" + str(rewards_remaining) + ")"
 	
-	btn1.grab_focus()
+	# 3. สร้างรางวัลตามจำนวนช่องที่สุ่มได้
+	for i in range(total_slots):
+		var new_btn = REWARD_BUTTON_SCENE.instantiate()
+		reward_container.add_child(new_btn)
+		
+		# สุ่มประเภทรางวัล (สลับกันระหว่าง Skill และ Gold)
+		if i % 2 == 0:
+			_randomize_skill_reward(new_btn)
+		else:
+			_randomize_gold_reward(new_btn)
+		
+		# เชื่อมต่อสัญญาณเมื่อกดรับ
+		new_btn.pressed.connect(_on_reward_selected.bind(new_btn))
+	
+	# 4. Focus ไปที่อันแรก
+	await get_tree().process_frame
+	if reward_container.get_child_count() > 0:
+		reward_container.get_child(0).grab_focus()
 
-
-
-func setup_skill_reward(rect: NinePatchRect, stack: Label, btn: Button):
-	# ดึงจาก Global ตรงๆ
-	if PlayerData.all_skills.is_empty(): return
-	
+func _randomize_skill_reward(btn):
 	var selected_skill = PlayerData.all_skills.pick_random()
-	
-	rect.texture = selected_skill.icon
-	stack.text = selected_skill.title
-	
+	btn.set_butt_action(selected_skill.icon, selected_skill.title, 1) # เลข 1 คือจำนวนเลเวล
 	btn.set_meta("reward_type", "SKILL")
-	btn.set_meta("skill_resource", selected_skill) # เก็บตัว Resource ไว้เลย
-	btn.tooltip_text = selected_skill.desc
+	btn.set_meta("skill_resource", selected_skill)
 
-func setup_gold_reward(rect: NinePatchRect, stack: Label, btn: Button):
-	var gold_data = monney["gold"]
-	var amount = randi_range(100, 200)
+# ฟังก์ชันสุ่มทองสำหรับปุ่มรางวัล (บวกโบนัสจาก Luck)
+func _randomize_gold_reward(btn):
+	var luck_bonus = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE)
+	var base_gold = randi_range(100, 200)
+	# เพิ่มทองตามค่า Luck %
+	var total_gold = base_gold + int(base_gold * (luck_bonus / 100.0))
 	
-	# กำหนดค่าทอง
-	rect.texture = gold_data["icon"]
-	stack.text = str(amount) + " Gold"
-	
+	var gold_icon = preload("res://Resouce/Util/Gold.tres")
+	btn.set_butt_action(gold_icon, "Gold Coins", total_gold)
 	btn.set_meta("reward_type", "GOLD")
-	btn.set_meta("amount", amount)
-	btn.tooltip_text = "Gain " + str(amount) + " Gold."
+	btn.set_meta("amount", total_gold)
+
+#func setup_skill_reward(rect: NinePatchRect, stack: Label, btn: Button):
+	## ดึงจาก Global ตรงๆ
+	#if PlayerData.all_skills.is_empty(): return
+	#
+	#var selected_skill = PlayerData.all_skills.pick_random()
+	#
+	#rect.texture = selected_skill.icon
+	#stack.text = selected_skill.title
+	#
+	#btn.set_meta("reward_type", "SKILL")
+	#btn.set_meta("skill_resource", selected_skill) # เก็บตัว Resource ไว้เลย
+	#btn.tooltip_text = selected_skill.desc
+
+#func setup_gold_reward(rect: NinePatchRect, stack: Label, btn: Button):
+	#var gold_data = monney["gold"]
+	#var amount = randi_range(100, 200)
+	#
+	## กำหนดค่าทอง
+	#rect.texture = gold_data["icon"]
+	#stack.text = str(amount) + " Gold"
+	#
+	#btn.set_meta("reward_type", "GOLD")
+	#btn.set_meta("amount", amount)
+	#btn.tooltip_text = "Gain " + str(amount) + " Gold."
 
 func _on_reward_selected(btn: Button):
 	var type = btn.get_meta("reward_type")
 	
-	# 1. จัดการประมวลผลรางวัล
 	if type == "SKILL":
-		var skill_res = btn.get_meta("skill_resource")
-		# เรียกใช้ฟังก์ชันเพิ่มสกิลที่ Global
-		GameEvents.add_skill.emit(skill_res, 1)
+		GameEvents.add_skill.emit(btn.get_meta("skill_resource"), 1)
 	elif type == "GOLD":
-		var amount = btn.get_meta("amount")
-		PlayerData.add_money(amount)
+		PlayerData.add_money(btn.get_meta("amount"))
 	
-	# 2. เรียกใช้แอนิเมชัน และรอให้จบก่อน (ใช้ await)
-	await smooth_hide_button(btn)
-	
-	# 3. อัปเดตสถานะที่เหลือ
+	# อัปเดตจำนวนที่เหลือ
 	rewards_remaining -= 1
 	
-	# 4. จัดการเรื่อง Focus และเปลี่ยนข้อความปุ่ม
-	_manage_focus_after_selection()
+	# เล่น Effect หายไป (Tween)
+	var tween = create_tween()
+	tween.tween_property(btn, "modulate:a", 0.0, 0.1)
+	tween.tween_callback(btn.queue_free) # ลบโหนดทิ้งเพื่อให้ List เลื่อนขึ้น
 	
-	if rewards_remaining <= 0:
+	await tween.finished
+	
+	# จัดการ Focus ใหม่
+	if rewards_remaining > 0:
+		skip_label.text = "Skip Rewards (" + str(rewards_remaining) + ")"
+		_manage_focus_after_selection()
+	else:
 		skip_label.text = "Next"
 		skip_button.grab_focus()
 
 func _manage_focus_after_selection():
-	# ตรวจสอบว่าปุ่มไหนยังมองเห็นอยู่ ให้ย้าย Focus ไปที่นั่น
-	if btn1.visible:
-		btn1.grab_focus()
-	elif btn2.visible:
-		btn2.grab_focus()
-	else:
-		skip_button.grab_focus()
+	# หาปุ่มแรกที่ยังเหลืออยู่ใน Container เพื่อ Grab Focus
+	for child in reward_container.get_children():
+		if not child.is_queued_for_deletion():
+			child.grab_focus()
+			return
+	skip_button.grab_focus()
 
-func smooth_hide_button(btn: Button):
-	var tween = create_tween()
-	# กันผู้เล่นกดซ้ำระหว่างแอนิเมชัน
-	btn.disabled = true
-	
-	# ค่อยๆ จางหาย
-	tween.tween_property(btn, "modulate:a", 0.0, 0.2)
-	
-	# เมื่อจางหายเสร็จ ให้สั่งซ่อน เพื่อให้ VBoxContainer เลื่อนอันล่างขึ้นมา
-	tween.tween_callback(btn.hide)
-	
-	# ส่งสัญญาณกลับเพื่อให้ฟังก์ชันหลักทำงานต่อหลังจบ Tween
-	return tween.finished
 
 func camfire_select(btn: Button,action: String):
 	if action == "rest":
