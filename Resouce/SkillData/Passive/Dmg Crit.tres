@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://dhybuwnr35001"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_ns8d6"]
+[ext_resource type="Resource" uid="uid://bplhyx0k1sfnq" path="res://Resouce/EffectType/DmgCrit.tres" id="2_ns8d6"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="3_ns8d6"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_dodgg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlux"]
+atlas = ExtResource("3_ns8d6")
+region = Rect2(64, 1184, 16, 16)
+
+[resource]
+script = ExtResource("4_dodgg")
+title = "Dmg Crit"
+icon = SubResource("AtlasTexture_gmlux")
+desc = "+5% Dmg Crit"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_ns8d6")]([ExtResource("2_ns8d6")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"

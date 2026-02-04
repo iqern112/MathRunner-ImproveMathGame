@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=6 format=3 uid="uid://cta8e0tpip58r"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_8f3f0"]
+[ext_resource type="Resource" uid="uid://57fwqf8p2nlp" path="res://Resouce/EffectType/PlusMoney.tres" id="2_prx28"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/SkillData/16x16.png" id="3_8f3f0"]
+[ext_resource type="Script" uid="uid://dc8qadtyvt1hl" path="res://Resouce/BaseResouce/SkillData.gd" id="4_g23ni"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlux"]
+atlas = ExtResource("3_8f3f0")
+region = Rect2(176, 128, 16, 16)
+
+[resource]
+script = ExtResource("4_g23ni")
+title = "Gold Up"
+icon = SubResource("AtlasTexture_gmlux")
+desc = "+5 Gold"
+is_passive = true
+mana_cost = 0
+effects = Array[ExtResource("1_8f3f0")]([ExtResource("2_prx28")])
+metadata/_custom_type_script = "uid://dc8qadtyvt1hl"
