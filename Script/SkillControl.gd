@@ -8,18 +8,10 @@ const SKILL_ITEM_SCENE = preload("res://Scene/SkillOnItem.tscn")
 
 var extra_base_reward = 0
 
-# --- การจัดการข้อมูล ---
-#var all_skills: Array[SkillData] = [] 
 var current_options: Array[SkillData] = [] 
-#var own_skill: Dictionary = {} # { SkillData: int_stack }
 var skill_ui_nodes: Dictionary = {} # { SkillData: UI_Node }
 
 func _ready() -> void:
-	# ต้องแน่ใจว่า Path นี้สะกดถูกต้องตามใน FileSystem ของคุณ
-	#var skill_path = "res://Resouce/SkillData/"
-	#load_all_skills_from_folder(skill_path)
-	
-	# เชื่อมต่อปุ่ม
 	var buttons = [$Panel/SkillButtonsContainer/Button, $Panel/SkillButtonsContainer/Button2, $Panel/SkillButtonsContainer/Button3]
 	for i in range(buttons.size()):
 		buttons[i].pressed.connect(_on_skill_selected.bind(i))
@@ -28,20 +20,6 @@ func _ready() -> void:
 	GameEvents.money_changed.connect(_update_money_display)
 	GameEvents.add_skill.connect(_smart_update_hud)
 
-#func load_all_skills_from_folder(path: String):
-	#var dir = DirAccess.open(path)
-	#if dir:
-		#dir.list_dir_begin()
-		#var file_name = dir.get_next()
-		#while file_name != "":
-			#if file_name.ends_with(".tres") or file_name.ends_with(".res"):
-				#var skill = load(path + file_name)
-				#if skill is SkillData:
-					#all_skills.append(skill)
-			#file_name = dir.get_next()
-		#print("Successfully loaded ", all_skills.size(), " skills.")
-	#else:
-		#print("CRITICAL ERROR: Cannot open path: ", path)
 
 func select_skill():
 	# --- ส่วนที่เพิ่มเพื่อป้องกันการเด้งซ้อน ---

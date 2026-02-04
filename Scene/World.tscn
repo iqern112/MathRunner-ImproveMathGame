@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=75 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -26,15 +26,13 @@
 [ext_resource type="Script" uid="uid://cahseqv2l2gep" path="res://Script/SkillControl.gd" id="19_cacw0"]
 [ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="21_i8385"]
 [ext_resource type="Theme" uid="uid://8dg7kg3ory45" path="res://Theme/ButtSkill.tres" id="22_7xxj8"]
-[ext_resource type="Texture2D" uid="uid://bf3p7xtbg21vj" path="res://Resouce/SkillData1/lucky.tres" id="23_tjx3c"]
-[ext_resource type="Texture2D" uid="uid://ctxu1xxgx5qgd" path="res://Resouce/SkillData1/interest.tres" id="24_c6mmb"]
-[ext_resource type="Texture2D" uid="uid://cjkusatlo15i5" path="res://Resouce/SkillData1/learn.tres" id="25_7vvbi"]
 [ext_resource type="Script" uid="uid://b3wavht05g18i" path="res://Script/ShopControl.gd" id="26_qy2nw"]
 [ext_resource type="Texture2D" uid="uid://b6orypu075idp" path="res://Asset/Spritesheets/IconsEssential.png" id="27_7bomb"]
+[ext_resource type="Texture2D" uid="uid://5fvejdbp28tm" path="res://Asset/SkillTres/spritesheet.png" id="27_h6y7a"]
 [ext_resource type="Script" uid="uid://dtqcjbbavd1pt" path="res://Script/CombatControl.gd" id="28_r15o0"]
 [ext_resource type="StyleBox" uid="uid://2x3c6fwrwdp" path="res://Theme/ActionSelected.tres" id="29_60j2q"]
 [ext_resource type="Script" uid="uid://bgvld4cntbdey" path="res://Script/RouteEvent.gd" id="30_4laf0"]
-[ext_resource type="Texture2D" uid="uid://dvtg4iibx5fh3" path="res://Resouce/SkillData1/Gold.tres" id="30_k1vve"]
+[ext_resource type="Texture2D" uid="uid://dvtg4iibx5fh3" path="res://Resouce/Util/Gold.tres" id="30_k1vve"]
 [ext_resource type="Theme" uid="uid://cpifv1yekijtv" path="res://Theme/WishButt.tres" id="31_4laf0"]
 [ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="31_xrx30"]
 [ext_resource type="PackedScene" uid="uid://0qxdi2w0sf6h" path="res://Scene/Map.tscn" id="38_degc6"]
@@ -743,6 +741,18 @@ border_color = Color(0.373291, 0.0450323, 0.0672078, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a062t"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_syx3x"]
+atlas = ExtResource("27_h6y7a")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_degc6"]
+atlas = ExtResource("27_h6y7a")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aex2n"]
+atlas = ExtResource("27_h6y7a")
+region = Rect2(16, 48, 16, 16)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qls5m"]
 bg_color = Color(0.6, 0.6, 0.6, 0.176471)
 border_width_left = 3
@@ -1340,7 +1350,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Button2" type="Button" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer"]
 process_mode = 3
@@ -1354,7 +1364,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("24_c6mmb")
+texture = SubResource("AtlasTexture_degc6")
 
 [node name="Button3" type="Button" parent="CanvasLayer/SkillControl/Panel/SkillButtonsContainer"]
 process_mode = 3
@@ -1368,7 +1378,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("25_7vvbi")
+texture = SubResource("AtlasTexture_aex2n")
 
 [node name="DescriptionLabel" type="Label" parent="CanvasLayer/SkillControl/Panel"]
 layout_mode = 1
@@ -1483,7 +1493,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button"]
 layout_mode = 0
@@ -1508,7 +1518,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button2"]
@@ -1534,7 +1544,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button3"]
 layout_mode = 0
@@ -1559,7 +1569,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button4"]
 layout_mode = 0
@@ -1584,7 +1594,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button5"]
 layout_mode = 0
@@ -1609,7 +1619,7 @@ offset_left = 6.0
 offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
-texture = ExtResource("23_tjx3c")
+texture = SubResource("AtlasTexture_syx3x")
 
 [node name="Price" type="Label" parent="CanvasLayer/ShopControl/Panel/ShopList/Button6"]
 layout_mode = 0

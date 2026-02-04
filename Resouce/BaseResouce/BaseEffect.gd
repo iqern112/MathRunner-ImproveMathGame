@@ -2,7 +2,8 @@
 extends Resource
 class_name BaseEffect
 
-enum StatType { ATK, DEF, HP, ARMOR, EXP_BONUS, GOLD_BONUS, REDUCE_EXP}
+enum StatType { ATK, DEF, HP, ARMOR, EXP_BONUS, GOLD_BONUS
+				, DMG_CRI, ARMOR_CRI, REDUCE_EXP}
 
 @export var type: StatType
 @export var value: float

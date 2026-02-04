@@ -1,4 +1,4 @@
-class_name Map
+class_name GameMap
 extends Control
 
 const SCROLL_SPEED := 5
@@ -119,33 +119,32 @@ func _setup_focus_neighbors() -> void:
 	
 	for current_room in all_rooms:
 		var r = current_room.room
-		
-		# สร้างตัวแปรไว้เก็บโหนดที่ใกล้ที่สุดในแถวเดียวกัน
 		var closest_left: MapRoom = null
 		var closest_right: MapRoom = null
 		
 		for target_room in all_rooms:
 			var tr = target_room.room
-			
-			# เช็คเฉพาะห้องที่อยู่ในแถว (Row) เดียวกันเท่านั้น
 			if tr.row == r.row:
-				# หาห้องที่อยู่ทางซ้ายที่ใกล้ที่สุด
 				if tr.column < r.column:
 					if closest_left == null or tr.column > closest_left.room.column:
 						closest_left = target_room
 				
-				# หาห้องที่อยู่ทางขวาที่ใกล้ที่สุด
 				if tr.column > r.column:
 					if closest_right == null or tr.column < closest_right.room.column:
 						closest_right = target_room
 		
-		# กำหนด Path เฉพาะซ้ายและขวา
+		# แก้ไขตรงนี้: ถ้าไม่มีตัวเลือก ให้ใส่ get_path() ของตัวเองลงไป
 		if closest_left:
 			current_room.focus_neighbor_left = closest_left.get_path()
+		else:
+			current_room.focus_neighbor_left = current_room.get_path() # ล็อกไว้ที่ตัวเอง
+			
 		if closest_right:
 			current_room.focus_neighbor_right = closest_right.get_path()
+		else:
+			current_room.focus_neighbor_right = current_room.get_path() # ล็อกไว้ที่ตัวเอง
 			
-		# บังคับให้ "ขึ้น-ลง" ไม่ไปไหนเลย เพื่อป้องกันโฟกัสกระโดดข้ามชั้น
+		# บังคับ ขึ้น-ลง ไม่ให้ไปไหน (คุณทำไว้ดีแล้ว)
 		current_room.focus_neighbor_top = current_room.get_path()
 		current_room.focus_neighbor_bottom = current_room.get_path()
 

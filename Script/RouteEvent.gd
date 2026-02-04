@@ -32,7 +32,7 @@ var monney = {
 	"gold": {
 		"title": "Gold", 
 		"desc": "Receive gold coins for shopping.", 
-		"icon": preload("res://Resouce/SkillData1/Gold.tres")
+		"icon": preload("res://Resouce/Util/Gold.tres")
 	}
 }
 
