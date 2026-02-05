@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_mflsh")
 type = 11
-value = 5.0
+value = 3.0
 chance = 1.0
 is_percentage = true
 metadata/_custom_type_script = "uid://btdu76pe2h0d4"

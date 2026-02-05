@@ -2,13 +2,25 @@ extends Node
 
 func get_equipment_bonus(stat_type: BaseEffect.StatType) -> float:
 	var total = 0.0
+	# วนลูปเช็คทุก Slot (HEAD, ACC, BODY, WEAPON, LEG)
 	for slot in PlayerData.equipped_items:
 		var item = PlayerData.equipped_items[slot]
-		if item and item.effects: # ถ้ามีไอเทมในช่องนั้น
+		
+		# เช็คว่ามีไอเทมในช่องนั้นหรือไม่
+		if item and item.effects:
+			# ดึงค่าระดับการอัปเกรด (เลเวล) จาก PlayerData ของ Slot นั้นๆ
+			# (ค่าเริ่มต้นคือ 1 ตามที่เราเซ็ตไว้ใน PlayerData.gd)
+			var level = PlayerData.equipment_upgrades.get(slot, 1)
+			
 			for effect in item.effects:
 				if effect.type == stat_type:
-					total += effect.value
-	return total#ยังไม่มีสเตก
+					# สูตรคำนวณ: ค่าพื้นฐาน + (โบนัสตามเลเวล)
+					# ตัวอย่าง: เลเวล 1 คือค่าปกติ, เลเวล 2 (+1) เพิ่มพลังขึ้น 10%
+					#var stack_multiplier = 1.0 + ((level - 1) * 0.1) # ปรับเลข 0.1 ตามความแรงที่ต้องการ
+					
+					total += (effect.value * level)
+					
+	return total
 
 func get_passive_bonus(stat_type: BaseEffect.StatType) -> float:
 	var total = 0.0

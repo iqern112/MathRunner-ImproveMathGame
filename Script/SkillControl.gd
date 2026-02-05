@@ -37,32 +37,41 @@ func _update_active_ui(skill: SkillData, stack: int):
 func select_skill():
 	if $Panel.visible: return
 	
-	# 1. คำนวณจำนวนช่องพื้นฐาน
+	# 1. คำนวณจำนวนช่องเลือก (เหมือนเดิม)
 	var pick_amount = 3 
-	var luck_percent = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE) # เช่น 5.0, 10.0
-	
-	# 2. สุ่มโอกาสเพิ่มช่องที่ 4
+	var luck_percent = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE)
 	if randf() <= (luck_percent / 100.0):
 		pick_amount += 1
-		print("Luck ทำงาน! เพิ่มช่องเลือกสกิลเป็น 4 ช่อง")
-		
-		# 3. ถ้าสุ่มได้ช่องที่ 4 แล้ว ให้สุ่มโอกาสได้ช่องที่ 5 ต่อ (หรือจะใช้เงื่อนไขอื่นก็ได้)
-		# ในที่นี้ใช้โอกาสเดียวกัน ถ้า Luck เยอะ ก็มีสิทธิ์ลุ้นถึง 5 ช่อง
 		if randf() <= (luck_percent / 100.0):
 			pick_amount += 1
-			print("ดวงดีสุดๆ! เพิ่มช่องเลือกสกิลเป็น 5 ช่อง")
 
-	# --- กระบวนการสุ่มสกิลจาก Pool ---
+	# --- 2. กระบวนการสร้าง Pool แบบแยกประเภท ---
 	var pool: Array[SkillData] = []
-	var owned_list = PlayerData.own_skills.keys()
+	
+	# แยกสกิลทั้งหมดที่มีในเกมออกเป็น 2 กลุ่ม
+	var all_passives = PlayerData.all_skills.filter(func(s): return s.is_passive)
+	var all_actives = PlayerData.all_skills.filter(func(s): return not s.is_passive)
+	
+	# แยกสกิลที่ผู้เล่นมีอยู่แล้วออกเป็น 2 กลุ่ม
+	var owned_passives = PlayerData.own_skills.keys().filter(func(s): return s.is_passive)
+	var owned_actives = PlayerData.own_skills.keys().filter(func(s): return not s.is_passive)
 
-	if owned_list.size() < 5:
-		pool.assign(PlayerData.all_skills.duplicate())
+	# ตรวจสอบเงื่อนไข Passive: ถ้ายังไม่ครบ 5 สุ่มอันใหม่ได้ ถ้าครบแล้วสุ่มได้เฉพาะอันเก่า
+	if owned_passives.size() < 5:
+		pool.append_array(all_passives)
 	else:
-		pool.assign(owned_list)
+		pool.append_array(owned_passives)
 		
+	# ตรวจสอบเงื่อนไข Active: ถ้ายังไม่ครบ 5 สุ่มอันใหม่ได้ ถ้าครบแล้วสุ่มได้เฉพาะอันเก่า
+	if owned_actives.size() < 5:
+		pool.append_array(all_actives)
+	else:
+		pool.append_array(owned_actives)
+		
+	# กำจัดตัวซ้ำ (ถ้ามี) และทำการ Shuffle
 	pool.shuffle()
 	
+	# 3. เลือกสกิลมาแสดงผล (เหมือนเดิม)
 	pick_amount = min(pick_amount, pool.size())
 	current_options = pool.slice(0, pick_amount)
 	
@@ -74,11 +83,6 @@ func select_skill():
 		buttons[i].visible = true
 		buttons[i].get_node("NinePatchRect").texture = current_options[i].icon
 	
-	get_tree().paused = true
-	$Panel.visible = true
-	buttons[0].grab_focus()
-	
-	# แสดงหน้าจอ
 	get_tree().paused = true
 	$Panel.visible = true
 	buttons[0].grab_focus()
