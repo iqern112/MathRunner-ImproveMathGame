@@ -94,9 +94,9 @@ func set_skill_panel():
 			var new_btn = ACTION_BUTT.instantiate()
 			skill_list_vbox.add_child(new_btn)
 			
-			var stack = PlayerData.own_skills[skill]
+			var display_mana_cost = EffectProcessor.calculate_final_mana_cost(skill.mana_cost)
 			# ส่งค่า Mana หรือจะส่งเลเวล (stack) ไปโชว์ก็ได้
-			new_btn.set_butt_action(skill.icon, skill.title, skill.mana_cost) 
+			new_btn.set_butt_action(skill.icon, skill.title, display_mana_cost) 
 			new_btn.pressed.connect(_on_active_skill_used.bind(skill))
 			buttons.append(new_btn)
 
@@ -109,8 +109,9 @@ func set_skill_panel():
 		buttons[0].grab_focus()
 
 func _on_active_skill_used(skill: SkillData):
-	# เช็คมานา
-	if PlayerData.use_mana(skill.mana_cost):
+	var final_cost = EffectProcessor.calculate_final_mana_cost(skill.mana_cost)
+	
+	if PlayerData.use_mana(final_cost):
 		# เรียกใช้ผ่าน EffectProcessor แทนการเขียน match เองใน UI
 		EffectProcessor.apply_active_skill_effect(skill)
 		
@@ -219,7 +220,12 @@ func _on_action_pressed(action_name: String):
 	# แยกการทำงานตามชื่อที่กดมา
 	if action_name == "Attack":
 		var final_dmg = EffectProcessor.calculate_player_attack()
-		GameEvents.control_to_monster.emit("Attack", final_dmg)
+		var total_hits = EffectProcessor.get_total_hits()
+		for i in range(total_hits):
+			GameEvents.control_to_monster.emit("Attack", final_dmg)
+			# หากต้องการให้มีดีเลย์ระหว่าง Hit เล็กน้อยเพื่อให้แอนิเมชันดูทัน
+			#if total_hits > 1:
+				#await get_tree().create_timer(0.15).timeout
 	elif action_name == "Block":
 		var final_block = EffectProcessor.calculate_player_block()
 		GameEvents.control_to_player.emit("Block", final_block)

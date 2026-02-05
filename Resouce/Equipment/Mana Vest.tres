@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EquipmentData" load_steps=5 format=3 uid="uid://bd3m4k3kyem2"]
+[gd_resource type="Resource" script_class="EquipmentData" load_steps=6 format=3 uid="uid://bd3m4k3kyem2"]
 
 [ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_3iqd2"]
 [ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_gfjns"]
+[ext_resource type="Resource" uid="uid://b16awl7lmhafy" path="res://Resouce/EffectType/ReduceMana.tres" id="2_t7vd3"]
 [ext_resource type="Script" uid="uid://wyrtqiqv5fxe" path="res://Resouce/BaseResouce/EquipmentData.gd" id="3_t7vd3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhovq"]
@@ -14,5 +15,5 @@ title = "Mana Vest"
 desc = "-5 use mana"
 icon = SubResource("AtlasTexture_xhovq")
 slot = 2
-effects = Array[ExtResource("1_3iqd2")]([])
+effects = Array[ExtResource("1_3iqd2")]([ExtResource("2_t7vd3")])
 metadata/_custom_type_script = "uid://wyrtqiqv5fxe"

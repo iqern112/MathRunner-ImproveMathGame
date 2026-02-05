@@ -52,17 +52,35 @@ func calculate_player_block(is_preview: bool = false) -> int:
 	return int(total_block)
 
 func process_incoming_damage(raw_damage: int) -> int:
-	# ใช้เฉพาะ Armor จาก Passive
-	var armor = get_passive_bonus(BaseEffect.StatType.ARMOR)
-	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.ARMOR) # ดึงจากไอเทม
-	var total_armor = armor + equip_bonus
-	return int(max(1, raw_damage - total_armor))
+	# 1. เช็ค Dodge (หลบหลีก)
+	var dodge_chance = PlayerData.dodge + get_equipment_bonus(BaseEffect.StatType.DODGE)
+	if randf() * 100.0 <= dodge_chance:
+		return -1 # ใช้ -1 เป็นสัญลักษณ์ว่า "Miss/Dodge"
+	
+	# 2. ถ้าหลบไม่ได้ ค่อยหักลบเกราะ
+	var armor = get_passive_bonus(BaseEffect.StatType.ARMOR) + get_equipment_bonus(BaseEffect.StatType.ARMOR)
+	var reduced_dmg = max(1, raw_damage - armor)
+	
+	return int(reduced_dmg)
+
+func calculate_final_mana_cost(base_cost: int) -> int:
+	# ดึงโบนัสส่วนลดมานาจากอุปกรณ์ (สมมติใช้ StatType.MANA_REDUCTION)
+	var reduction = get_equipment_bonus(BaseEffect.StatType.MANA_REDUCTION)
+	
+	# ค่าร่ายใหม่ = ค่าร่ายเดิม - ส่วนลด (แต่ต้องไม่ต่ำกว่า 0 หรือ 1 ตามสมดุลเกม)
+	var final_cost = max(0, base_cost - int(reduction))
+	return final_cost
 
 func calculate_max_hp(base_hp: int) -> int:
 	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.HP) # ดึงจากไอเทม
 	
 	return base_hp + int(get_passive_bonus(BaseEffect.StatType.HP)) + PlayerData.wish_hp_bonus + equip_bonus
 
+func get_total_hits() -> int:
+	var base_hits = 1
+	# ดึงโบนัสจำนวน Hit จากอุปกรณ์ (สมมติใช้ StatType.EXTRA_HITS)
+	var extra_hits = get_equipment_bonus(BaseEffect.StatType.EXTRA_HITS)
+	return base_hits + int(extra_hits)
 
 func apply_active_skill_effect(skill: SkillData):
 	# ดึงจำนวนเลเวล (stack) ของสกิลนั้นๆ

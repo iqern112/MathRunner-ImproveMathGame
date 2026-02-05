@@ -25,6 +25,7 @@ var equipment_upgrades: Dictionary = {
 
 var base_max_hp: int = 20
 var current_hp: int = 20
+var dodge: int = 0
 
 var max_mana: int = 50
 var current_mana: int = 50
@@ -70,9 +71,9 @@ func equip_item(item: EquipmentData):
 	equipment_changed.emit(target_slot, item)
 	PlayerData.refresh_hp.emit()
 
-func use_mana(amount: int) -> bool:
-	if current_mana >= amount:
-		current_mana -= amount
+func use_mana(final_amount: int) -> bool:
+	if current_mana >= final_amount:
+		current_mana -= final_amount
 		mana_changed.emit(current_mana, max_mana)
 		return true
 	return false

@@ -140,10 +140,15 @@ func combat_action_handle(action, value):
 	elif action == "ATTACK": # กรณี Monster โจมตีมา
 		# ส่งค่าดาเมจดิบไปให้ Processor คำนวณลดหย่อนตามชุดเกราะ
 		var final_damage = EffectProcessor.process_incoming_damage(value)
-		take_damage(final_damage)
+		take_damage(final_damage) # ลดเลือดตามปกติ
+		#if final_damage == -1:
+			#show_dodge_effect() # แสดงแอนิเมชันหลบ
+		#else:
+			#take_damage(final_damage) # ลดเลือดตามปกติ
 	elif action == "potion":
 		current_hp += value
 	set_player_status()
+
 
 func activate_player_camera():
 	is_not_ready = false # ปลดล็อกการประมวลผลฟิสิกส์ให้เริ่มวิ่ง

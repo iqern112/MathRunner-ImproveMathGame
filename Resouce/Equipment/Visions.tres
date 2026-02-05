@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EquipmentData" load_steps=5 format=3 uid="uid://1usiaxbpmgeg"]
+[gd_resource type="Resource" script_class="EquipmentData" load_steps=6 format=3 uid="uid://1usiaxbpmgeg"]
 
 [ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_c6ksh"]
 [ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_6jdc2"]
+[ext_resource type="Resource" uid="uid://c1dyjb5r3auot" path="res://Resouce/EffectType/Dodge.tres" id="2_d7ops"]
 [ext_resource type="Script" uid="uid://wyrtqiqv5fxe" path="res://Resouce/BaseResouce/EquipmentData.gd" id="3_d7ops"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xhovq"]
@@ -11,8 +12,8 @@ region = Rect2(0, 1952, 16, 16)
 [resource]
 script = ExtResource("3_d7ops")
 title = "Visions"
-desc = "+5 dodge"
+desc = "+5% dodge"
 icon = SubResource("AtlasTexture_xhovq")
 slot = 0
-effects = Array[ExtResource("1_c6ksh")]([])
+effects = Array[ExtResource("1_c6ksh")]([ExtResource("2_d7ops")])
 metadata/_custom_type_script = "uid://wyrtqiqv5fxe"
