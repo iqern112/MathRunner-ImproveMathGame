@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EquipmentData" load_steps=5 format=3 uid="uid://bf3c4lmmp8e61"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_hds0d"]
+[ext_resource type="Script" uid="uid://wyrtqiqv5fxe" path="res://Resouce/BaseResouce/EquipmentData.gd" id="2_iwkgm"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_tlm33"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpcil"]
+atlas = ExtResource("2_tlm33")
+region = Rect2(176, 1440, 16, 16)
+
+[resource]
+script = ExtResource("2_iwkgm")
+title = "Twin Daggers"
+desc = "+1 Hits"
+icon = SubResource("AtlasTexture_hpcil")
+slot = 3
+effects = Array[ExtResource("1_hds0d")]([])
+metadata/_custom_type_script = "uid://wyrtqiqv5fxe"

@@ -1,5 +1,15 @@
 extends Node
 
+func get_equipment_bonus(stat_type: BaseEffect.StatType) -> float:
+	var total = 0.0
+	for slot in PlayerData.equipped_items:
+		var item = PlayerData.equipped_items[slot]
+		if item and item.effects: # ถ้ามีไอเทมในช่องนั้น
+			for effect in item.effects:
+				if effect.type == stat_type:
+					total += effect.value
+	return total#ยังไม่มีสเตก
+
 func get_passive_bonus(stat_type: BaseEffect.StatType) -> float:
 	var total = 0.0
 	for skill in PlayerData.own_skills.keys():
@@ -15,8 +25,8 @@ func calculate_player_attack(is_preview: bool = false) -> int:
 	var base_dmg = 5 + PlayerData.wish_bonus_atk
 	var passive_bonus = get_passive_bonus(BaseEffect.StatType.ATK)
 	var active_bonus = PlayerData.active_atk_buff
-	
-	var total_dmg = base_dmg + passive_bonus + active_bonus
+	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.ATK) # ดึงจากไอเทม
+	var total_dmg = base_dmg + passive_bonus + active_bonus + equip_bonus
 	
 	if not is_preview:
 		PlayerData.active_atk_buff = 0 
@@ -28,8 +38,8 @@ func calculate_player_block(is_preview: bool = false) -> int:
 	# แก้จาก get_total_bonus เป็น get_passive_bonus
 	var passive_def = get_passive_bonus(BaseEffect.StatType.DEF)
 	var active_def = PlayerData.active_def_buff
-	
-	var total_block = base_block + passive_def + active_def
+	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.DEF) # ดึงจากไอเทม
+	var total_block = base_block + passive_def + active_def + equip_bonus
 	
 	if not is_preview:
 		PlayerData.active_def_buff = 0
@@ -44,11 +54,14 @@ func calculate_player_block(is_preview: bool = false) -> int:
 func process_incoming_damage(raw_damage: int) -> int:
 	# ใช้เฉพาะ Armor จาก Passive
 	var armor = get_passive_bonus(BaseEffect.StatType.ARMOR)
-	return int(max(1, raw_damage - armor))
+	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.ARMOR) # ดึงจากไอเทม
+	var total_armor = armor + equip_bonus
+	return int(max(1, raw_damage - total_armor))
 
 func calculate_max_hp(base_hp: int) -> int:
-	# ใช้โบนัส HP จาก Passive + โบนัสพิเศษจากอีเวนต์
-	return base_hp + int(get_passive_bonus(BaseEffect.StatType.HP)) + PlayerData.wish_hp_bonus
+	var equip_bonus = get_equipment_bonus(BaseEffect.StatType.HP) # ดึงจากไอเทม
+	
+	return base_hp + int(get_passive_bonus(BaseEffect.StatType.HP)) + PlayerData.wish_hp_bonus + equip_bonus
 
 
 func apply_active_skill_effect(skill: SkillData):

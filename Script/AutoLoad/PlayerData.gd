@@ -4,6 +4,24 @@ signal refresh_hp
 signal mana_changed(curr, m_mana)
 signal active_skill_updated(skill: SkillData, stack: int)
 signal passive_skill_updated(skill: SkillData, stack: int)
+signal equipment_changed(slot, item)
+enum Slot { HEAD, ACC, BODY, WEAPON,  LEG }
+
+var equipped_items: Dictionary = {
+	EquipmentData.SlotType.HEAD: null,
+	EquipmentData.SlotType.ACC: null,
+	EquipmentData.SlotType.BODY: null,
+	EquipmentData.SlotType.WEAPON: null,
+	EquipmentData.SlotType.LEG: null
+}
+
+var equipment_upgrades: Dictionary = {
+	EquipmentData.SlotType.HEAD: 1, 
+	EquipmentData.SlotType.ACC: 1,
+	EquipmentData.SlotType.BODY: 1,
+	EquipmentData.SlotType.WEAPON: 1,
+	EquipmentData.SlotType.LEG: 1
+}
 
 var base_max_hp: int = 20
 var current_hp: int = 20
@@ -11,27 +29,46 @@ var current_hp: int = 20
 var max_mana: int = 50
 var current_mana: int = 50
 
-# ตัวแปรพักค่า Buff (Active Skill)
 var active_atk_buff: int = 0
 var active_def_buff: int = 0
 
-# --- 1. ข้อมูลสกิล (Skill Data) ---
-var all_skills: Array[SkillData] = []
-var own_skills: Dictionary = {} # { SkillData: stack_count }
 var wish_bonus_atk = 0
 var wish_bonus_def = 0
 var wish_hp_bonus = 0
-# --- 2. ข้อมูลเงิน (Economy) ---
+
 var money: int = 0
 
-# --- 3. ข้อมูลไอเทม (Inventory) ---
-# เก็บเป็น { ItemData: quantity } เพื่อใช้ระบบ Resource เหมือนสกิล
 var own_items: Dictionary = {} 
+
+var all_skills: Array[SkillData] = []
+var own_skills: Dictionary = {}
+
+var all_equipments: Array[EquipmentData] = []
 
 func _ready():
 	load_all_resources()
 	GameEvents.add_skill.connect(_on_skill_added)
 	GameEvents.active_buff.connect(_on_buff_received)
+
+func equip_item(item: EquipmentData):
+	if not item: return
+	
+	var target_slot = item.slot
+	
+	# เช็คว่าไอเทมใหม่ที่ได้มา คืออันเดิมที่ใส่อยู่หรือไม่
+	if equipped_items[target_slot] != null and equipped_items[target_slot].title == item.title:
+		# กรณีเป็นไอเทมเดิม: เพิ่มระดับการอัปเกรด (+1)
+		equipment_upgrades[target_slot] += 1
+		print("ได้ของเดิม! อัปเกรดช่อง ", target_slot, " เป็นเลเวล ", equipment_upgrades[target_slot])
+	else:
+		# กรณีเป็นของใหม่: เปลี่ยนไอเทม และ รีเซ็ตเลเวลเป็น 1
+		equipped_items[target_slot] = item
+		equipment_upgrades[target_slot] = 1
+		print("ได้ของใหม่! รีเซ็ตเลเวลช่อง ", target_slot, " เป็น 1")
+	
+	# แจ้งเตือน UI ให้วาดรูปและเลขใหม่
+	equipment_changed.emit(target_slot, item)
+	PlayerData.refresh_hp.emit()
 
 func use_mana(amount: int) -> bool:
 	if current_mana >= amount:
@@ -48,7 +85,8 @@ func load_all_resources():
 	# โหลดสกิล
 	_scan_folder("res://Resouce/SkillData/Passive/", all_skills)
 	_scan_folder("res://Resouce/SkillData/Active/", all_skills)
-	print("PlayerData: Loaded ", all_skills.size(), " skills.")
+	_scan_folder("res://Resouce/Equipment/", all_equipments)
+	print("load")
 
 func _on_buff_received(buff_name: String):
 	if buff_name == "hp_incress":

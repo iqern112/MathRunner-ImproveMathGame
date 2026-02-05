@@ -12,10 +12,10 @@ script = ExtResource("2_j0k7d")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 4.0
-offset_right = 59.0
-offset_bottom = 18.0
+offset_left = 25.0
+offset_top = 3.0
+offset_right = 89.0
+offset_bottom = 17.0
 theme = ExtResource("3_j0k7d")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
@@ -23,10 +23,10 @@ text = "Attack"
 
 [node name="value" type="Label" parent="."]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 4.0
-offset_right = 109.0
-offset_bottom = 18.0
+offset_left = 99.0
+offset_top = 3.0
+offset_right = 111.0
+offset_bottom = 17.0
 theme = ExtResource("3_j0k7d")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8

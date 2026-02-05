@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=88 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -30,6 +30,7 @@
 [ext_resource type="StyleBox" uid="uid://ij814fg3aavu" path="res://Theme/manafill.tres" id="19_udd1q"]
 [ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="21_i8385"]
 [ext_resource type="Theme" uid="uid://8dg7kg3ory45" path="res://Theme/ButtSkill.tres" id="22_7xxj8"]
+[ext_resource type="Script" uid="uid://crf5nkpdo8djo" path="res://Script/canvas_layer.gd" id="23_udd1q"]
 [ext_resource type="Script" uid="uid://b3wavht05g18i" path="res://Script/ShopControl.gd" id="26_qy2nw"]
 [ext_resource type="Texture2D" uid="uid://b6orypu075idp" path="res://Asset/Spritesheets/IconsEssential.png" id="27_7bomb"]
 [ext_resource type="Texture2D" uid="uid://5fvejdbp28tm" path="res://Asset/SkillTres/spritesheet.png" id="27_h6y7a"]
@@ -39,7 +40,8 @@
 [ext_resource type="Script" uid="uid://bgvld4cntbdey" path="res://Script/RouteEvent.gd" id="30_4laf0"]
 [ext_resource type="Theme" uid="uid://cpifv1yekijtv" path="res://Theme/WishButt.tres" id="31_4laf0"]
 [ext_resource type="Script" uid="uid://dsl7fl1fmwx6u" path="res://Script/GameOver.gd" id="31_xrx30"]
-[ext_resource type="PackedScene" uid="uid://0qxdi2w0sf6h" path="res://Scene/map.tscn" id="38_degc6"]
+[ext_resource type="PackedScene" uid="uid://0qxdi2w0sf6h" path="res://Scene/Map.tscn" id="38_degc6"]
+[ext_resource type="Script" uid="uid://ckm5o0whqtoao" path="res://Script/wearables.gd" id="39_i2oxt"]
 [ext_resource type="Texture2D" uid="uid://ccs4rnnuot6c8" path="res://Asset/wearables/Untitled_09-10-2022_11-01-46-20.png" id="39_k2jtq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4laf0"]
@@ -819,7 +821,19 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i2oxt"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udd1q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enqny"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ovhu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kfpv5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fgmf4"]
+
 [sub_resource type="Theme" id="Theme_aex2n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4bu6c"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_4laf0")
@@ -1052,6 +1066,7 @@ position = Vector2(192, 52)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_scale = 1.365
+script = ExtResource("23_udd1q")
 
 [node name="Route" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1482,23 +1497,6 @@ offset_top = 6.0
 offset_right = 22.0
 offset_bottom = 22.0
 texture = SubResource("AtlasTexture_aex2n")
-
-[node name="DescriptionLabel" type="Label" parent="CanvasLayer/SkillControl/Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -73.0
-offset_top = -56.0
-offset_right = 69.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("15_2ovhu")
-theme_override_font_sizes/font_size = 8
-autowrap_mode = 3
 
 [node name="ShopControl" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -2491,15 +2489,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/ItemsWear"]
+[node name="InventoryUI" type="Panel" parent="CanvasLayer/ItemsWear"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 53.0
 offset_right = 33.0
 offset_bottom = 163.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_i2oxt")
+script = ExtResource("39_i2oxt")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel"]
+[node name="HeadSlot" type="Button" parent="CanvasLayer/ItemsWear/InventoryUI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -2509,10 +2508,25 @@ offset_top = 1.0
 offset_right = 10.0
 offset_bottom = 21.0
 grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_udd1q")
+
+[node name="bg" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/HeadSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("39_k2jtq")
 region_rect = Rect2(208, 176, 32, 32)
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel/NinePatchRect"]
+[node name="HeadSlot" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/HeadSlot"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2525,10 +2539,20 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("39_k2jtq")
-region_rect = Rect2(48, 144, 16, 16)
 
-[node name="NinePatchRect6" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/ItemsWear/InventoryUI/HeadSlot"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 19.0
+offset_bottom = 25.0
+theme = ExtResource("15_2ovhu")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+1"
+
+[node name="AccSlot" type="Button" parent="CanvasLayer/ItemsWear/InventoryUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2541,10 +2565,25 @@ offset_right = 10.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_enqny")
+
+[node name="bg" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/AccSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("39_k2jtq")
 region_rect = Rect2(208, 176, 32, 32)
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel/NinePatchRect6"]
+[node name="AccSlot" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/AccSlot"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2557,11 +2596,21 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("39_k2jtq")
-region_rect = Rect2(64, 112, 16, 16)
 patch_margin_left = 16
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/ItemsWear/InventoryUI/AccSlot"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 19.0
+offset_bottom = 25.0
+theme = ExtResource("15_2ovhu")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+1"
+
+[node name="BodySlot" type="Button" parent="CanvasLayer/ItemsWear/InventoryUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2574,10 +2623,25 @@ offset_right = 10.0
 offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2ovhu")
+
+[node name="bg" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/BodySlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("39_k2jtq")
 region_rect = Rect2(208, 176, 32, 32)
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel/NinePatchRect2"]
+[node name="BodySlot" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/BodySlot"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2590,11 +2654,21 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("39_k2jtq")
-region_rect = Rect2(48, 128, 16, 16)
 patch_margin_left = 16
 
-[node name="NinePatchRect5" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/ItemsWear/InventoryUI/BodySlot"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 19.0
+offset_bottom = 25.0
+theme = ExtResource("15_2ovhu")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+1"
+
+[node name="WeaponSlot" type="Button" parent="CanvasLayer/ItemsWear/InventoryUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2607,10 +2681,25 @@ offset_right = 10.0
 offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kfpv5")
+
+[node name="bg" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/WeaponSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("39_k2jtq")
 region_rect = Rect2(208, 176, 32, 32)
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel/NinePatchRect5"]
+[node name="WeaponSlot" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/WeaponSlot"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2623,11 +2712,21 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("39_k2jtq")
-region_rect = Rect2(16, 0, 16, 16)
 patch_margin_left = 16
 
-[node name="NinePatchRect3" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/ItemsWear/InventoryUI/WeaponSlot"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 19.0
+offset_bottom = 25.0
+theme = ExtResource("15_2ovhu")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+1"
+
+[node name="LegSlot" type="Button" parent="CanvasLayer/ItemsWear/InventoryUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2640,10 +2739,25 @@ offset_right = 10.0
 offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fgmf4")
+
+[node name="bg" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/LegSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("39_k2jtq")
 region_rect = Rect2(208, 176, 32, 32)
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/ItemsWear/Panel/NinePatchRect3"]
+[node name="LegSlot" type="NinePatchRect" parent="CanvasLayer/ItemsWear/InventoryUI/LegSlot"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2656,8 +2770,18 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("39_k2jtq")
-region_rect = Rect2(48, 160, 16, 16)
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemsWear/InventoryUI/LegSlot"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 19.0
+offset_bottom = 25.0
+theme = ExtResource("15_2ovhu")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "+1"
 
 [node name="GameOver" type="PanelContainer" parent="CanvasLayer"]
 visible = false
@@ -2884,6 +3008,49 @@ render_target_update_mode = 4
 [node name="Map" parent="CanvasLayer/SubViewportContainer/SubViewport" instance=ExtResource("38_degc6")]
 visible = false
 texture_filter = 1
+
+[node name="Title" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Title"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = 35.5
+offset_right = 75.0
+offset_bottom = 110.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 37.5)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4bu6c")
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Title/Panel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 136.0
+offset_bottom = 16.0
+theme = ExtResource("15_2ovhu")
+text = "Title"
+
+[node name="DescLabel" type="Label" parent="CanvasLayer/Title/Panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 134.0
+offset_bottom = 71.0
+theme = ExtResource("15_2ovhu")
+text = "DescLabel"
 
 [connection signal="animation_finished" from="Player/PlayerAnimad" to="Player" method="_on_player_animad_animation_finished"]
 [connection signal="animation_finished" from="Player/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

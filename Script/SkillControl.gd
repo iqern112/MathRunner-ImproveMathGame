@@ -1,9 +1,9 @@
 extends Control
 
 @onready var numpad_button = $"../NumpadPanel/GridContainer/1"
-@onready var desc_label = $Panel/DescriptionLabel
 @onready var show_skill_hbox = $ShowSkill
 @onready var show_skillactive_hbox = $ShowActive
+@onready var GlobalTooltip = $".."
 
 var extra_base_reward = 0
 var current_options: Array[SkillData] = [] 
@@ -15,7 +15,12 @@ func _ready() -> void:
 	for i in range(all_buttons.size()):
 		var btn = all_buttons[i]
 		btn.pressed.connect(_on_skill_selected.bind(i))
-		btn.focus_entered.connect(_show_desc.bind(i))
+		# เมื่อโฟกัส หรือเมาส์เข้า ให้แสดง Tooltip
+		btn.focus_entered.connect(_show_global_desc.bind(i))
+		btn.mouse_entered.connect(_show_global_desc.bind(i))
+		# เมื่อออกจากปุ่ม ให้ซ่อน Tooltip
+		btn.focus_exited.connect(func(): GlobalTooltip.hide_info())
+		btn.mouse_exited.connect(func(): GlobalTooltip.hide_info())
 	GameEvents.level_up_signal.connect(select_skill)
 	GameEvents.money_changed.connect(_update_money_display)
 	GameEvents.add_skill.connect(_play_get_skill_anim)
@@ -81,10 +86,12 @@ func select_skill():
 	if has_node("../Question/EquationContainer"):
 		$"../Question/EquationContainer".visible = false
 
-func _show_desc(index: int):
+func _show_global_desc(index: int):
 	if index < current_options.size():
 		var skill = current_options[index]
-		desc_label.text = skill.title + "\n" + skill.desc
+		# เรียกใช้ Global Tooltip ที่เป็น Autoload
+		GlobalTooltip.show_info(skill.title, skill.desc)
+
 
 func _on_skill_selected(index: int):
 	var selected_skill = current_options[index]

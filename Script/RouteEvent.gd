@@ -37,9 +37,6 @@ func _ready() -> void:
 	GameEvents.treasure_opened.connect(treasure_open)
 	GameEvents.shop_opened.connect(shop_open)
 	
-	#btn1.pressed.connect(_on_reward_selected.bind(btn1))
-	#btn2.pressed.connect(_on_reward_selected.bind(btn2))
-	
 	rest_btn.pressed.connect(camfire_select.bind(rest_btn,"rest"))
 	anvil_btn.pressed.connect(camfire_select.bind(anvil_btn,"anvil"))
 	
@@ -87,11 +84,11 @@ func mons_die():
 	for child in reward_container.get_children():
 		child.queue_free()
 	
-	# 2. คำนวณจำนวนช่องรางวัล (Base 2 ช่อง + สุ่มจาก Luck)
+	# 2. กำหนดจำนวนช่องรางวัลพื้นฐานเป็น 3 ชิ้นตามที่คุณต้องการ
 	var luck_percent = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE)
-	var total_slots = 2
+	var total_slots = 3 
 	
-	# สุ่มเพิ่มช่องที่ 3 และ 4 ตามค่า Luck
+	# ใช้ Luck สุ่มเพิ่มโอกาสได้ช่องที่ 4 และ 5 (Bonus Slots)
 	if randf() <= (luck_percent / 100.0):
 		total_slots += 1
 		if randf() <= (luck_percent / 100.0):
@@ -100,16 +97,21 @@ func mons_die():
 	rewards_remaining = total_slots
 	skip_label.text = "Skip Rewards (" + str(rewards_remaining) + ")"
 	
-	# 3. สร้างรางวัลตามจำนวนช่องที่สุ่มได้
+	# 3. สร้างรางวัลตามจำนวนช่องที่กำหนด
 	for i in range(total_slots):
 		var new_btn = REWARD_BUTTON_SCENE.instantiate()
 		reward_container.add_child(new_btn)
 		
-		# สุ่มประเภทรางวัล (สลับกันระหว่าง Skill และ Gold)
-		if i % 2 == 0:
-			_randomize_skill_reward(new_btn)
-		else:
-			_randomize_gold_reward(new_btn)
+		# สุ่มประเภทรางวัลให้หลากหลาย (Skill, Gold, Equipment)
+		var rand_type = i % 3
+		match rand_type:
+			0:
+				_randomize_skill_reward(new_btn)
+			1:
+				_randomize_gold_reward(new_btn)
+			2:
+				# เรียกใช้ฟังก์ชันดรอปไอเทมที่เราเตรียมไว้
+				_randomize_equipment_reward(new_btn)
 		
 		# เชื่อมต่อสัญญาณเมื่อกดรับ
 		new_btn.pressed.connect(_on_reward_selected.bind(new_btn))
@@ -125,6 +127,26 @@ func _randomize_skill_reward(btn):
 	btn.set_meta("reward_type", "SKILL")
 	btn.set_meta("skill_resource", selected_skill)
 
+func _randomize_equipment_reward(btn: Button):
+	var item_pool = PlayerData.all_equipments
+	if item_pool.is_empty(): 
+		print("Item Pool is Empty!") # เช็คว่า Array มีของจริงไหม
+		return
+	var selected_item = item_pool.pick_random()
+	print("สุ่มได้ไอเทม: ", selected_item.title) # ถ้าขึ้นชื่อไอเทม แสดงว่าโหลด Resource สำเร็จ
+	print("ไอคอนไอเทม: ", selected_item.icon) # ถ้าขึ้น [null] แสดงว่าลืมลากรูปลงในไฟล์ .tres
+	btn.set_meta("reward_type", "EQUIPMENT")
+	btn.set_meta("item_resource", selected_item)
+	
+	# ตอนนี้โหนดลูก (Label/Icon) พร้อมใช้งานแล้ว
+	if btn.has_method("set_butt_action"):
+		btn.set_butt_action(selected_item.icon, selected_item.title, 1)
+		#if not btn.is_node_ready():
+			#await btn.ready # รอจนกว่าโหนดลูกของปุ่มจะโหลดเสร็จ
+	else:
+		# กรณีฉุกเฉินถ้าฟังก์ชันไม่ทำงาน ให้ลองเช็คชื่อโหนดข้างใน
+		print("Error: ActionButton ready but set_butt_action failed")
+
 # ฟังก์ชันสุ่มทองสำหรับปุ่มรางวัล (บวกโบนัสจาก Luck)
 func _randomize_gold_reward(btn):
 	var luck_bonus = EffectProcessor.get_passive_bonus(BaseEffect.StatType.DROP_RATE)
@@ -137,38 +159,19 @@ func _randomize_gold_reward(btn):
 	btn.set_meta("reward_type", "GOLD")
 	btn.set_meta("amount", total_gold)
 
-#func setup_skill_reward(rect: NinePatchRect, stack: Label, btn: Button):
-	## ดึงจาก Global ตรงๆ
-	#if PlayerData.all_skills.is_empty(): return
-	#
-	#var selected_skill = PlayerData.all_skills.pick_random()
-	#
-	#rect.texture = selected_skill.icon
-	#stack.text = selected_skill.title
-	#
-	#btn.set_meta("reward_type", "SKILL")
-	#btn.set_meta("skill_resource", selected_skill) # เก็บตัว Resource ไว้เลย
-	#btn.tooltip_text = selected_skill.desc
-
-#func setup_gold_reward(rect: NinePatchRect, stack: Label, btn: Button):
-	#var gold_data = monney["gold"]
-	#var amount = randi_range(100, 200)
-	#
-	## กำหนดค่าทอง
-	#rect.texture = gold_data["icon"]
-	#stack.text = str(amount) + " Gold"
-	#
-	#btn.set_meta("reward_type", "GOLD")
-	#btn.set_meta("amount", amount)
-	#btn.tooltip_text = "Gain " + str(amount) + " Gold."
 
 func _on_reward_selected(btn: Button):
 	var type = btn.get_meta("reward_type")
 	
+	# จัดการรางวัลแต่ละประเภท
 	if type == "SKILL":
 		GameEvents.add_skill.emit(btn.get_meta("skill_resource"), 1)
 	elif type == "GOLD":
 		PlayerData.add_money(btn.get_meta("amount"))
+	elif type == "EQUIPMENT":
+		# ดึง Resource ออกมาแล้วส่งเข้าสวมใส่ (Replace ระบบเดิมที่เราเขียน)
+		var item_res = btn.get_meta("item_resource")
+		PlayerData.equip_item(item_res)
 	
 	# อัปเดตจำนวนที่เหลือ
 	rewards_remaining -= 1
@@ -176,11 +179,11 @@ func _on_reward_selected(btn: Button):
 	# เล่น Effect หายไป (Tween)
 	var tween = create_tween()
 	tween.tween_property(btn, "modulate:a", 0.0, 0.1)
-	tween.tween_callback(btn.queue_free) # ลบโหนดทิ้งเพื่อให้ List เลื่อนขึ้น
+	tween.tween_callback(btn.queue_free)
 	
 	await tween.finished
 	
-	# จัดการ Focus ใหม่
+	# จัดการ Focus และสถานะปุ่ม Skip
 	if rewards_remaining > 0:
 		skip_label.text = "Skip Rewards (" + str(rewards_remaining) + ")"
 		_manage_focus_after_selection()

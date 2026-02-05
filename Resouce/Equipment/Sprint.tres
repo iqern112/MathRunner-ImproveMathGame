@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EquipmentData" load_steps=5 format=3 uid="uid://dudrio71ohvy2"]
+
+[ext_resource type="Script" uid="uid://btdu76pe2h0d4" path="res://Resouce/BaseResouce/BaseEffect.gd" id="1_x0ad6"]
+[ext_resource type="Texture2D" uid="uid://djqee4w1cabwo" path="res://Resouce/ItemTres/16x16.png" id="2_vo41f"]
+[ext_resource type="Script" uid="uid://wyrtqiqv5fxe" path="res://Resouce/BaseResouce/EquipmentData.gd" id="3_odgus"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhovq"]
+atlas = ExtResource("2_vo41f")
+region = Rect2(0, 1984, 16, 16)
+
+[resource]
+script = ExtResource("3_odgus")
+title = "Sprint"
+desc = "+1 hit"
+icon = SubResource("AtlasTexture_xhovq")
+slot = 4
+effects = Array[ExtResource("1_x0ad6")]([])
+metadata/_custom_type_script = "uid://wyrtqiqv5fxe"
