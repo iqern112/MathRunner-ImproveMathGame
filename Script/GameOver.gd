@@ -10,7 +10,17 @@ func game_over():
 	$".".visible = true
 	GameEvents.is_stop = false
 	PlayerData.money = 0
+
+func _on_restart_pressed():
+	# 1. รีเซ็ตข้อมูลใน PlayerData ก่อน
+	PlayerData.reset_data()
 	
+	# 2. ปลดล็อคสถานะหยุดเกม
+	GameEvents.is_stop = false 
+	
+	# 3. โหลด Scene ใหม่
+	get_tree().paused = false # สำคัญ: ปลดสภาวะหยุดเวลาของ Engine
+	get_tree().reload_current_scene()
 
 func _on_visibility_changed():
 	if visible:
@@ -18,6 +28,6 @@ func _on_visibility_changed():
 		restart_button.grab_focus()
 
 # ฟังก์ชันสำหรับปุ่ม Restart (ถ้ายังไม่ได้เขียน)
-func _on_restart_pressed() -> void:
-	#get_tree().paused = false # อย่าลืมปลดล็อค Pause ก่อนเริ่มใหม่
-	get_tree().reload_current_scene()
+#func _on_restart_pressed() -> void:
+	##get_tree().paused = false # อย่าลืมปลดล็อค Pause ก่อนเริ่มใหม่
+	#get_tree().reload_current_scene()

@@ -26,6 +26,7 @@ func _ready() -> void:
 	GameEvents.add_skill.connect(_play_get_skill_anim)
 	PlayerData.passive_skill_updated.connect(_update_passive_ui)
 	PlayerData.active_skill_updated.connect(_update_active_ui)
+	GameEvents.game_over_triggered.connect(func(): if not visible: clear_hud())
 
 func _update_passive_ui(skill: SkillData, stack: int):
 	_display_on_hud(skill, stack, skill_ui_nodes, show_skill_hbox)
@@ -163,3 +164,15 @@ func make_money(difficulty : int):
 
 func _update_money_display(new_amount):
 	$Money/Label.text = str(new_amount)
+
+func clear_hud():
+	# 1. ล้างโหนด Icon ที่วาดค้างไว้บน HBoxContainer ทิ้งให้หมด
+	for child in show_skill_hbox.get_children():
+		child.queue_free()
+	for child in show_skillactive_hbox.get_children():
+		child.queue_free()
+	
+	# 2. ล้าง Dictionary ที่เก็บความสัมพันธ์ระหว่าง Skill กับ Node
+	# ถ้าไม่ล้างอันนี้ เวลาได้สกิลเดิมในรอบใหม่ มันจะไปหาโหนดเก่าที่โดน queue_free ไปแล้วและ Error
+	skill_ui_nodes.clear()
+	active_skill_ui_nodes.clear()

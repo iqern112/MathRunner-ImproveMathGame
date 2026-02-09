@@ -99,16 +99,33 @@ func _on_buff_received(buff_name: String):
 	elif buff_name == "block_incress":
 		wish_bonus_def += 3
 
+#func _scan_folder(path: String, target_array: Array):
+	#var dir = DirAccess.open(path)
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if file_name.ends_with(".tres"):
+				#var res = load(path + file_name)
+				#target_array.append(res)
+			#file_name = dir.get_next()
+
 func _scan_folder(path: String, target_array: Array):
 	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if file_name.ends_with(".tres"):
-				var res = load(path + file_name)
-				target_array.append(res)
+			if not dir.current_is_dir():
+				# หลัง Export ไฟล์ .tres อาจถูกเปลี่ยนเป็น .tres.remap
+				if file_name.ends_with(".tres") or file_name.ends_with(".tres.remap"):
+					# ตัด .remap ออกเพื่อให้โหลดได้ปกติ
+					var clean_path = path + file_name.replace(".remap", "")
+					var res = load(clean_path)
+					if res:
+						target_array.append(res)
 			file_name = dir.get_next()
+		print("PlayerData: Loaded from ", path, " count: ", target_array.size())
 
 # --- ระบบจัดการเงิน ---
 func add_money(amount: int):
@@ -142,3 +159,33 @@ func _on_skill_added(skill_resource: SkillData, amount: int):
 		if effect.type == BaseEffect.StatType.HP:
 			current_hp += int(effect.value * amount)
 			PlayerData.refresh_hp.emit()
+
+# PlayerData.gd
+
+func reset_data():
+	# รีเซ็ต Stat พื้นฐาน
+	current_hp = base_max_hp
+	current_mana = max_mana
+	money = 0
+	dodge = 0
+	
+	# ล้างบัฟและโบนัสสะสม
+	wish_bonus_atk = 0
+	wish_bonus_def = 0
+	wish_hp_bonus = 0
+	active_atk_buff = 0
+	active_def_buff = 0
+	
+	# ล้างไอเทมและเลเวลอัปเกรด
+	for slot in equipped_items.keys():
+		equipped_items[slot] = null
+		equipment_upgrades[slot] = 1
+	
+	# ล้างรายการสกิลที่เคยมี (Dict จะว่างเปล่าเหมือนเริ่มเกมใหม่)
+	own_skills.clear()
+	own_items.clear()
+	
+	# ส่งสัญญาณอัปเดต UI ทันที
+	refresh_hp.emit()
+	mana_changed.emit(current_mana, max_mana)
+	GameEvents.money_changed.emit(money)

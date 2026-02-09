@@ -74,9 +74,9 @@ func _on_map_room_selected(room: Room) -> void:
 func _process(delta: float) -> void:
 	var scroll_input := 0.0
 	if $".".visible:
-		if Input.is_action_pressed("map_scroll_up"):
+		if Input.is_action_pressed("map_scroll_up") or Input.is_action_pressed("ui_up"):
 			scroll_input -= 1.0
-		if Input.is_action_pressed("map_scroll_down"):
+		if Input.is_action_pressed("map_scroll_down") or Input.is_action_pressed("ui_down"):
 			scroll_input += 1.0
 		
 		if scroll_input != 0:
