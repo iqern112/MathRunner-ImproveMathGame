@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://beiwv0kt470wn"]
+[gd_scene load_steps=110 format=4 uid="uid://beiwv0kt470wn"]
 
 [ext_resource type="Script" uid="uid://o6jooikjgxcv" path="res://Script/World.gd" id="1_4laf0"]
 [ext_resource type="Texture2D" uid="uid://dnq7q8r6rpfxm" path="res://Asset/jungleParallax/plx-1.png" id="1_k1vve"]
@@ -31,6 +31,8 @@
 [ext_resource type="Texture2D" uid="uid://b1ot1t3hw00eb" path="res://Asset/Spritesheets/Spritesheet_UI_Flat.png" id="21_i8385"]
 [ext_resource type="Theme" uid="uid://8dg7kg3ory45" path="res://Theme/ButtSkill.tres" id="22_7xxj8"]
 [ext_resource type="Script" uid="uid://crf5nkpdo8djo" path="res://Script/canvas_layer.gd" id="23_udd1q"]
+[ext_resource type="Texture2D" uid="uid://d2qhjdts8nmg2" path="res://Asset/keyboard_icon/Arrows sprites.png" id="24_kfpv5"]
+[ext_resource type="Texture2D" uid="uid://83nb7xhmmev2" path="res://Asset/keyboard_icon/Black_Keyboard_Blocky.png" id="26_fgmf4"]
 [ext_resource type="Script" uid="uid://b3wavht05g18i" path="res://Script/ShopControl.gd" id="26_qy2nw"]
 [ext_resource type="Texture2D" uid="uid://b6orypu075idp" path="res://Asset/Spritesheets/IconsEssential.png" id="27_7bomb"]
 [ext_resource type="Texture2D" uid="uid://5fvejdbp28tm" path="res://Asset/SkillTres/spritesheet.png" id="27_h6y7a"]
@@ -749,6 +751,10 @@ region = Rect2(96, 96, 32, 32)
 atlas = ExtResource("44_enqny")
 region = Rect2(0, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6mmb"]
+atlas = ExtResource("24_kfpv5")
+region = Rect2(20, 0, 17, 19)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfpv5"]
 atlas = ExtResource("44_enqny")
 region = Rect2(96, 96, 32, 32)
@@ -756,6 +762,10 @@ region = Rect2(96, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4bu6c"]
 atlas = ExtResource("44_enqny")
 region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vvbi"]
+atlas = ExtResource("24_kfpv5")
+region = Rect2(20, 38, 17, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ovhu"]
 atlas = ExtResource("44_enqny")
@@ -765,9 +775,17 @@ region = Rect2(96, 96, 32, 32)
 atlas = ExtResource("44_enqny")
 region = Rect2(0, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy2nw"]
+atlas = ExtResource("24_kfpv5")
+region = Rect2(0, 20, 19, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nsqm5"]
 atlas = ExtResource("44_enqny")
 region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bomb"]
+atlas = ExtResource("24_kfpv5")
+region = Rect2(38, 20, 19, 17)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nsqm5"]
 
@@ -775,13 +793,25 @@ region = Rect2(0, 96, 32, 32)
 atlas = ExtResource("21_i8385")
 region = Rect2(416, 64, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_r15o0"]
+atlas = ExtResource("26_fgmf4")
+region = Rect2(155, 15, 20, 11)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xxj8"]
 atlas = ExtResource("21_i8385")
 region = Rect2(416, 64, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_60j2q"]
+atlas = ExtResource("26_fgmf4")
+region = Rect2(163, 29, 21, 11)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tjx3c"]
 atlas = ExtResource("21_i8385")
 region = Rect2(416, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4dlp"]
+atlas = ExtResource("26_fgmf4")
+region = Rect2(1, 57, 11, 11)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a062t"]
 
@@ -1123,127 +1153,121 @@ grow_vertical = 2
 
 [node name="Panel3" type="Panel" parent="Control/ControlButtom"]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 157.0
-offset_right = 97.0
-offset_bottom = 207.0
+offset_left = 38.0
+offset_top = 125.0
+offset_right = 102.0
+offset_bottom = 175.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_cacw0")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="Control/ControlButtom/Panel3"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(18, -13)
+position = Vector2(18, -8)
 texture_normal = SubResource("AtlasTexture_enqny")
 texture_pressed = SubResource("AtlasTexture_fgmf4")
 action = "ui_up"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel3/TouchScreenButton"]
-offset_left = 12.0
-offset_top = 2.0
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel3/TouchScreenButton"]
+self_modulate = Color(1, 1, 1, 0.392157)
+offset_left = 7.0
+offset_top = 3.0
 offset_right = 24.0
-offset_bottom = 30.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "W"
+offset_bottom = 22.0
+texture = SubResource("AtlasTexture_c6mmb")
 
 [node name="TouchScreenButton2" type="TouchScreenButton" parent="Control/ControlButtom/Panel3"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(18, 21)
+position = Vector2(18, 49)
 texture_normal = SubResource("AtlasTexture_kfpv5")
 texture_pressed = SubResource("AtlasTexture_4bu6c")
 action = "ui_down"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel3/TouchScreenButton2"]
-offset_left = 11.0
-offset_top = 4.0
-offset_right = 23.0
-offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "S"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel3/TouchScreenButton2"]
+self_modulate = Color(1, 1, 1, 0.392157)
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_7vvbi")
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="Control/ControlButtom/Panel3"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(-16, 21)
+position = Vector2(-15, 20)
 texture_normal = SubResource("AtlasTexture_2ovhu")
 texture_pressed = SubResource("AtlasTexture_cacw0")
 action = "ui_left"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel3/TouchScreenButton3"]
-offset_left = 11.0
-offset_top = 4.0
-offset_right = 23.0
-offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "A"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel3/TouchScreenButton3"]
+self_modulate = Color(1, 1, 1, 0.392157)
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_qy2nw")
 
 [node name="TouchScreenButton4" type="TouchScreenButton" parent="Control/ControlButtom/Panel3"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(53, 21)
+position = Vector2(52, 20)
 texture_normal = SubResource("AtlasTexture_2ovhu")
 texture_pressed = SubResource("AtlasTexture_nsqm5")
 action = "ui_right"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel3/TouchScreenButton4"]
-offset_left = 11.0
-offset_top = 4.0
-offset_right = 23.0
-offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "D"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel3/TouchScreenButton4"]
+self_modulate = Color(1, 1, 1, 0.392157)
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_7bomb")
 
 [node name="Panel2" type="Panel" parent="Control/ControlButtom"]
 layout_mode = 0
-offset_left = 289.0
-offset_top = 160.0
-offset_right = 353.0
-offset_bottom = 204.0
+offset_left = 287.0
+offset_top = 153.0
+offset_right = 351.0
+offset_bottom = 197.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_nsqm5")
 
 [node name="BS" type="TouchScreenButton" parent="Control/ControlButtom/Panel2"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(37, -17)
+position = Vector2(53, -56)
 texture_normal = SubResource("AtlasTexture_i8385")
 texture_pressed = SubResource("AtlasTexture_nsqm5")
 action = "ui_text_backspace"
 
-[node name="Label2" type="Label" parent="Control/ControlButtom/Panel2/BS"]
-offset_left = 5.0
-offset_top = 8.0
-offset_right = 28.0
-offset_bottom = 22.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "Back"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel2/BS"]
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 30.0
+offset_bottom = 21.0
+texture = SubResource("AtlasTexture_r15o0")
 
 [node name="Enter" type="TouchScreenButton" parent="Control/ControlButtom/Panel2"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(37, 18)
+position = Vector2(37, -12)
 texture_normal = SubResource("AtlasTexture_7xxj8")
 texture_pressed = SubResource("AtlasTexture_nsqm5")
 action = "ui_accept"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel2/Enter"]
-offset_left = 3.0
-offset_top = 8.0
-offset_right = 31.0
-offset_bottom = 22.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "Enter"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel2/Enter"]
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 30.0
+offset_bottom = 21.0
+texture = SubResource("AtlasTexture_60j2q")
 
 [node name="Shift" type="TouchScreenButton" parent="Control/ControlButtom/Panel2"]
 self_modulate = Color(1, 1, 1, 0.588235)
-position = Vector2(2, 18)
+position = Vector2(-5, 6)
 texture_normal = SubResource("AtlasTexture_tjx3c")
 texture_pressed = SubResource("AtlasTexture_nsqm5")
 action = "shift_key"
 
-[node name="Label" type="Label" parent="Control/ControlButtom/Panel2/Shift"]
-offset_left = 4.0
-offset_top = 8.0
-offset_right = 27.0
-offset_bottom = 22.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "Shift"
+[node name="TextureRect" type="TextureRect" parent="Control/ControlButtom/Panel2/Shift"]
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 24.0
+offset_bottom = 21.0
+texture = SubResource("AtlasTexture_e4dlp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_scale = 1.365
