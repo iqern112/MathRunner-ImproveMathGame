@@ -1,4 +1,4 @@
-# Math Runner 🧮🏃‍♂️
+# Math Runner 
 
 Math Runner is an educational action game where players run, fight enemies, and solve math problems to progress through the level.  
 The game is designed to make learning mathematics fun and engaging for children.
@@ -7,7 +7,7 @@ Developed using the **Godot Engine** and published on **itch.io**.
 
 ---
 
-## 🎮 Game Concept
+##  Game Concept
 
 Math Runner combines **action gameplay** with **mathematical problem-solving**.
 
@@ -20,14 +20,14 @@ The goal is to help players **practice math skills while enjoying a fast-paced g
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🏃 Action running gameplay
-- ⚔️ Combat with enemies
-- 🧠 Solve math problems to progress
-- 🎯 Designed to improve basic math skills
-- 🎮 Simple and accessible controls
-- 🌐 Playable on PC via browser or download
+-  Action running gameplay
+-  Combat with enemies
+-  Solve math problems to progress
+-  Designed to improve basic math skills
+-  Simple and accessible controls
+-  Playable on PC via browser or download
 
 ---
 
@@ -40,15 +40,15 @@ The goal is to help players **practice math skills while enjoying a fast-paced g
 
 ---
 
-## 📦 Play
+##  Play
 
 You can play the game on itch.io:
 
-👉 https://iqern.itch.io/math-runner
+ https://iqern.itch.io/math-runner
 
 ---
 
-## 🎯 Target Audience
+##  Target Audience
 
 - Elementary school students
 - Children learning mathematics
@@ -56,7 +56,7 @@ You can play the game on itch.io:
 
 ---
 
-## 📚 Learning Objectives
+##  Learning Objectives
 
 The game helps players practice:
 
@@ -67,6 +67,6 @@ The game helps players practice:
 
 ---
 
-## 📄 License
+##  License
 
 This project is for educational purposes.
