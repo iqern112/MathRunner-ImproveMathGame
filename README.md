@@ -66,3 +66,7 @@ The game helps players practice:
 - Decision making
 
 ---
+
+## 📄 License
+
+This project is for educational purposes.
