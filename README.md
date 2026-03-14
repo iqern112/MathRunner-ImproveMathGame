@@ -31,7 +31,7 @@ The goal is to help players **practice math skills while enjoying a fast-paced g
 
 ---
 
-## 🛠 Built With
+##  Built With
 
 - **Godot Engine**
 - **GDScript**
